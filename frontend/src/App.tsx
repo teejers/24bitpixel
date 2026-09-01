@@ -13,6 +13,7 @@ const MAX_SIZE = 256;
 export function App() {
   const [selectedBit, setSelectedBit] = useState<number | null>(null);
   const [pixelSize, setPixelSize] = useState(MIN_SIZE);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const { events, isLoading } = useTimeline();
 
   // Clicking anywhere that isn't a bit cell (or inside the info frame itself)
@@ -44,7 +45,7 @@ export function App() {
           </button>
         </div>
         <nav>
-          <a href="#about">About</a>
+          <button onClick={() => setAboutOpen((open) => !open)}>About</button>
           <WalletButton />
         </nav>
       </header>
@@ -57,9 +58,9 @@ export function App() {
         {selectedBit !== null && <BitPanel bitId={selectedBit} events={events} />}
 
         <History events={events} isLoading={isLoading} />
-
-        <About />
       </main>
+
+      {aboutOpen && <About onClose={() => setAboutOpen(false)} />}
     </div>
   );
 }
