@@ -352,6 +352,11 @@ input:focus {
     font-size: 8px;
   }
 
+  /* No room left of the strip on phones */
+  .bit-labels .row-caption {
+    display: none;
+  }
+
   .stage {
     height: 220px;
   }
