@@ -4,12 +4,15 @@ import { bitChannel, bitPositionInChannel, bitContributionColor } from "../utils
 interface BitStripProps {
   selectedBit: number | null;
   onSelectBit: (bitId: number | null) => void;
+  /** When true, each bit's contribution color overlays its cell,
+   *  with bit numbers and channel labels above. */
+  showLegend: boolean;
 }
 
 /** Bits rendered left to right from bit 23 (R, most significant) to bit 0 (B, least). */
 export const STRIP_ORDER = Array.from({ length: 24 }, (_, i) => 23 - i);
 
-export function BitStrip({ selectedBit, onSelectBit }: BitStripProps) {
+export function BitStrip({ selectedBit, onSelectBit, showLegend }: BitStripProps) {
   const { bits } = useBitStates();
 
   // Arrow under the selected cell is the only selection indicator.
@@ -21,7 +24,7 @@ export function BitStrip({ selectedBit, onSelectBit }: BitStripProps) {
 
   return (
     <div className="strip-area">
-      {selectedBit !== null && (
+      {showLegend && (
         <div className="bit-labels">
           <div className="label-row">
             <span className="row-caption">Bit :</span>
@@ -39,16 +42,6 @@ export function BitStrip({ selectedBit, onSelectBit }: BitStripProps) {
               </span>
             ))}
           </div>
-          <div className="swatch-row">
-            {STRIP_ORDER.map((bitId) => (
-              <div
-                key={bitId}
-                className="swatch"
-                style={{ background: bitContributionColor(bitId) }}
-                title={bitContributionColor(bitId)}
-              />
-            ))}
-          </div>
         </div>
       )}
       <div className="bit-strip">
@@ -64,6 +57,18 @@ export function BitStrip({ selectedBit, onSelectBit }: BitStripProps) {
             />
           );
         })}
+        {showLegend && (
+          <div className="legend-overlay">
+            {STRIP_ORDER.map((bitId) => (
+              <div
+                key={bitId}
+                className="legend-swatch"
+                style={{ background: bitContributionColor(bitId) }}
+                title={bitContributionColor(bitId)}
+              />
+            ))}
+          </div>
+        )}
       </div>
       {arrowOffset !== null && (
         <div className="strip-arrow" style={{ marginLeft: arrowOffset }} />

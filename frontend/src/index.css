@@ -169,20 +169,41 @@ input:focus {
   font-size: 12px;
 }
 
-.bit-labels .swatch-row {
-  display: flex;
+/* Contribution colors laid directly over the bit cells */
+
+.bit-strip {
+  position: relative;
 }
 
-.bit-labels .swatch {
+.legend-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
+
+.legend-swatch {
   width: var(--cell);
-  height: 64px;
+  height: var(--cell);
   border: 1px solid var(--ink);
   border-left: none;
-  border-bottom: none;
 }
 
-.bit-labels .swatch:first-child {
+.legend-swatch:first-child {
   border-left: 1px solid var(--ink);
+}
+
+/* The ? button: top right, just below the black bar */
+
+.legend-toggle {
+  position: fixed;
+  top: 53px;
+  right: 16px;
+  z-index: 5;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--ink);
+  text-align: center;
 }
 
 /* Arrow under the selected cell — the only selection indicator */

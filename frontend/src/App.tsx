@@ -14,13 +14,20 @@ export function App() {
   const [selectedBit, setSelectedBit] = useState<number | null>(null);
   const [pixelSize, setPixelSize] = useState(MIN_SIZE);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [legendOpen, setLegendOpen] = useState(false);
   const { events, isLoading } = useTimeline();
 
   // Clicking anywhere that isn't a bit cell (or inside the info frame itself)
   // dismisses the bit info.
   function handleBackgroundClick(e: React.MouseEvent) {
     const el = e.target as HTMLElement;
-    if (el.closest(".bit-cell") || el.closest(".bit-info") || el.closest(".bit-labels")) return;
+    if (
+      el.closest(".bit-cell") ||
+      el.closest(".bit-info") ||
+      el.closest(".bit-labels") ||
+      el.closest(".legend-toggle")
+    )
+      return;
     setSelectedBit(null);
   }
 
@@ -50,10 +57,22 @@ export function App() {
         </nav>
       </header>
 
+      <button
+        className="legend-toggle"
+        onClick={() => setLegendOpen((open) => !open)}
+        aria-label="Toggle bit color legend"
+      >
+        ?
+      </button>
+
       <main>
         <PixelDisplay size={pixelSize} />
 
-        <BitStrip selectedBit={selectedBit} onSelectBit={setSelectedBit} />
+        <BitStrip
+          selectedBit={selectedBit}
+          onSelectBit={setSelectedBit}
+          showLegend={legendOpen}
+        />
 
         {selectedBit !== null && <BitPanel bitId={selectedBit} events={events} />}
 
