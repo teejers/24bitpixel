@@ -13,6 +13,21 @@ const EVENT_LABEL: Record<TimelineEvent["type"], string> = {
   PriceSet: "PRICE",
 };
 
+/** Shared column widths so the fixed header table and the scrolling
+ *  body table line up exactly. */
+function Columns() {
+  return (
+    <colgroup>
+      <col style={{ width: "27%" }} />
+      <col style={{ width: "12%" }} />
+      <col style={{ width: "7%" }} />
+      <col style={{ width: "22%" }} />
+      <col style={{ width: "14%" }} />
+      <col style={{ width: "18%" }} />
+    </colgroup>
+  );
+}
+
 function formatTimestamp(ts?: bigint): string {
   if (!ts) return "—";
   const d = new Date(Number(ts) * 1000);
@@ -34,7 +49,8 @@ function formatGas(fee?: bigint): string {
   return `${eth} ETH`;
 }
 
-/** Scrollable table of everything that has ever happened to the pixel, newest first. */
+/** Everything that has ever happened to the pixel, newest first.
+ *  The header is fixed; only the rows scroll. */
 export function History({ events, isLoading }: HistoryProps) {
   const sorted = [...events].sort((a, b) =>
     a.blockNumber === b.blockNumber ? 0 : a.blockNumber > b.blockNumber ? -1 : 1
@@ -42,51 +58,59 @@ export function History({ events, isLoading }: HistoryProps) {
 
   return (
     <div className="history">
-      <div className="scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Timestamp</th>
-              <th>Event</th>
-              <th>Bit</th>
-              <th>Address</th>
-              <th>Price</th>
-              <th>Gas</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map((e) => {
-              const price = eventPrice(e);
-              const actor = eventActor(e);
-              return (
-                <tr key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
-                  <td>
-                    <ExplorerLink value={e.transactionHash} kind="tx">
-                      {formatTimestamp(e.timestamp)}
-                    </ExplorerLink>
-                  </td>
-                  <td>{EVENT_LABEL[e.type]}</td>
-                  <td>{String(e.bitId).padStart(2, "0")}</td>
-                  <td>
-                    {actor ? (
-                      <ExplorerLink value={actor} kind="address">
-                        {shortAddress(actor)}
+      <div className="frame">
+        <div className="head">
+          <table>
+            <Columns />
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Event</th>
+                <th>Bit</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>Gas</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div className="scroll">
+          <table>
+            <Columns />
+            <tbody>
+              {sorted.map((e) => {
+                const price = eventPrice(e);
+                const actor = eventActor(e);
+                return (
+                  <tr key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
+                    <td>
+                      <ExplorerLink value={e.transactionHash} kind="tx">
+                        {formatTimestamp(e.timestamp)}
                       </ExplorerLink>
-                    ) : (
-                      "—"
-                    )}
-                  </td>
-                  <td>{price !== undefined ? `${formatEther(price)} ETH` : "—"}</td>
-                  <td>{formatGas(e.gasFee)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        {!isLoading && sorted.length === 0 && (
-          <p className="empty">No events yet</p>
-        )}
-        {isLoading && <p className="empty">Loading history...</p>}
+                    </td>
+                    <td>{EVENT_LABEL[e.type]}</td>
+                    <td>{String(e.bitId).padStart(2, "0")}</td>
+                    <td>
+                      {actor ? (
+                        <ExplorerLink value={actor} kind="address">
+                          {shortAddress(actor)}
+                        </ExplorerLink>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                    <td>{price !== undefined ? `${formatEther(price)} ETH` : "—"}</td>
+                    <td>{formatGas(e.gasFee)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {!isLoading && sorted.length === 0 && (
+            <p className="empty">No events yet</p>
+          )}
+          {isLoading && <p className="empty">Loading history...</p>}
+        </div>
       </div>
     </div>
   );
