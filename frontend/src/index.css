@@ -285,12 +285,15 @@ input:focus {
   max-height: 320px;
   overflow-y: auto;
   border: 1px solid black;
-  padding: 15px;
+  padding: 0 15px 15px;
 }
 
 .history table {
   width: 100%;
-  border-collapse: collapse;
+  /* separate (not collapse) so the sticky header keeps its bottom border
+     while rows scroll beneath it */
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .history th {
@@ -301,7 +304,9 @@ input:focus {
   text-align: left;
   text-transform: uppercase;
   font-weight: normal;
-  padding: 4px 8px 6px 0;
+  /* top padding stands in for the scroll container's, so the header sits
+     flush against the frame and rows vanish behind it */
+  padding: 15px 8px 6px 0;
   border-bottom: 1px solid var(--hairline);
 }
 
