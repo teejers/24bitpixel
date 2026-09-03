@@ -9,6 +9,9 @@ export interface TimelineEvent {
   transactionHash: string;
   color?: number;
   timestamp?: bigint;
+  /** Actual network fee paid for the transaction (gasUsed x price), in wei.
+   *  Filled in asynchronously from the transaction receipt. */
+  gasFee?: bigint;
   args: Record<string, unknown>;
 }
 

@@ -24,6 +24,16 @@ function shortAddress(addr?: string): string {
   return addr ? `${addr.slice(0, 12)}` : "—";
 }
 
+/** Gas fees are tiny fractions of an ETH — show up to 6 decimals, trimmed. */
+function formatGas(fee?: bigint): string {
+  if (fee === undefined) return "—";
+  const eth = Number(formatEther(fee))
+    .toFixed(6)
+    .replace(/0+$/, "")
+    .replace(/\.$/, "");
+  return `${eth} ETH`;
+}
+
 /** Scrollable table of everything that has ever happened to the pixel, newest first. */
 export function History({ events, isLoading }: HistoryProps) {
   const sorted = [...events].sort((a, b) =>
@@ -41,6 +51,7 @@ export function History({ events, isLoading }: HistoryProps) {
               <th>Bit</th>
               <th>Address</th>
               <th>Price</th>
+              <th>Gas</th>
             </tr>
           </thead>
           <tbody>
@@ -66,6 +77,7 @@ export function History({ events, isLoading }: HistoryProps) {
                     )}
                   </td>
                   <td>{price !== undefined ? `${formatEther(price)} ETH` : "—"}</td>
+                  <td>{formatGas(e.gasFee)}</td>
                 </tr>
               );
             })}
