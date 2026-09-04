@@ -163,9 +163,13 @@ input:focus {
    pointing from the left at their target */
 .callout {
   position: absolute;
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
+  right: calc(100% + 8px);
+  /* Snap to a whole pixel so the 1px arrow line renders crisp — a
+     half-pixel top (odd-height targets) smears it across two rows */
+  height: 16px;
+  line-height: 16px;
+  top: calc(50% - 8px);
+  top: round(calc(50% - 8px), 1px);
   display: flex;
   align-items: center;
   gap: 8px;
