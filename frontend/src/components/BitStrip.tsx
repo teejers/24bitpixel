@@ -36,7 +36,12 @@ export function BitStrip({ selectedBit, onSelectBit, showLegend }: BitStripProps
         </div>
       )}
       <div className="bit-strip">
-        {showLegend && <span className="strip-caption">Bits &rarr;</span>}
+        {showLegend && (
+          <span className="callout">
+            Bits
+            <span className="h-arrow" />
+          </span>
+        )}
         {STRIP_ORDER.map((bitId) => {
           const on = bits?.[bitId]?.state ?? false;
           return (

@@ -66,7 +66,7 @@ export function App() {
       </button>
 
       <main>
-        <PixelDisplay size={pixelSize} />
+        <PixelDisplay size={pixelSize} showLegend={legendOpen} />
 
         <BitStrip
           selectedBit={selectedBit}
@@ -77,7 +77,7 @@ export function App() {
         <div className="lower">
           {selectedBit !== null && <BitPanel bitId={selectedBit} events={events} />}
           <div className="history-center">
-            <History events={events} isLoading={isLoading} />
+            <History events={events} isLoading={isLoading} showLegend={legendOpen} />
           </div>
         </div>
       </main>

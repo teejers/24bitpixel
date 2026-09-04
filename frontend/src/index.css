@@ -159,14 +159,39 @@ input:focus {
   margin-bottom: 8px;
 }
 
-/* "BITS →" pointing at the leftmost bit from outside the strip */
-.strip-caption {
+/* Legend callouts: label + arrow (same style as the selection arrow),
+   pointing from the left at their target */
+.callout {
   position: absolute;
   right: calc(100% + 10px);
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.h-arrow {
+  width: 48px;
+  height: 1px;
+  background: var(--ink);
+  position: relative;
+}
+
+.h-arrow::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -4px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 7px solid var(--ink);
+}
+
+.pixel-wrap {
+  position: relative;
 }
 
 .bit-labels .label-cell {
@@ -297,6 +322,7 @@ input:focus {
 }
 
 .history {
+  position: relative;
   width: min(640px, calc(100vw - 32px));
   margin: 0 auto;
 }
@@ -414,8 +440,8 @@ input:focus {
     font-size: 8px;
   }
 
-  /* No room left of the strip on phones */
-  .strip-caption {
+  /* No room left of the targets on phones */
+  .callout {
     display: none;
   }
 
