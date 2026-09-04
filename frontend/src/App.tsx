@@ -74,9 +74,12 @@ export function App() {
           showLegend={legendOpen}
         />
 
-        {selectedBit !== null && <BitPanel bitId={selectedBit} events={events} />}
-
-        <History events={events} isLoading={isLoading} />
+        <div className="lower">
+          {selectedBit !== null && <BitPanel bitId={selectedBit} events={events} />}
+          <div className="history-center">
+            <History events={events} isLoading={isLoading} />
+          </div>
+        </div>
       </main>
 
       {aboutOpen && <About onClose={() => setAboutOpen(false)} />}
