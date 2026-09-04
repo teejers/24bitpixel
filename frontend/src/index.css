@@ -159,10 +159,14 @@ input:focus {
   margin-bottom: 8px;
 }
 
-.bit-labels .row-caption {
+/* "BITS →" pointing at the leftmost bit from outside the strip */
+.strip-caption {
   position: absolute;
-  left: -64px;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .bit-labels .label-cell {
@@ -411,7 +415,7 @@ input:focus {
   }
 
   /* No room left of the strip on phones */
-  .bit-labels .row-caption {
+  .strip-caption {
     display: none;
   }
 

@@ -1,5 +1,5 @@
 import { useBitStates } from "../hooks/useBitStates";
-import { bitChannel, bitPositionInChannel, bitContributionColor } from "../utils/color";
+import { bitContributionColor } from "../utils/color";
 
 interface BitStripProps {
   selectedBit: number | null;
@@ -27,24 +27,16 @@ export function BitStrip({ selectedBit, onSelectBit, showLegend }: BitStripProps
       {showLegend && (
         <div className="bit-labels">
           <div className="label-row">
-            <span className="row-caption">Bit :</span>
             {STRIP_ORDER.map((bitId) => (
               <span key={bitId} className="label-cell">
                 {String(bitId).padStart(2, "0")}
               </span>
             ))}
           </div>
-          <div className="label-row">
-            {STRIP_ORDER.map((bitId) => (
-              <span key={bitId} className="label-cell">
-                {bitChannel(bitId)}
-                {bitPositionInChannel(bitId)}
-              </span>
-            ))}
-          </div>
         </div>
       )}
       <div className="bit-strip">
+        {showLegend && <span className="strip-caption">Bits &rarr;</span>}
         {STRIP_ORDER.map((bitId) => {
           const on = bits?.[bitId]?.state ?? false;
           return (
