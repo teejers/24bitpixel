@@ -72,23 +72,6 @@ input:focus {
   text-transform: uppercase;
 }
 
-.topbar .size-buttons {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 24px;
-}
-
-.topbar .size-buttons button {
-  font-size: 15px;
-  line-height: 1;
-}
-
-.topbar .size-buttons button:disabled {
-  color: var(--mute);
-}
-
 .topbar nav {
   display: flex;
   gap: 32px;
@@ -228,17 +211,49 @@ input:focus {
   border-left: 1px solid var(--ink);
 }
 
-/* The ? button: top right, just below the black bar */
+/* The ? button and the +/- size buttons under it: centered, just below
+   the black bar */
 
-.legend-toggle {
+.legend-controls {
   position: fixed;
   top: calc(var(--bar-h) + 9px);
-  right: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-toggle,
+.legend-controls .size-buttons button {
   width: 26px;
   height: 26px;
   border: 1px solid var(--ink);
   text-align: center;
+  background: var(--paper);
+}
+
+.legend-toggle.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.legend-controls .size-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-controls .size-buttons button {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.legend-controls .size-buttons button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 /* Arrow under the selected cell — the only selection indicator */
@@ -329,10 +344,6 @@ input:focus {
   position: relative;
   width: min(640px, calc(100vw - 32px));
   margin: 0 auto;
-}
-
-.history .frame {
-  border: 1px solid black;
 }
 
 /* Fixed header: outside the scroll area, black rule spans the whole div */

@@ -17,15 +17,18 @@ export function App() {
   const [legendOpen, setLegendOpen] = useState(false);
   const { events, isLoading } = useTimeline();
 
-  // Clicking anywhere that isn't a bit cell (or inside the info frame itself)
-  // dismisses the bit info.
+  // Clicking anywhere dismisses the legend (except the ? itself, which
+  // toggles it, and the +/- size buttons). Clicks outside a bit cell or the
+  // info frame also dismiss the bit info.
   function handleBackgroundClick(e: React.MouseEvent) {
     const el = e.target as HTMLElement;
+    if (!el.closest(".legend-toggle") && !el.closest(".size-buttons")) {
+      setLegendOpen(false);
+    }
     if (
       el.closest(".bit-cell") ||
       el.closest(".bit-info") ||
-      el.closest(".bit-labels") ||
-      el.closest(".legend-toggle")
+      el.closest(".bit-labels")
     )
       return;
     setSelectedBit(null);
@@ -35,35 +38,39 @@ export function App() {
     <div className="app" onClick={handleBackgroundClick}>
       <header className="topbar">
         <span>CW&amp;T 24 bit pixel</span>
-        <div className="size-buttons">
-          <button
-            onClick={() => setPixelSize((s) => Math.min(s * 2, MAX_SIZE))}
-            disabled={pixelSize >= MAX_SIZE}
-            aria-label="Increase pixel size"
-          >
-            +
-          </button>
-          <button
-            onClick={() => setPixelSize((s) => Math.max(Math.floor(s / 2), MIN_SIZE))}
-            disabled={pixelSize <= MIN_SIZE}
-            aria-label="Decrease pixel size"
-          >
-            &minus;
-          </button>
-        </div>
         <nav>
           <button onClick={() => setAboutOpen((open) => !open)}>About</button>
           <WalletButton />
         </nav>
       </header>
 
-      <button
-        className="legend-toggle"
-        onClick={() => setLegendOpen((open) => !open)}
-        aria-label="Toggle bit color legend"
-      >
-        ?
-      </button>
+      <div className="legend-controls">
+        <button
+          className={`legend-toggle${legendOpen ? " active" : ""}`}
+          onClick={() => setLegendOpen((open) => !open)}
+          aria-label="Toggle bit color legend"
+        >
+          ?
+        </button>
+        {legendOpen && (
+          <div className="size-buttons">
+            <button
+              onClick={() => setPixelSize((s) => Math.min(s * 2, MAX_SIZE))}
+              disabled={pixelSize >= MAX_SIZE}
+              aria-label="Increase pixel size"
+            >
+              +
+            </button>
+            <button
+              onClick={() => setPixelSize((s) => Math.max(Math.floor(s / 2), MIN_SIZE))}
+              disabled={pixelSize <= MIN_SIZE}
+              aria-label="Decrease pixel size"
+            >
+              &minus;
+            </button>
+          </div>
+        )}
+      </div>
 
       <main>
         <PixelDisplay size={pixelSize} showLegend={legendOpen} />
