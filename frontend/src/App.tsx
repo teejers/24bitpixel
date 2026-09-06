@@ -44,36 +44,23 @@ export function App() {
         </nav>
       </header>
 
-      <div className="legend-controls">
-        <button
-          className={`legend-toggle${legendOpen ? " active" : ""}`}
-          onClick={() => setLegendOpen((open) => !open)}
-          aria-label="Toggle bit color legend"
-        >
-          ?
-        </button>
-        {legendOpen && (
-          <div className="size-buttons">
-            <button
-              onClick={() => setPixelSize((s) => Math.min(s * 2, MAX_SIZE))}
-              disabled={pixelSize >= MAX_SIZE}
-              aria-label="Increase pixel size"
-            >
-              +
-            </button>
-            <button
-              onClick={() => setPixelSize((s) => Math.max(Math.floor(s / 2), MIN_SIZE))}
-              disabled={pixelSize <= MIN_SIZE}
-              aria-label="Decrease pixel size"
-            >
-              &minus;
-            </button>
-          </div>
-        )}
-      </div>
+      <button
+        className={`legend-toggle${legendOpen ? " active" : ""}`}
+        onClick={() => setLegendOpen((open) => !open)}
+        aria-label="Toggle bit color legend"
+      >
+        ?
+      </button>
 
       <main>
-        <PixelDisplay size={pixelSize} showLegend={legendOpen} />
+        <PixelDisplay
+          size={pixelSize}
+          showLegend={legendOpen}
+          onGrow={() => setPixelSize((s) => Math.min(s * 2, MAX_SIZE))}
+          onShrink={() => setPixelSize((s) => Math.max(Math.floor(s / 2), MIN_SIZE))}
+          canGrow={pixelSize < MAX_SIZE}
+          canShrink={pixelSize > MIN_SIZE}
+        />
 
         <BitStrip
           selectedBit={selectedBit}

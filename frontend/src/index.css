@@ -211,23 +211,14 @@ input:focus {
   border-left: 1px solid var(--ink);
 }
 
-/* The ? button and the +/- size buttons under it: centered, just below
-   the black bar */
+/* The ? button: centered, just below the black bar */
 
-.legend-controls {
+.legend-toggle {
   position: fixed;
   top: calc(var(--bar-h) + 9px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.legend-toggle,
-.legend-controls .size-buttons button {
   width: 26px;
   height: 26px;
   border: 1px solid var(--ink);
@@ -240,18 +231,24 @@ input:focus {
   color: var(--paper);
 }
 
-.legend-controls .size-buttons {
+/* The +/- size buttons: tiny squares left of the PIXEL callout label */
+
+.callout .size-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
-.legend-controls .size-buttons button {
-  font-size: 15px;
+.callout .size-buttons button {
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  font-size: 9px;
   line-height: 1;
+  text-align: center;
 }
 
-.legend-controls .size-buttons button:hover:not(:disabled) {
+.callout .size-buttons button:hover:not(:disabled) {
   background: var(--ink);
   color: var(--paper);
 }
