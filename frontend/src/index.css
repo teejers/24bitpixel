@@ -339,8 +339,20 @@ input:focus {
 
 .history {
   position: relative;
-  width: min(70vw, calc(100vw - 32px));
+  /* 70% of the window, but never narrower than the columns need; on
+     screens smaller than that the frame fills the window and the table
+     pans sideways inside it instead of squeezing the columns */
+  width: min(max(640px, 70vw), calc(100vw - 32px));
   margin: 0 auto;
+}
+
+.history .frame {
+  overflow-x: auto;
+}
+
+.history .head,
+.history .scroll {
+  min-width: 600px;
 }
 
 /* Fixed header: outside the scroll area, black rule spans the whole div */
