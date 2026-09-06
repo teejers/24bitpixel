@@ -235,15 +235,15 @@ input:focus {
 
 .callout .size-buttons {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 
 .callout .size-buttons button {
-  width: 13px;
-  height: 13px;
+  width: 20px;
+  height: 20px;
   border: 1px solid var(--ink);
   background: var(--paper);
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1;
   text-align: center;
 }
