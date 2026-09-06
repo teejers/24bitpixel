@@ -339,7 +339,7 @@ input:focus {
 
 .history {
   position: relative;
-  width: min(640px, calc(100vw - 32px));
+  width: min(70vw, calc(100vw - 32px));
   margin: 0 auto;
 }
 
@@ -350,7 +350,7 @@ input:focus {
 }
 
 .history .scroll {
-  max-height: 290px;
+  max-height: 420px;
   overflow-y: auto;
   padding: 6px 15px 15px;
   scrollbar-width: thin; /* Firefox */
