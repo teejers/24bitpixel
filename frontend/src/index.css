@@ -230,14 +230,18 @@ input:focus {
   color: var(--ink);
 }
 
-/* The +/- size buttons: tiny squares left of the PIXEL callout label */
+/* The +/- size buttons: small squares to the right of the pixel */
 
-.callout .size-buttons {
+.size-buttons {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   gap: 5px;
 }
 
-.callout .size-buttons button {
+.size-buttons button {
   width: 20px;
   height: 20px;
   border: 1px solid var(--ink);
@@ -247,7 +251,7 @@ input:focus {
   text-align: center;
 }
 
-.callout .size-buttons button:hover:not(:disabled) {
+.size-buttons button:hover:not(:disabled) {
   background: var(--ink);
   color: var(--paper);
 }

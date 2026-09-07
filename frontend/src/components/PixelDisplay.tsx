@@ -27,24 +27,26 @@ export function PixelDisplay({
       <div className="pixel-wrap">
         {showLegend && (
           <span className="callout">
-            <span className="size-buttons">
-              <button
-                onClick={onGrow}
-                disabled={!canGrow}
-                aria-label="Increase pixel size"
-              >
-                +
-              </button>
-              <button
-                onClick={onShrink}
-                disabled={!canShrink}
-                aria-label="Decrease pixel size"
-              >
-                &minus;
-              </button>
-            </span>
             Pixel
             <span className="h-arrow" />
+          </span>
+        )}
+        {showLegend && (
+          <span className="size-buttons">
+            <button
+              onClick={onGrow}
+              disabled={!canGrow}
+              aria-label="Increase pixel size"
+            >
+              +
+            </button>
+            <button
+              onClick={onShrink}
+              disabled={!canShrink}
+              aria-label="Decrease pixel size"
+            >
+              &minus;
+            </button>
           </span>
         )}
         <div
