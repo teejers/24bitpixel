@@ -405,6 +405,14 @@ input:focus {
   white-space: nowrap;
 }
 
+/* The pixel color at the time of each record: borderless 10px square */
+.history .color-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  vertical-align: middle;
+}
+
 .history .empty {
   color: var(--mute);
   text-transform: uppercase;

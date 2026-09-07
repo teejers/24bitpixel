@@ -1,5 +1,6 @@
 import { formatEther } from "viem";
 import { type TimelineEvent, eventActor, eventPrice } from "../utils/timeline";
+import { colorToHex } from "../utils/color";
 import { ExplorerLink } from "./ExplorerLink";
 
 interface HistoryProps {
@@ -19,12 +20,13 @@ const EVENT_LABEL: Record<TimelineEvent["type"], string> = {
 function Columns() {
   return (
     <colgroup>
-      <col style={{ width: "27%" }} />
-      <col style={{ width: "12%" }} />
       <col style={{ width: "7%" }} />
-      <col style={{ width: "22%" }} />
+      <col style={{ width: "24%" }} />
+      <col style={{ width: "11%" }} />
+      <col style={{ width: "6%" }} />
+      <col style={{ width: "21%" }} />
       <col style={{ width: "14%" }} />
-      <col style={{ width: "18%" }} />
+      <col style={{ width: "17%" }} />
     </colgroup>
   );
 }
@@ -57,6 +59,16 @@ export function History({ events, isLoading, showLegend }: HistoryProps) {
     a.blockNumber === b.blockNumber ? 0 : a.blockNumber > b.blockNumber ? -1 : 1
   );
 
+  // The pixel color as of each event. Only TOGGLE events carry a color, so
+  // replay oldest-first and carry the latest color into BUY/PRICE rows.
+  const colorAt = new Map<TimelineEvent, number>();
+  let running = 0;
+  for (let i = sorted.length - 1; i >= 0; i--) {
+    const e = sorted[i];
+    if (e.color !== undefined) running = e.color;
+    colorAt.set(e, running);
+  }
+
   return (
     <div className="history">
       {showLegend && (
@@ -71,6 +83,7 @@ export function History({ events, isLoading, showLegend }: HistoryProps) {
             <Columns />
             <thead>
               <tr>
+                <th>Color</th>
                 <th>Timestamp</th>
                 <th>Event</th>
                 <th>Bit</th>
@@ -90,6 +103,12 @@ export function History({ events, isLoading, showLegend }: HistoryProps) {
                 const actor = eventActor(e);
                 return (
                   <tr key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
+                    <td>
+                      <span
+                        className="color-swatch"
+                        style={{ background: colorToHex(colorAt.get(e) ?? 0) }}
+                      />
+                    </td>
                     <td>
                       <ExplorerLink value={e.transactionHash} kind="tx">
                         {formatTimestamp(e.timestamp)}
