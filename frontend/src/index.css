@@ -95,7 +95,7 @@ input:focus {
 }
 
 .pixel {
-  outline: 1px solid var(--hairline);
+  /* No border: the pixel is just its color */
 }
 
 /* --- Bit strip --- */
@@ -111,12 +111,28 @@ input:focus {
 }
 
 .bit-cell {
+  position: relative;
   width: var(--cell);
   height: var(--cell);
   border: 1px solid var(--ink);
   border-left: none;
   background: var(--paper);
   padding: 0;
+}
+
+/* Black dot 10px above each bit the connected wallet owns */
+.own-dot {
+  position: absolute;
+  left: 50%;
+  /* 100% is the padding box, 1px inside the border: +11px puts the
+     dot's bottom exactly 10px above the cell's visible top edge */
+  bottom: calc(100% + 11px);
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--ink);
+  pointer-events: none;
 }
 
 .bit-cell:first-child {
@@ -139,7 +155,7 @@ input:focus {
 .bit-labels .label-row {
   position: relative;
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: 20px; /* clears the ownership dots (10px gap + 5px dot) */
 }
 
 /* Legend callouts: label + arrow (same style as the selection arrow),

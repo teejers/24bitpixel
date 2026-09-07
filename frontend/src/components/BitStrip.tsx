@@ -1,9 +1,14 @@
+import { useAccount } from "wagmi";
 import { useBitStates } from "../hooks/useBitStates";
 import { bitContributionColor } from "../utils/color";
 
 interface BitStripProps {
+  /** The bit pinned by clicking (toggles off on a second click). */
   selectedBit: number | null;
+  /** The bit the arrow points at: hovered bit, else the pinned one. */
+  shownBit: number | null;
   onSelectBit: (bitId: number | null) => void;
+  onHoverBit: (bitId: number | null) => void;
   /** When true, each bit's contribution color overlays its cell,
    *  with bit numbers and channel labels above. */
   showLegend: boolean;
@@ -12,14 +17,21 @@ interface BitStripProps {
 /** Bits rendered left to right from bit 23 (R, most significant) to bit 0 (B, least). */
 export const STRIP_ORDER = Array.from({ length: 24 }, (_, i) => 23 - i);
 
-export function BitStrip({ selectedBit, onSelectBit, showLegend }: BitStripProps) {
+export function BitStrip({
+  selectedBit,
+  shownBit,
+  onSelectBit,
+  onHoverBit,
+  showLegend,
+}: BitStripProps) {
   const { bits } = useBitStates();
+  const { address } = useAccount();
 
-  // Arrow under the selected cell is the only selection indicator.
+  // Arrow under the shown cell is the only selection indicator.
   // Offset in --cell units so it tracks the responsive cell size.
   const arrowOffset =
-    selectedBit !== null
-      ? `calc(var(--cell) * ${STRIP_ORDER.indexOf(selectedBit)} + var(--cell) / 2)`
+    shownBit !== null
+      ? `calc(var(--cell) * ${STRIP_ORDER.indexOf(shownBit)} + var(--cell) / 2)`
       : null;
 
   return (
@@ -35,7 +47,7 @@ export function BitStrip({ selectedBit, onSelectBit, showLegend }: BitStripProps
           </div>
         </div>
       )}
-      <div className="bit-strip">
+      <div className="bit-strip" onMouseLeave={() => onHoverBit(null)}>
         {showLegend && (
           <span className="callout">
             Bits
@@ -44,14 +56,20 @@ export function BitStrip({ selectedBit, onSelectBit, showLegend }: BitStripProps
         )}
         {STRIP_ORDER.map((bitId) => {
           const on = bits?.[bitId]?.state ?? false;
+          const owner = bits?.[bitId]?.owner;
+          const mine =
+            !!address && !!owner && owner.toLowerCase() === address.toLowerCase();
           return (
             <button
               key={bitId}
               className={`bit-cell${on ? " on" : ""}`}
               onClick={() => onSelectBit(selectedBit === bitId ? null : bitId)}
-              aria-label={`Bit ${bitId}${on ? " (on)" : " (off)"}`}
+              onMouseEnter={() => onHoverBit(bitId)}
+              aria-label={`Bit ${bitId}${on ? " (on)" : " (off)"}${mine ? ", yours" : ""}`}
               title={`BIT ${String(bitId).padStart(2, "0")}`}
-            />
+            >
+              {mine && <span className="own-dot" aria-hidden />}
+            </button>
           );
         })}
         {showLegend && (

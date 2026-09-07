@@ -12,6 +12,10 @@ const MAX_SIZE = 256;
 
 export function App() {
   const [selectedBit, setSelectedBit] = useState<number | null>(null);
+  // Hovering a bit previews it (arrow + info frame); leaving the strip
+  // hides the preview again unless a bit has been pinned by clicking.
+  const [hoveredBit, setHoveredBit] = useState<number | null>(null);
+  const shownBit = hoveredBit ?? selectedBit;
   const [pixelSize, setPixelSize] = useState(MIN_SIZE);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
@@ -63,12 +67,14 @@ export function App() {
 
         <BitStrip
           selectedBit={selectedBit}
+          shownBit={shownBit}
           onSelectBit={setSelectedBit}
+          onHoverBit={setHoveredBit}
           showLegend={legendOpen}
         />
 
         <div className="lower">
-          {selectedBit !== null && <BitPanel bitId={selectedBit} events={events} />}
+          {shownBit !== null && <BitPanel bitId={shownBit} events={events} />}
           <div className="history-center">
             <History events={events} isLoading={isLoading} showLegend={legendOpen} />
           </div>
