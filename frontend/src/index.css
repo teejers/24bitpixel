@@ -211,24 +211,23 @@ input:focus {
   border-left: 1px solid var(--ink);
 }
 
-/* The ? button: centered, just below the black bar */
+/* The ? button: centered in the black top bar */
 
 .legend-toggle {
-  position: fixed;
-  top: calc(var(--bar-h) + 9px);
+  position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 26px;
   height: 26px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--paper);
   text-align: center;
-  background: var(--paper);
+  background: none;
 }
 
 .legend-toggle.active {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
 }
 
 /* The +/- size buttons: tiny squares left of the PIXEL callout label */

@@ -38,19 +38,18 @@ export function App() {
     <div className="app" onClick={handleBackgroundClick}>
       <header className="topbar">
         <span>CW&amp;T 24 bit pixel</span>
+        <button
+          className={`legend-toggle${legendOpen ? " active" : ""}`}
+          onClick={() => setLegendOpen((open) => !open)}
+          aria-label="Toggle bit color legend"
+        >
+          ?
+        </button>
         <nav>
           <button onClick={() => setAboutOpen((open) => !open)}>About</button>
           <WalletButton />
         </nav>
       </header>
-
-      <button
-        className={`legend-toggle${legendOpen ? " active" : ""}`}
-        onClick={() => setLegendOpen((open) => !open)}
-        aria-label="Toggle bit color legend"
-      >
-        ?
-      </button>
 
       <main>
         <PixelDisplay
