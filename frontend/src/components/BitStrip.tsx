@@ -47,7 +47,10 @@ export function BitStrip({
           </div>
         </div>
       )}
-      <div className="bit-strip" onMouseLeave={() => onHoverBit(null)}>
+      <div
+        className={`bit-strip${showLegend ? " legend-open" : ""}`}
+        onMouseLeave={() => onHoverBit(null)}
+      >
         {showLegend && (
           <span className="callout">
             Bits

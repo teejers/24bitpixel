@@ -135,6 +135,13 @@ input:focus {
   pointer-events: none;
 }
 
+/* While the bit numbers are shown (legend open), the dots hop above them:
+   number row sits 20px above the strip and is ~15px tall, so +45px keeps
+   the same 10px gap between dot and numbers */
+.bit-strip.legend-open .own-dot {
+  bottom: calc(100% + 45px);
+}
+
 .bit-cell:first-child {
   border-left: 1px solid var(--ink);
 }
