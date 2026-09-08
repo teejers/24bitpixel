@@ -13,9 +13,10 @@ const MAX_SIZE = 256;
 export function App() {
   const [selectedBit, setSelectedBit] = useState<number | null>(null);
   // Hovering a bit previews it (arrow + info frame); leaving the strip
-  // hides the preview again unless a bit has been pinned by clicking.
+  // hides the preview again. Once a bit is pinned by clicking, hover is
+  // ignored — only clicking another bit (or clicking away) changes it.
   const [hoveredBit, setHoveredBit] = useState<number | null>(null);
-  const shownBit = hoveredBit ?? selectedBit;
+  const shownBit = selectedBit ?? hoveredBit;
   const [pixelSize, setPixelSize] = useState(MIN_SIZE);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
