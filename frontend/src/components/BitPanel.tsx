@@ -51,12 +51,17 @@ export function BitPanel({ bitId, events }: BitPanelProps) {
 
   function submitPrice() {
     if (!newPriceEth) return;
-    if (isOwner) {
-      priceTx.setPrice(bitId, newPriceEth);
-    } else if (bit) {
-      buyTx.buy(bitId, newPriceEth, formatEther(bit.price));
-    }
+    priceTx.setPrice(bitId, newPriceEth);
     setNewPriceEth("");
+  }
+
+  /** One-click buy at the owner's asking price. The contract needs a new
+   *  asking price with every purchase (always-for-sale), so it carries
+   *  over the price just paid; the new owner can change it afterwards. */
+  function buyAtAskingPrice() {
+    if (!bit) return;
+    const askEth = formatEther(bit.price);
+    buyTx.buy(bitId, askEth, askEth);
   }
 
   return (
@@ -90,19 +95,27 @@ export function BitPanel({ bitId, events }: BitPanelProps) {
           </div>
         )}
         {address ? (
-          <div className="row">
-            <input
-              type="text"
-              inputMode="decimal"
-              placeholder="ETH"
-              value={newPriceEth}
-              onChange={(e) => setNewPriceEth(e.target.value)}
-              aria-label="New price in ETH"
-            />
-            <button onClick={submitPrice} disabled={busy || !newPriceEth}>
-              {isOwner ? "Set price" : `Buy for ${priceEth} ETH`}
-            </button>
-          </div>
+          isOwner ? (
+            <div className="row">
+              <input
+                type="text"
+                inputMode="decimal"
+                placeholder="ETH"
+                value={newPriceEth}
+                onChange={(e) => setNewPriceEth(e.target.value)}
+                aria-label="New price in ETH"
+              />
+              <button onClick={submitPrice} disabled={busy || !newPriceEth}>
+                Set price
+              </button>
+            </div>
+          ) : (
+            <div className="row">
+              <button onClick={buyAtAskingPrice} disabled={busy || !bit}>
+                Buy for {priceEth} ETH
+              </button>
+            </div>
+          )
         ) : (
           <p className="status">Login to buy or toggle</p>
         )}

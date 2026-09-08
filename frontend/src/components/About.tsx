@@ -26,8 +26,8 @@ export function About({ onClose }: AboutProps) {
         <ol>
           <li>Every bit always has an owner and an owner-set price.</li>
           <li>
-            Anyone may buy any bit by paying its price. The buyer sets a new
-            price at purchase.
+            Anyone may buy any bit by paying its price. It stays for sale at
+            that price until its new owner changes it.
           </li>
           <li>On each sale, 5% goes to the artist and 95% to the seller.</li>
           <li>Only a bit&apos;s owner can toggle it on or off.</li>
