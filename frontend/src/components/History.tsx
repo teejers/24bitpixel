@@ -57,7 +57,6 @@ export function History({ events, isLoading }: HistoryProps) {
   return (
     <div className="history">
       <div className="frame">
-        <span className="records-label">Records</span>
         <div className="grid">
           <span className="th color-col">Color</span>
           <span className="th">Timestamp</span>
