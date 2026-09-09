@@ -230,6 +230,12 @@ input:focus {
   color: var(--paper);
 }
 
+.bit-actions .price-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: -6px; /* sit close above the input despite the column gap */
+}
+
 .bit-actions .price-row {
   display: flex;
   align-items: center;

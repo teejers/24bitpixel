@@ -44,6 +44,36 @@ export function BitActions({ bitId }: BitActionsProps) {
     buyTx.isPending || buyTx.isConfirming;
   const error = toggleTx.error ?? priceTx.error ?? buyTx.error;
 
+  // Status line: confirm (wallet open) -> in progress (mining) -> complete.
+  const actions = [
+    { label: "toggle", tx: toggleTx },
+    { label: "price update", tx: priceTx },
+    { label: "purchase", tx: buyTx },
+  ];
+  const pending = actions.find((a) => a.tx.isPending);
+  const confirming = actions.find((a) => a.tx.isConfirming);
+
+  // The complete message stays up until the user clicks anywhere.
+  const [dismissedHash, setDismissedHash] = useState<string | undefined>();
+  const completed = actions.find(
+    (a) => a.tx.isSuccess && a.tx.hash && a.tx.hash !== dismissedHash
+  );
+  const completedHash = completed?.tx.hash;
+  useEffect(() => {
+    if (!completedHash) return;
+    const dismiss = () => setDismissedHash(completedHash);
+    document.addEventListener("click", dismiss);
+    return () => document.removeEventListener("click", dismiss);
+  }, [completedHash]);
+
+  const status = pending
+    ? `Confirm ${pending.label}`
+    : confirming
+      ? `${confirming.label} in progress ...`
+      : completed
+        ? `${completed.label} complete`
+        : null;
+
   return (
     <div className="bit-actions">
       {!address ? (
@@ -53,6 +83,7 @@ export function BitActions({ bitId }: BitActionsProps) {
           <button onClick={() => toggleTx.toggle(bitId)} disabled={busy}>
             Toggle bit
           </button>
+          <span className="price-label">Price</span>
           <div className="price-row">
             <input
               type="text"
@@ -78,7 +109,7 @@ export function BitActions({ bitId }: BitActionsProps) {
           Buy bit {String(bitId).padStart(2, "0")} for {priceEth} ETH
         </button>
       )}
-      {busy && <p className="status">Waiting for transaction...</p>}
+      {status && <p className="status">{status}</p>}
       {error && (
         <p className="error">
           {(error as { shortMessage?: string }).shortMessage ?? error.message}
