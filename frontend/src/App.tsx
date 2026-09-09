@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { WalletButton } from "./components/WalletButton";
 import { PixelDisplay } from "./components/PixelDisplay";
 import { BitStrip } from "./components/BitStrip";
@@ -16,7 +16,14 @@ export function App() {
   const [pixelSize, setPixelSize] = useState(1);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
+  // The PIXEL arrow greets the visitor on load, then fades out after 5s
+  const [pixelHint, setPixelHint] = useState(true);
   const { events, isLoading } = useTimeline();
+
+  useEffect(() => {
+    const t = setTimeout(() => setPixelHint(false), 5000);
+    return () => clearTimeout(t);
+  }, []);
 
   // Clicking anywhere dismisses the legend (except the ? itself, which
   // toggles it, and the size slider). Clicks outside a bit cell or the
@@ -56,6 +63,7 @@ export function App() {
         <PixelDisplay
           size={pixelSize}
           showLegend={legendOpen}
+          showPixelHint={pixelHint}
           onSetSize={setPixelSize}
         />
 

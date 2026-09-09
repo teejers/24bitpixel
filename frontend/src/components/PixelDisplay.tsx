@@ -8,23 +8,32 @@ const MAX_EXP = 8;
 interface PixelDisplayProps {
   size: number;
   showLegend: boolean;
+  showPixelHint: boolean;
   onSetSize: (px: number) => void;
 }
 
 /** The pixel itself, centered on its stage. */
-export function PixelDisplay({ size, showLegend, onSetSize }: PixelDisplayProps) {
+export function PixelDisplay({
+  size,
+  showLegend,
+  showPixelHint,
+  onSetSize,
+}: PixelDisplayProps) {
   const { data: color } = usePixelColor();
   const hex = colorToHex(Number(color ?? 0));
 
   return (
     <div className="stage">
       <div className="pixel-wrap">
-        {showLegend && (
-          <span className="callout">
-            Pixel
-            <span className="h-arrow" />
-          </span>
-        )}
+        {/* Stays mounted so the on-load hint can fade out via transition */}
+        <span
+          className={`pixel-callout${
+            showLegend || showPixelHint ? "" : " hidden"
+          }`}
+        >
+          Pixel
+          <span className="v-arrow" />
+        </span>
         {showLegend && (
           <span className="size-buttons">
             <input

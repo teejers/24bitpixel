@@ -333,6 +333,45 @@ input:focus {
   border-left: 7px solid var(--ink);
 }
 
+/* Pixel callout: above the pixel, pointing down at it. Shown on page
+   load (fades out after 5s) and whenever the legend is open. */
+
+.pixel-callout {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+.pixel-callout.hidden {
+  opacity: 0;
+}
+
+.v-arrow {
+  width: 1px;
+  height: 48px;
+  background: var(--ink);
+  position: relative;
+}
+
+.v-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: -4px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 7px solid var(--ink);
+}
+
 .pixel-wrap {
   position: relative;
 }
