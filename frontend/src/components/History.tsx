@@ -19,13 +19,9 @@ const EVENT_LABEL: Record<TimelineEvent["type"], string> = {
 function Columns() {
   return (
     <colgroup>
-      <col style={{ width: "7%" }} />
-      <col style={{ width: "24%" }} />
-      <col style={{ width: "11%" }} />
-      <col style={{ width: "6%" }} />
-      <col style={{ width: "21%" }} />
-      <col style={{ width: "14%" }} />
-      <col style={{ width: "17%" }} />
+      {Array.from({ length: 8 }, (_, i) => (
+        <col key={i} style={{ width: "12.5%" }} />
+      ))}
     </colgroup>
   );
 }
@@ -76,7 +72,8 @@ export function History({ events, isLoading }: HistoryProps) {
             <Columns />
             <thead>
               <tr>
-                <th>Color</th>
+                <th>Records</th>
+                <th className="color-col">Color</th>
                 <th>Timestamp</th>
                 <th>Event</th>
                 <th>Bit</th>
@@ -96,7 +93,8 @@ export function History({ events, isLoading }: HistoryProps) {
                 const actor = eventActor(e);
                 return (
                   <tr key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
-                    <td>
+                    <td />
+                    <td className="color-col">
                       <span
                         className="color-swatch"
                         style={{ background: colorToHex(colorAt.get(e) ?? 0) }}

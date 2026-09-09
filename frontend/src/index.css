@@ -493,18 +493,19 @@ input:focus {
 
 .history .head,
 .history .scroll {
-  min-width: 600px;
+  min-width: 800px;
 }
 
-/* Fixed header: outside the scroll area, black rule spans the whole div */
+/* Header: the black rule spans the whole screen; the columns inside
+   share the same side margins as the rows */
 .history .head {
-  padding: 8px 15px 0;
+  padding: 8px 48px 0;
   border-bottom: 1px solid var(--ink);
 }
 
 /* All rows flow down in full — the page itself scrolls, not the frame */
 .history .scroll {
-  padding: 6px 15px 15px;
+  padding: 6px 48px 15px;
 }
 
 .history table {
@@ -525,6 +526,11 @@ input:focus {
   padding: 6px 8px 6px 0;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* Swatches centered within the COLOR column; everything else left-aligned */
+.history .color-col {
+  text-align: center;
 }
 
 /* The pixel color at the time of each record: borderless 10px square */
