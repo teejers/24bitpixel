@@ -44,21 +44,13 @@ export function BitActions({ bitId }: BitActionsProps) {
     buyTx.isPending || buyTx.isConfirming;
   const error = toggleTx.error ?? priceTx.error ?? buyTx.error;
 
-  // Status line: confirm (wallet open) -> in progress (mining) -> complete.
-  const actions = [
-    { label: "toggle", tx: toggleTx },
-    { label: "price update", tx: priceTx },
-    { label: "purchase", tx: buyTx },
-  ];
-  const pending = actions.find((a) => a.tx.isPending);
-  const confirming = actions.find((a) => a.tx.isConfirming);
-
+  // Tx status: confirm (wallet open) -> in progress (mining) -> complete.
   // The complete message stays up until the user clicks anywhere.
   const [dismissedHash, setDismissedHash] = useState<string | undefined>();
-  const completed = actions.find(
-    (a) => a.tx.isSuccess && a.tx.hash && a.tx.hash !== dismissedHash
+  const completedTx = [toggleTx, priceTx, buyTx].find(
+    (tx) => tx.isSuccess && tx.hash && tx.hash !== dismissedHash
   );
-  const completedHash = completed?.tx.hash;
+  const completedHash = completedTx?.hash;
   useEffect(() => {
     if (!completedHash) return;
     const dismiss = () => setDismissedHash(completedHash);
@@ -66,6 +58,23 @@ export function BitActions({ bitId }: BitActionsProps) {
     return () => document.removeEventListener("click", dismiss);
   }, [completedHash]);
 
+  // Toggle reports inside its own button; the label doubles as the status.
+  const toggleStatus = toggleTx.isPending
+    ? "Confirm toggle →"
+    : toggleTx.isConfirming
+      ? "Toggle in progress ..."
+      : completedTx === toggleTx
+        ? "Toggle complete"
+        : null;
+
+  // Price updates and purchases still report below their buttons.
+  const statusActions = [
+    { label: "price update", tx: priceTx },
+    { label: "purchase", tx: buyTx },
+  ];
+  const pending = statusActions.find((a) => a.tx.isPending);
+  const confirming = statusActions.find((a) => a.tx.isConfirming);
+  const completed = statusActions.find((a) => a.tx === completedTx);
   const status = pending
     ? `Confirm ${pending.label} →`
     : confirming
@@ -80,8 +89,12 @@ export function BitActions({ bitId }: BitActionsProps) {
         <p className="status">Login to buy or toggle</p>
       ) : isOwner ? (
         <>
-          <button onClick={() => toggleTx.toggle(bitId)} disabled={busy}>
-            Toggle bit
+          <button
+            className={`toggle-btn${toggleStatus ? " showing-status" : ""}`}
+            onClick={() => !toggleStatus && toggleTx.toggle(bitId)}
+            disabled={busy}
+          >
+            {toggleStatus ?? "Toggle bit"}
           </button>
           <span className="price-label">Price</span>
           <div className="price-row">
