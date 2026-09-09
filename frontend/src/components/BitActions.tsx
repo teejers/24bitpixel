@@ -67,7 +67,7 @@ export function BitActions({ bitId }: BitActionsProps) {
   }, [completedHash]);
 
   const status = pending
-    ? `Confirm ${pending.label}`
+    ? `Confirm ${pending.label} →`
     : confirming
       ? `${confirming.label} in progress ...`
       : completed

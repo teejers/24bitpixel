@@ -251,7 +251,8 @@ input:focus {
 }
 
 .bit-actions .status {
-  color: var(--mute);
+  color: var(--ink);
+  font-size: 9px;
   text-transform: uppercase;
   white-space: nowrap;
 }
