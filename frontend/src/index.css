@@ -431,10 +431,12 @@ input:focus {
 
 .strip-arrow {
   width: 1px;
-  height: 56px;
+  /* 3px gap between the arrow tip and the cell; the bottom end stays at
+     100% + 56px, where the popover anchor meets it */
+  height: 53px;
   background: var(--ink);
   position: absolute;
-  top: 100%;
+  top: calc(100% + 3px);
 }
 
 .strip-arrow::before {
