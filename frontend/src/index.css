@@ -532,6 +532,9 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(7, max-content);
   justify-content: space-between;
+  /* Floor under the flexible space-between gaps: when the grid pans
+     sideways on narrow screens, columns never sit closer than this */
+  column-gap: 5px;
   min-width: max-content;
   padding: 8px 10vw 15px;
   text-transform: uppercase;
@@ -561,8 +564,10 @@ input:focus {
   padding: 0;
 }
 
-/* Swatches centered within the COLOR column; everything else left-aligned */
-.history .color-col {
+/* Swatches centered within the COLOR column; everything else left-aligned.
+   Must be `.grid > .color-col` — plain `.color-col` (0,2,0) loses to
+   `.grid > span` (0,2,1), which sets text-align: left */
+.history .grid > .color-col {
   text-align: center;
 }
 
@@ -641,12 +646,10 @@ input:focus {
     display: none;
   }
 
-  /* Tighter side margins, and a floor under the column gaps — with the
-     grid panning sideways, space-between alone lets columns touch */
+  /* Tighter side margins than the desktop 10vw */
   .history .grid {
     font-size: 11px;
     padding: 8px 12px 15px;
-    column-gap: 6px;
   }
 
   .history .grid > .rule {
