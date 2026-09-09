@@ -58,7 +58,7 @@ export function BitActions({ bitId }: BitActionsProps) {
     return () => document.removeEventListener("click", dismiss);
   }, [completedHash]);
 
-  // Toggle reports inside its own button; the label doubles as the status.
+  // Toggle reports directly below its button.
   const toggleStatus = toggleTx.isPending
     ? "Confirm toggle →"
     : toggleTx.isConfirming
@@ -89,13 +89,10 @@ export function BitActions({ bitId }: BitActionsProps) {
         <p className="status">Login to buy or toggle</p>
       ) : isOwner ? (
         <>
-          <button
-            className={`toggle-btn${toggleStatus ? " showing-status" : ""}`}
-            onClick={() => !toggleStatus && toggleTx.toggle(bitId)}
-            disabled={busy}
-          >
-            {toggleStatus ?? "Toggle bit"}
+          <button onClick={() => toggleTx.toggle(bitId)} disabled={busy}>
+            Toggle bit
           </button>
+          {toggleStatus && <p className="status">{toggleStatus}</p>}
           <span className="price-label">Price</span>
           <div className="price-row">
             <input

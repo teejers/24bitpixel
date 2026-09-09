@@ -225,18 +225,6 @@ input:focus {
   color: var(--mute);
 }
 
-/* Sized to the longest status ("TOGGLE IN PROGRESS ...") so the button
-   never changes size as its label cycles through the tx states. */
-.bit-actions .toggle-btn {
-  min-width: 22ch;
-}
-
-/* A status message is information, not a dead control — keep it ink. */
-.bit-actions button.showing-status:disabled {
-  border-color: var(--ink);
-  color: var(--ink);
-}
-
 .bit-actions button:hover:not(:disabled) {
   background: var(--ink);
   color: var(--paper);
