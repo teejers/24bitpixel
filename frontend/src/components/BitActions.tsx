@@ -10,14 +10,61 @@ interface BitActionsProps {
   bitId: number;
 }
 
+/** The tx lifecycle shape shared by the toggle/price/buy hooks. */
+interface TxState {
+  isPending: boolean;
+  isConfirming: boolean;
+  isSuccess: boolean;
+  hash?: string;
+  error: Error | null;
+}
+
+interface TxMessage {
+  text: string;
+  isError: boolean;
+}
+
+/** The message for one action's button: confirm (wallet open) -> in
+ *  progress (mining) -> complete, or the error that ended it. Complete and
+ *  error messages linger; `dismissed` holds the ones already clicked away. */
+function txMessage(
+  label: string,
+  tx: TxState,
+  dismissed: ReadonlySet<unknown>
+): TxMessage | null {
+  if (tx.isPending) return { text: `Confirm ${label} →`, isError: false };
+  if (tx.isConfirming)
+    return { text: `${label} in progress ...`, isError: false };
+  if (tx.error && !dismissed.has(tx.error)) {
+    const raw =
+      (tx.error as { shortMessage?: string }).shortMessage ?? tx.error.message;
+    return {
+      text: /user rejected|user denied/i.test(raw) ? "Request cancelled" : raw,
+      isError: true,
+    };
+  }
+  if (tx.isSuccess && tx.hash && !dismissed.has(tx.hash))
+    return { text: `${label} complete`, isError: false };
+  return null;
+}
+
+function TxMessageLine({ msg }: { msg: TxMessage | null }) {
+  if (!msg) return null;
+  return (
+    <p className={msg.isError ? "status error" : "status"}>{msg.text}</p>
+  );
+}
+
 /** Actions for the pinned bit, floating just below its cell: a one-click
- *  buy for bits you don't own; toggle + price controls for your own. */
+ *  buy for bits you don't own; toggle + price controls for your own. Each
+ *  button reports its own tx directly beneath itself. */
 export function BitActions({ bitId }: BitActionsProps) {
   const { address } = useAccount();
   const { bits } = useBitStates();
   const toggleTx = useToggleBit();
   const priceTx = useSetPrice();
   const buyTx = useBuyBit();
+  const txs = [toggleTx, priceTx, buyTx];
 
   const bit = bits?.[bitId];
   const priceEth = bit ? formatEther(bit.price) : "";
@@ -38,61 +85,40 @@ export function BitActions({ bitId }: BitActionsProps) {
     !Number.isNaN(parsed) &&
     parsed > 0;
 
-  const busy =
-    toggleTx.isPending || toggleTx.isConfirming ||
-    priceTx.isPending || priceTx.isConfirming ||
-    buyTx.isPending || buyTx.isConfirming;
-  const error = toggleTx.error ?? priceTx.error ?? buyTx.error;
+  const busy = txs.some((tx) => tx.isPending || tx.isConfirming);
 
-  // Tx status: confirm (wallet open) -> in progress (mining) -> complete.
-  // The complete message stays up until the user clicks anywhere.
-  const [dismissedHash, setDismissedHash] = useState<string | undefined>();
-  const completedTx = [toggleTx, priceTx, buyTx].find(
-    (tx) => tx.isSuccess && tx.hash && tx.hash !== dismissedHash
-  );
-  const completedHash = completedTx?.hash;
+  // Complete and error messages stay up until the next click anywhere.
+  const [dismissed, setDismissed] = useState<ReadonlySet<unknown>>(new Set());
+  const dismissables = txs.flatMap((tx) => [
+    ...(tx.isSuccess && tx.hash && !dismissed.has(tx.hash) ? [tx.hash] : []),
+    ...(tx.error && !dismissed.has(tx.error) ? [tx.error] : []),
+  ]);
+  // Re-attached every render so the listener always sees the current set.
   useEffect(() => {
-    if (!completedHash) return;
-    const dismiss = () => setDismissedHash(completedHash);
+    if (dismissables.length === 0) return;
+    const dismiss = () =>
+      setDismissed((prev) => new Set([...prev, ...dismissables]));
     document.addEventListener("click", dismiss);
     return () => document.removeEventListener("click", dismiss);
-  }, [completedHash]);
+  });
 
-  // Toggle reports directly below its button.
-  const toggleStatus = toggleTx.isPending
-    ? "Confirm toggle →"
-    : toggleTx.isConfirming
-      ? "Toggle in progress ..."
-      : completedTx === toggleTx
-        ? "Toggle complete"
-        : null;
-
-  // Price updates and purchases still report below their buttons.
-  const statusActions = [
-    { label: "price update", tx: priceTx },
-    { label: "purchase", tx: buyTx },
-  ];
-  const pending = statusActions.find((a) => a.tx.isPending);
-  const confirming = statusActions.find((a) => a.tx.isConfirming);
-  const completed = statusActions.find((a) => a.tx === completedTx);
-  const status = pending
-    ? `Confirm ${pending.label} →`
-    : confirming
-      ? `${confirming.label} in progress ...`
-      : completed
-        ? `${completed.label} complete`
-        : null;
+  const toggleMsg = txMessage("toggle", toggleTx, dismissed);
+  const priceMsg = txMessage("price update", priceTx, dismissed);
+  const buyMsg = txMessage("purchase", buyTx, dismissed);
 
   return (
     <div className="bit-actions">
       {!address ? (
-        <p className="status">Login to buy or toggle</p>
+        <p className="hint">Login to buy or toggle</p>
       ) : isOwner ? (
         <>
+          {/* A just-finished purchase flips this panel to the owner view;
+              keep its message visible until the usual click-away. */}
+          <TxMessageLine msg={buyMsg} />
           <button onClick={() => toggleTx.toggle(bitId)} disabled={busy}>
             Toggle bit
           </button>
-          {toggleStatus && <p className="status">{toggleStatus}</p>}
+          <TxMessageLine msg={toggleMsg} />
           <span className="price-label">Price</span>
           <div className="price-row">
             <input
@@ -110,24 +136,18 @@ export function BitActions({ bitId }: BitActionsProps) {
           >
             Update price
           </button>
+          <TxMessageLine msg={priceMsg} />
         </>
       ) : (
-        <button
-          onClick={() => bit && buyTx.buy(bitId, priceEth, priceEth)}
-          disabled={busy || !bit}
-        >
-          Buy bit {String(bitId).padStart(2, "0")} for {priceEth} ETH
-        </button>
-      )}
-      {status && <p className="status">{status}</p>}
-      {error && (
-        <p className="error">
-          {/user rejected|user denied/i.test(
-            (error as { shortMessage?: string }).shortMessage ?? error.message
-          )
-            ? "Request cancelled"
-            : ((error as { shortMessage?: string }).shortMessage ?? error.message)}
-        </p>
+        <>
+          <button
+            onClick={() => bit && buyTx.buy(bitId, priceEth, priceEth)}
+            disabled={busy || !bit}
+          >
+            Buy bit {String(bitId).padStart(2, "0")} for {priceEth} ETH
+          </button>
+          <TxMessageLine msg={buyMsg} />
+        </>
       )}
     </div>
   );

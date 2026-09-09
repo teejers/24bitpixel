@@ -250,6 +250,14 @@ input:focus {
   border-color: var(--hairline);
 }
 
+.bit-actions .hint {
+  color: var(--mute);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Per-button tx status line; .error modifies it for failure messages,
+   which may be long and need to wrap. */
 .bit-actions .status {
   color: var(--ink);
   font-size: 9px;
@@ -257,11 +265,10 @@ input:focus {
   white-space: nowrap;
 }
 
-.bit-actions .error {
+.bit-actions .status.error {
   max-width: 260px;
+  white-space: normal;
   word-break: break-word;
-  font-size: 9px;
-  text-transform: uppercase;
 }
 
 .bit-cell:first-child {
