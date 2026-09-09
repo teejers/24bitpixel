@@ -191,6 +191,12 @@ input:focus {
   font-size: 12px;
 }
 
+/* Legend open: the number row and dot zone are already below, so the
+   owner text starts at the same height it would with its own number */
+.bit-hover-info.legend {
+  bottom: calc(100% + 34px);
+}
+
 /* Actions for the pinned bit, centered below its cell (past the arrow) */
 .bit-actions-anchor {
   position: absolute;
@@ -272,28 +278,6 @@ input:focus {
   margin-bottom: 4px; /* numbers sit right above the cells */
 }
 
-/* Owner + last-update, rotated to read bottom-to-top above each bit.
-   Bottom-aligned so every column starts at the same height; the gap
-   below leaves room for the ownership dot between text and number. */
-.bit-labels .meta-row {
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 15px;
-}
-
-.bit-labels .meta-cell {
-  width: var(--cell);
-  display: flex;
-  justify-content: center;
-}
-
-.bit-labels .meta-cell span {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 11px;
-  white-space: nowrap;
-  text-transform: uppercase;
-}
 
 /* Legend callouts: label + arrow (same style as the selection arrow),
    pointing from the left at their target */

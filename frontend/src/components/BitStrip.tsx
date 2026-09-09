@@ -68,27 +68,6 @@ export function BitStrip({
     <div className="strip-area">
       {showLegend && (
         <div className="bit-labels">
-          <div className="meta-row">
-            {STRIP_ORDER.map((bitId) => {
-              const owner = bits?.[bitId]?.owner;
-              const mine =
-                !!address &&
-                !!owner &&
-                owner.toLowerCase() === address.toLowerCase();
-              const ts = lastUpdate.get(bitId);
-              return (
-                <span key={bitId} className="meta-cell">
-                  {owner && (
-                    <span>
-                      {owner.slice(0, 10)}
-                      {mine ? " [you]" : ""} &middot;{" "}
-                      {ts !== undefined ? formatUpdate(ts) : "—"}
-                    </span>
-                  )}
-                </span>
-              );
-            })}
-          </div>
           <div className="label-row">
             {STRIP_ORDER.map((bitId) => (
               <span key={bitId} className="label-cell">
@@ -139,8 +118,11 @@ export function BitStrip({
           </div>
         )}
       </div>
-      {shownBit !== null && !showLegend && (
-        <div className="bit-hover-info" style={{ left: centerOf(shownBit) }}>
+      {shownBit !== null && (
+        <div
+          className={`bit-hover-info${showLegend ? " legend" : ""}`}
+          style={{ left: centerOf(shownBit) }}
+        >
           {shownOwner && (
             <span className="meta">
               {shownOwner.slice(0, 10)}
@@ -148,7 +130,10 @@ export function BitStrip({
               {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
             </span>
           )}
-          <span className="num">{String(shownBit).padStart(2, "0")}</span>
+          {/* the legend's own number row already labels every bit */}
+          {!showLegend && (
+            <span className="num">{String(shownBit).padStart(2, "0")}</span>
+          )}
         </div>
       )}
       {shownBit !== null && (
