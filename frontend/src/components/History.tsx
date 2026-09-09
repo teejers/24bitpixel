@@ -64,7 +64,7 @@ export function History({ events, isLoading }: HistoryProps) {
           <span className="th">Bit</span>
           <span className="th">Address</span>
           <span className="th">Price</span>
-          <span className="th">Gas</span>
+          <span className="th gas-col">Gas</span>
           <span className="rule" />
           {sorted.map((e) => {
             const price = eventPrice(e);

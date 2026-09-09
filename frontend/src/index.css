@@ -566,11 +566,11 @@ input:focus {
   padding: 0;
 }
 
-/* Swatches centered within the COLOR column; everything else left-aligned.
-   Must be `.grid > .color-col` — plain `.color-col` (0,2,0) loses to
-   `.grid > span` (0,2,1), which sets text-align: left */
-.history .grid > .color-col {
-  text-align: center;
+/* GAS header hugs its right-aligned-looking column. Must be
+   `.grid > .gas-col` — plain (0,2,0) selectors lose to `.grid > span`
+   (0,2,1), which sets text-align: left */
+.history .grid > .gas-col {
+  text-align: right;
 }
 
 /* The pixel color at the time of each record: borderless 10px square */
