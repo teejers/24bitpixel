@@ -511,9 +511,12 @@ input:focus {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  /* top padding reserves room for the arrow + bit actions popover
-     (56px arrow + ~160px stack) so it never overlaps the table */
-  padding: 240px 0 24px;
+  /* On load only the records header + 1.5 rows peek in at the bottom of
+     the viewport: content above the table ends at 50vh + cell/2, so this
+     puts the grid top at 100vh - 77px (8px pad + header ~19 + rule gap
+     ~6 + 1.5 rows of ~29px). The max() keeps at least the 240px the
+     arrow + bit-actions popover needs so it never overlaps the table. */
+  padding: max(240px, calc(50vh - var(--cell) / 2 - 74px)) 0 24px;
 }
 
 .history {
@@ -652,6 +655,11 @@ input:focus {
   .history .grid {
     font-size: 11px;
     padding: 8px 12px 15px;
+  }
+
+  /* Same header + 1.5 rows peek; rows are shorter at 11px type */
+  .history-center {
+    padding-top: max(240px, calc(50vh - var(--cell) / 2 - 66px));
   }
 
   .history .grid > .rule {
