@@ -116,7 +116,7 @@ input:focus {
   height: var(--cell);
   border: 1px solid var(--ink);
   border-left: none;
-  background: var(--paper);
+  background: var(--ink);
   padding: 0;
 }
 
@@ -135,19 +135,19 @@ input:focus {
   pointer-events: none;
 }
 
-/* While the bit numbers are shown (legend open), the dots hop above them:
-   number row sits 20px above the strip and is ~15px tall, so +45px keeps
-   the same 10px gap between dot and numbers */
+/* While the legend is open the dot slots between the bit number and the
+   owner label above it: number row spans ~5px..20px above the cell */
 .bit-strip.legend-open .own-dot {
-  bottom: calc(100% + 45px);
+  bottom: calc(100% + 24px);
 }
 
 .bit-cell:first-child {
   border-left: 1px solid var(--ink);
 }
 
+/* White = on, black = off */
 .bit-cell.on {
-  background: var(--ink);
+  background: var(--paper);
 }
 
 /* Labels and color swatches above the strip, shown while a bit is selected.
@@ -162,7 +162,30 @@ input:focus {
 .bit-labels .label-row {
   position: relative;
   display: flex;
-  margin-bottom: 20px; /* clears the ownership dots (10px gap + 5px dot) */
+  margin-bottom: 4px; /* numbers sit right above the cells */
+}
+
+/* Owner + last-update, rotated to read bottom-to-top above each bit.
+   Bottom-aligned so every column starts at the same height; the gap
+   below leaves room for the ownership dot between text and number. */
+.bit-labels .meta-row {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 15px;
+}
+
+.bit-labels .meta-cell {
+  width: var(--cell);
+  display: flex;
+  justify-content: center;
+}
+
+.bit-labels .meta-cell span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 /* Legend callouts: label + arrow (same style as the selection arrow),

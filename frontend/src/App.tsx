@@ -72,6 +72,7 @@ export function App() {
           onSelectBit={setSelectedBit}
           onHoverBit={setHoveredBit}
           showLegend={legendOpen}
+          events={events}
         />
 
         <div className="lower">
