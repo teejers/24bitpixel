@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useBitStates } from "../hooks/useBitStates";
@@ -60,6 +61,7 @@ function TxMessageLine({ msg }: { msg: TxMessage | null }) {
  *  button reports its own tx directly beneath itself. */
 export function BitActions({ bitId }: BitActionsProps) {
   const { address } = useAccount();
+  const { openConnectModal } = useConnectModal();
   const { bits } = useBitStates();
   const toggleTx = useToggleBit();
   const priceTx = useSetPrice();
@@ -109,7 +111,7 @@ export function BitActions({ bitId }: BitActionsProps) {
   return (
     <div className="bit-actions">
       {!address ? (
-        <p className="hint">Login to buy or toggle</p>
+        <button onClick={openConnectModal}>Login to buy or toggle</button>
       ) : isOwner ? (
         <>
           {/* A just-finished purchase flips this panel to the owner view;
