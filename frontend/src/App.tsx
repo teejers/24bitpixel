@@ -61,8 +61,10 @@ export function App() {
           showLegend={legendOpen}
           onGrow={() => setPixelSize((s) => Math.min(s * 2, MAX_SIZE))}
           onShrink={() => setPixelSize((s) => Math.max(Math.floor(s / 2), MIN_SIZE))}
+          onReset={() => setPixelSize(MIN_SIZE)}
           canGrow={pixelSize < MAX_SIZE}
           canShrink={pixelSize > MIN_SIZE}
+          showReset={pixelSize !== MIN_SIZE}
         />
 
         <BitStrip

@@ -141,7 +141,15 @@ export function BitStrip({
       )}
       {selectedBit !== null && (
         <div
-          className="bit-actions-anchor"
+          // Edge classes let narrow screens hang the popover to one side of
+          // the arrow instead of centering it off-frame (see mobile CSS).
+          className={`bit-actions-anchor${
+            STRIP_ORDER.indexOf(selectedBit) <= 5
+              ? " edge-left"
+              : STRIP_ORDER.indexOf(selectedBit) >= 18
+                ? " edge-right"
+                : ""
+          }`}
           style={{ left: centerOf(selectedBit) }}
         >
           <BitActions bitId={selectedBit} />

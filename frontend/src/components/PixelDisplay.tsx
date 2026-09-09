@@ -6,8 +6,10 @@ interface PixelDisplayProps {
   showLegend: boolean;
   onGrow: () => void;
   onShrink: () => void;
+  onReset: () => void;
   canGrow: boolean;
   canShrink: boolean;
+  showReset: boolean;
 }
 
 /** The pixel itself, centered on its stage. */
@@ -16,8 +18,10 @@ export function PixelDisplay({
   showLegend,
   onGrow,
   onShrink,
+  onReset,
   canGrow,
   canShrink,
+  showReset,
 }: PixelDisplayProps) {
   const { data: color } = usePixelColor();
   const hex = colorToHex(Number(color ?? 0));
@@ -33,20 +37,27 @@ export function PixelDisplay({
         )}
         {showLegend && (
           <span className="size-buttons">
-            <button
-              onClick={onGrow}
-              disabled={!canGrow}
-              aria-label="Increase pixel size"
-            >
-              +
-            </button>
-            <button
-              onClick={onShrink}
-              disabled={!canShrink}
-              aria-label="Decrease pixel size"
-            >
-              &minus;
-            </button>
+            <span className="plus-minus">
+              <button
+                onClick={onGrow}
+                disabled={!canGrow}
+                aria-label="Increase pixel size"
+              >
+                +
+              </button>
+              <button
+                onClick={onShrink}
+                disabled={!canShrink}
+                aria-label="Decrease pixel size"
+              >
+                &minus;
+              </button>
+            </span>
+            {showReset && (
+              <button className="size-reset" onClick={onReset}>
+                Reset
+              </button>
+            )}
           </span>
         )}
         <div

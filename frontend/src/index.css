@@ -392,17 +392,34 @@ input:focus {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.size-buttons .plus-minus {
+  display: flex;
   gap: 10px;
 }
 
 .size-buttons button {
-  width: 25px;
-  height: 25px;
   border: 1px solid var(--ink);
   background: var(--paper);
   font-size: 12px;
   line-height: 1;
   text-align: center;
+}
+
+.size-buttons .plus-minus button {
+  width: 25px;
+  height: 25px;
+}
+
+.size-buttons .size-reset {
+  height: 25px;
+  padding: 0 10px;
+  font-size: 9px;
+  text-transform: uppercase;
 }
 
 .size-buttons button:hover:not(:disabled) {
@@ -619,12 +636,30 @@ input:focus {
     font-size: 8px;
   }
 
-  /* No room left of the targets on phones */
-  .callout {
+  /* No room left of the strip on phones; the pixel callout still fits */
+  .bit-strip .callout {
     display: none;
   }
 
+  /* Tighter side margins, and a floor under the column gaps — with the
+     grid panning sideways, space-between alone lets columns touch */
   .history .grid {
     font-size: 11px;
+    padding: 8px 12px 15px;
+    column-gap: 6px;
+  }
+
+  .history .grid > .rule {
+    margin: 6px -12px 0;
+  }
+
+  /* Popovers for edge bits hang off one side of the arrow instead of
+     centering (which would push them off-frame) */
+  .bit-actions-anchor.edge-left {
+    transform: none;
+  }
+
+  .bit-actions-anchor.edge-right {
+    transform: translateX(-100%);
   }
 }
