@@ -84,6 +84,12 @@ input:focus {
   text-transform: uppercase;
 }
 
+.topbar a:hover,
+.topbar button:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
 /* --- Stage: the pixel --- */
 
 .stage {
@@ -157,7 +163,7 @@ input:focus {
   height: 9px;
   margin: -4.5px 0 0 -4.5px;
   border-radius: 50%;
-  background: #00d000;
+  background: #00ff00;
 }
 
 /* Bit number + owner + last update floating above the shown bit
@@ -185,10 +191,10 @@ input:focus {
   font-size: 12px;
 }
 
-/* Actions for the pinned bit, centered below its cell */
+/* Actions for the pinned bit, centered below its cell (past the arrow) */
 .bit-actions-anchor {
   position: absolute;
-  top: calc(100% + 30px);
+  top: calc(100% + 64px);
   transform: translateX(-50%);
   z-index: 3;
 }
@@ -210,6 +216,11 @@ input:focus {
 .bit-actions button:disabled {
   border-color: var(--hairline);
   color: var(--mute);
+}
+
+.bit-actions button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .bit-actions .price-row {
@@ -398,13 +409,14 @@ input:focus {
   color: var(--paper);
 }
 
-/* Arrow under the selected cell — the only selection indicator */
+/* Arrow under the shown cell, pointing up at it */
 
 .strip-arrow {
   width: 1px;
   height: 56px;
   background: var(--ink);
-  position: relative;
+  position: absolute;
+  top: 100%;
 }
 
 .strip-arrow::before {
@@ -477,9 +489,11 @@ input:focus {
 .history-center {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 24px 0;
+  /* top padding reserves room for the arrow + bit actions popover
+     (56px arrow + ~160px stack) so it never overlaps the table */
+  padding: 240px 0 24px;
 }
 
 .history {

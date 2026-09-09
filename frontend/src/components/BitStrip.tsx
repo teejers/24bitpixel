@@ -52,9 +52,8 @@ export function BitStrip({
   }, [events]);
 
   // Center of the shown bit's cell, in --cell units so it tracks the
-  // responsive cell size. Anchors the hover label above and actions below.
-  // (The old under-strip arrow is temporarily hidden in favor of the
-  // green dot on the cell itself.)
+  // responsive cell size. Anchors the arrow and hover label above and
+  // the actions below.
   const centerOf = (bitId: number) =>
     `calc(var(--cell) * ${STRIP_ORDER.indexOf(bitId)} + var(--cell) / 2)`;
 
@@ -151,6 +150,9 @@ export function BitStrip({
           )}
           <span className="num">{String(shownBit).padStart(2, "0")}</span>
         </div>
+      )}
+      {shownBit !== null && (
+        <div className="strip-arrow" style={{ left: centerOf(shownBit) }} />
       )}
       {selectedBit !== null && (
         <div
