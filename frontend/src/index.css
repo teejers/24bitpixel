@@ -197,10 +197,11 @@ input:focus {
   bottom: calc(100% + 34px);
 }
 
-/* Actions for the pinned bit, centered below its cell (past the arrow) */
+/* Actions for the pinned bit, centered below its cell — the top button
+   border meets the end of the 56px arrow line */
 .bit-actions-anchor {
   position: absolute;
-  top: calc(100% + 64px);
+  top: calc(100% + 56px);
   transform: translateX(-50%);
   z-index: 3;
 }
@@ -509,7 +510,9 @@ input:focus {
   text-align: left;
 }
 
-.history .th {
+/* Header cells: no top padding, an even 6px above the rule to match the
+   6px the first row keeps below it (must out-rank the > span rule) */
+.history .grid > .th {
   padding: 0 0 6px;
 }
 
