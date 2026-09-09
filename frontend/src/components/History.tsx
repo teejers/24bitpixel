@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { formatEther } from "viem";
 import { type TimelineEvent, eventActor, eventPrice } from "../utils/timeline";
 import { colorToHex } from "../utils/color";
@@ -13,18 +14,6 @@ const EVENT_LABEL: Record<TimelineEvent["type"], string> = {
   BitBought: "BUY",
   PriceSet: "PRICE",
 };
-
-/** Shared column widths so the fixed header table and the scrolling
- *  body table line up exactly. */
-function Columns() {
-  return (
-    <colgroup>
-      {Array.from({ length: 7 }, (_, i) => (
-        <col key={i} style={{ width: `${100 / 7}%` }} />
-      ))}
-    </colgroup>
-  );
-}
 
 function formatTimestamp(ts?: bigint): string {
   if (!ts) return "—";
@@ -48,7 +37,8 @@ function formatGas(fee?: bigint): string {
 }
 
 /** Everything that has ever happened to the pixel, newest first.
- *  The header is fixed; only the rows scroll. */
+ *  A grid: columns size to their content, the leftover width becomes
+ *  equal gaps between them. The RECORDS label is the first column. */
 export function History({ events, isLoading }: HistoryProps) {
   const sorted = [...events].sort((a, b) =>
     a.blockNumber === b.blockNumber ? 0 : a.blockNumber > b.blockNumber ? -1 : 1
@@ -67,66 +57,54 @@ export function History({ events, isLoading }: HistoryProps) {
   return (
     <div className="history">
       <div className="frame">
-        <div className="head">
-          <span className="records-label">Records</span>
-          <table>
-            <Columns />
-            <thead>
-              <tr>
-                <th className="color-col">Color</th>
-                <th>Timestamp</th>
-                <th>Event</th>
-                <th>Bit</th>
-                <th>Address</th>
-                <th>Price</th>
-                <th>Gas</th>
-              </tr>
-            </thead>
-          </table>
+        <div className="grid">
+          <span className="th">Records</span>
+          <span className="th color-col">Color</span>
+          <span className="th">Timestamp</span>
+          <span className="th">Event</span>
+          <span className="th">Bit</span>
+          <span className="th">Address</span>
+          <span className="th">Price</span>
+          <span className="th">Gas</span>
+          <span className="rule" />
+          {sorted.map((e) => {
+            const price = eventPrice(e);
+            const actor = eventActor(e);
+            return (
+              <Fragment key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
+                <span />
+                <span className="color-col">
+                  <span
+                    className="color-swatch"
+                    style={{ background: colorToHex(colorAt.get(e) ?? 0) }}
+                  />
+                </span>
+                <span>
+                  <ExplorerLink value={e.transactionHash} kind="tx">
+                    {formatTimestamp(e.timestamp)}
+                  </ExplorerLink>
+                </span>
+                <span>{EVENT_LABEL[e.type]}</span>
+                <span>{String(e.bitId).padStart(2, "0")}</span>
+                <span>
+                  {actor ? (
+                    <ExplorerLink value={actor} kind="address">
+                      {shortAddress(actor)}
+                    </ExplorerLink>
+                  ) : (
+                    "—"
+                  )}
+                </span>
+                <span>{price !== undefined ? `${formatEther(price)} ETH` : "—"}</span>
+                <span>{formatGas(e.gasFee)}</span>
+              </Fragment>
+            );
+          })}
         </div>
-        <div className="scroll">
-          <table>
-            <Columns />
-            <tbody>
-              {sorted.map((e) => {
-                const price = eventPrice(e);
-                const actor = eventActor(e);
-                return (
-                  <tr key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
-                    <td className="color-col">
-                      <span
-                        className="color-swatch"
-                        style={{ background: colorToHex(colorAt.get(e) ?? 0) }}
-                      />
-                    </td>
-                    <td>
-                      <ExplorerLink value={e.transactionHash} kind="tx">
-                        {formatTimestamp(e.timestamp)}
-                      </ExplorerLink>
-                    </td>
-                    <td>{EVENT_LABEL[e.type]}</td>
-                    <td>{String(e.bitId).padStart(2, "0")}</td>
-                    <td>
-                      {actor ? (
-                        <ExplorerLink value={actor} kind="address">
-                          {shortAddress(actor)}
-                        </ExplorerLink>
-                      ) : (
-                        "—"
-                      )}
-                    </td>
-                    <td>{price !== undefined ? `${formatEther(price)} ETH` : "—"}</td>
-                    <td>{formatGas(e.gasFee)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {!isLoading && sorted.length === 0 && (
-            <p className="empty">No events yet</p>
-          )}
-          {isLoading && <p className="empty">Loading history...</p>}
-        </div>
+        {!isLoading && sorted.length === 0 && (
+          <p className="empty">No events yet</p>
+        )}
+        {isLoading && <p className="empty">Loading history...</p>}
       </div>
     </div>
   );

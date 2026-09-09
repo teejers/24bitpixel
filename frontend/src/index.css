@@ -482,58 +482,43 @@ input:focus {
 
 .history {
   position: relative;
-  /* Full width of the window; on screens narrower than the columns need
-     the table pans sideways inside the frame instead of squeezing */
   width: 100%;
 }
 
+/* On windows narrower than the columns need, the whole thing pans
+   sideways inside the frame instead of squeezing */
 .history .frame {
   overflow-x: auto;
 }
 
-.history .head,
-.history .scroll {
-  min-width: 800px;
-}
-
-/* Header: the black rule spans the whole screen; the RECORDS label
-   floats in the left margin, columns start past it */
-.history .head {
-  position: relative;
-  padding: 8px 48px 0 150px;
-  border-bottom: 1px solid var(--ink);
-}
-
-.history .records-label {
-  position: absolute;
-  left: 48px;
-  top: 8px;
+/* Columns size to their content; the leftover width becomes equal gaps
+   between them, growing and shrinking with the window */
+.history .grid {
+  display: grid;
+  grid-template-columns: repeat(8, max-content);
+  justify-content: space-between;
+  min-width: max-content;
+  padding: 8px 50px 15px;
   text-transform: uppercase;
 }
 
-/* All rows flow down in full — the page itself scrolls, not the frame */
-.history .scroll {
-  padding: 6px 48px 15px 150px;
-}
-
-.history table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
-
-.history th {
-  color: var(--ink);
-  text-align: left;
-  text-transform: uppercase;
-  font-weight: normal;
-  padding: 0 8px 6px 0;
-}
-
-.history td {
-  padding: 6px 8px 6px 0;
-  text-transform: uppercase;
+.history .grid > span {
+  padding: 6px 0;
   white-space: nowrap;
+  text-align: left;
+}
+
+.history .th {
+  padding: 0 0 6px;
+}
+
+/* The black line under the header row runs edge to edge, escaping the
+   grid's side padding */
+.history .rule {
+  grid-column: 1 / -1;
+  margin: 0 -50px;
+  padding: 0;
+  border-bottom: 1px solid var(--ink);
 }
 
 /* Swatches centered within the COLOR column; everything else left-aligned */
@@ -552,7 +537,7 @@ input:focus {
 .history .empty {
   color: var(--mute);
   text-transform: uppercase;
-  padding: 12px 0;
+  padding: 12px 50px;
 }
 
 /* --- About overlay --- */
@@ -616,8 +601,7 @@ input:focus {
     display: none;
   }
 
-  .history td,
-  .history th {
+  .history .grid {
     font-size: 11px;
   }
 }
