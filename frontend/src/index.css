@@ -496,16 +496,24 @@ input:focus {
   min-width: 800px;
 }
 
-/* Header: the black rule spans the whole screen; the columns inside
-   share the same side margins as the rows */
+/* Header: the black rule spans the whole screen; the RECORDS label
+   floats in the left margin, columns start past it */
 .history .head {
-  padding: 8px 48px 0;
+  position: relative;
+  padding: 8px 48px 0 150px;
   border-bottom: 1px solid var(--ink);
+}
+
+.history .records-label {
+  position: absolute;
+  left: 48px;
+  top: 8px;
+  text-transform: uppercase;
 }
 
 /* All rows flow down in full — the page itself scrolls, not the frame */
 .history .scroll {
-  padding: 6px 48px 15px;
+  padding: 6px 48px 15px 150px;
 }
 
 .history table {
