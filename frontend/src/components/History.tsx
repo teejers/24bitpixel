@@ -6,7 +6,6 @@ import { ExplorerLink } from "./ExplorerLink";
 interface HistoryProps {
   events: TimelineEvent[];
   isLoading: boolean;
-  showLegend: boolean;
 }
 
 const EVENT_LABEL: Record<TimelineEvent["type"], string> = {
@@ -54,7 +53,7 @@ function formatGas(fee?: bigint): string {
 
 /** Everything that has ever happened to the pixel, newest first.
  *  The header is fixed; only the rows scroll. */
-export function History({ events, isLoading, showLegend }: HistoryProps) {
+export function History({ events, isLoading }: HistoryProps) {
   const sorted = [...events].sort((a, b) =>
     a.blockNumber === b.blockNumber ? 0 : a.blockNumber > b.blockNumber ? -1 : 1
   );
@@ -71,12 +70,6 @@ export function History({ events, isLoading, showLegend }: HistoryProps) {
 
   return (
     <div className="history">
-      {showLegend && (
-        <span className="callout">
-          Records
-          <span className="h-arrow" />
-        </span>
-      )}
       <div className="frame">
         <div className="head">
           <table>

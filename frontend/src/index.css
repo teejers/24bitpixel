@@ -159,9 +159,9 @@ input:focus {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 9px;
-  height: 9px;
-  margin: -4.5px 0 0 -4.5px;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
   border-radius: 50%;
   background: #00ff00;
 }
@@ -367,11 +367,11 @@ input:focus {
   color: var(--ink);
 }
 
-/* The +/- size buttons: small squares 50px above the pixel */
+/* The +/- size buttons: small squares 50px below the pixel */
 
 .size-buttons {
   position: absolute;
-  bottom: calc(100% + 50px);
+  top: calc(100% + 50px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -482,11 +482,9 @@ input:focus {
 
 .history {
   position: relative;
-  /* 70% of the window, but never narrower than the columns need; on
-     screens smaller than that the frame fills the window and the table
-     pans sideways inside it instead of squeezing the columns */
-  width: min(max(640px, 70vw), calc(100vw - 32px));
-  margin: 0 auto;
+  /* Full width of the window; on screens narrower than the columns need
+     the table pans sideways inside the frame instead of squeezing */
+  width: 100%;
 }
 
 .history .frame {

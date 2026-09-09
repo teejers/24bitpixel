@@ -76,7 +76,7 @@ export function App() {
 
         <div className="lower">
           <div className="history-center">
-            <History events={events} isLoading={isLoading} showLegend={legendOpen} />
+            <History events={events} isLoading={isLoading} />
           </div>
         </div>
       </main>

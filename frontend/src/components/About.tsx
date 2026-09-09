@@ -17,31 +17,49 @@ export function About({ onClose }: AboutProps) {
       <section className="about">
         <h2>About</h2>
         <p>
-          24 bit pixel is a single pixel. Its color is a 24-bit RGB value —
-          eight bits of red, eight of green, eight of blue — stored on the
-          Ethereum blockchain. Each of the 24 bits is a token that anyone can
-          own.
+          A single pixel is represented as 24 bits stored on the Ethereum
+          Blockchain.
         </p>
-        <p>The rules, in full:</p>
-        <ol>
-          <li>Every bit always has an owner and an owner-set price.</li>
-          <li>
-            Anyone may buy any bit by paying its price. It stays for sale at
-            that price until its new owner changes it.
-          </li>
-          <li>On each sale, 5% goes to the artist and 95% to the seller.</li>
-          <li>Only a bit&apos;s owner can toggle it on or off.</li>
-          <li>
-            Bits cannot change hands any other way — every change of ownership
-            is a public, priced sale, recorded in the history.
-          </li>
-        </ol>
         <p>
-          A project by CW&amp;T. Contract:{" "}
+          The pixel&rsquo;s color is a 24-bit RGB value. 8 bits for red, 8 for
+          green and 8 for blue. Each bit is a token anyone can own. Only the
+          owner can toggle the bit&rsquo;s value to 1(ON/WHITE) or 0(OFF/BLACK),
+          altering the color of the single pixel.
+        </p>
+        <p>
+          Years ago I came across an article that spoke about the blockchain
+          in terms of its Turing Completeness. Before then, I had a hard time
+          understanding what blockchain was, or really why it seemingly made
+          so many people so excited. When I saw it as a really bad, really
+          slow computer, I got excited too.
+        </p>
+        <p>I happen to love really bad, really slow computers.</p>
+        <p>This is a project by CW&amp;T.</p>
+        <p>
+          Contract:{" "}
           <ExplorerLink value={CONTRACT_ADDRESS} kind="address">
             {CONTRACT_ADDRESS}
           </ExplorerLink>
         </p>
+        <p>Rules :</p>
+        <ol>
+          <li>Every bit always has an owner.</li>
+          <li>The owner can toggle a bit on or off.</li>
+          <li>The owner sets the bit&rsquo;s sale price.</li>
+          <li>Anyone may buy any bit by paying its price.</li>
+          <li>
+            When a bit is sold, 5% of the sale goes to the artist and 95% to
+            the seller.
+          </li>
+          <li>
+            Bits cannot change hands or state in any other way
+            (trades/donations/etc.).
+          </li>
+          <li>
+            Every change of ownership is a public, priced sale, in the
+            recorded history.
+          </li>
+        </ol>
       </section>
     </div>
   );
