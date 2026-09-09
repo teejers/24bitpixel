@@ -681,6 +681,8 @@ input:focus {
   }
 
   .bit-actions-anchor.edge-right {
-    transform: translateX(-100%);
+    /* +1px so the popover's right border lands on the same pixel column
+       as the 1px arrow line (left side gets this for free) */
+    transform: translateX(calc(-100% + 1px));
   }
 }
