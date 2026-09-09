@@ -164,6 +164,8 @@ input:focus {
   margin: -3.5px 0 0 -3.5px;
   border-radius: 50%;
   background: #00ff00;
+  /* Hidden for now, not removed — may come back */
+  visibility: hidden;
 }
 
 /* Bit number + owner + last update floating above the shown bit
