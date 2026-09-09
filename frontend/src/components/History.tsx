@@ -57,8 +57,8 @@ export function History({ events, isLoading }: HistoryProps) {
   return (
     <div className="history">
       <div className="frame">
+        <span className="records-label">Records</span>
         <div className="grid">
-          <span className="th">Records</span>
           <span className="th color-col">Color</span>
           <span className="th">Timestamp</span>
           <span className="th">Event</span>
@@ -72,7 +72,6 @@ export function History({ events, isLoading }: HistoryProps) {
             const actor = eventActor(e);
             return (
               <Fragment key={`${e.transactionHash}-${e.type}-${e.bitId}`}>
-                <span />
                 <span className="color-col">
                   <span
                     className="color-swatch"

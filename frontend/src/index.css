@@ -492,13 +492,23 @@ input:focus {
 }
 
 /* Columns size to their content; the leftover width becomes equal gaps
-   between them, growing and shrinking with the window */
+   between them, growing and shrinking with the window. The 10vw side
+   padding scales with the window too, staying wider than the gaps. */
 .history .grid {
   display: grid;
-  grid-template-columns: repeat(8, max-content);
+  grid-template-columns: repeat(7, max-content);
   justify-content: space-between;
   min-width: max-content;
-  padding: 8px 50px 15px;
+  padding: 8px 10vw 15px;
+  text-transform: uppercase;
+}
+
+/* RECORDS floats in the left margin, on the header line
+   (top = grid padding 8px + header cell padding 6px) */
+.history .records-label {
+  position: absolute;
+  left: 25px;
+  top: 14px;
   text-transform: uppercase;
 }
 
@@ -516,7 +526,7 @@ input:focus {
    grid's side padding */
 .history .rule {
   grid-column: 1 / -1;
-  margin: 0 -50px;
+  margin: 0 -10vw;
   padding: 0;
   border-bottom: 1px solid var(--ink);
 }
