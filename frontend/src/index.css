@@ -521,7 +521,11 @@ input:focus {
 }
 
 .history .scroll {
-  max-height: 420px;
+  /* The frame bottom lands ~30px above the bottom of the window and the
+     rows scroll inside; the page itself never scrolls. Frame top sits at
+     ~50vh + 252px (stage + strip + reserved popover space), header ~31px. */
+  height: calc(50vh - 313px);
+  min-height: 100px;
   overflow-y: auto;
   padding: 6px 15px 15px;
   scrollbar-width: thin; /* Firefox */
