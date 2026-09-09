@@ -122,7 +122,11 @@ export function BitActions({ bitId }: BitActionsProps) {
       {status && <p className="status">{status}</p>}
       {error && (
         <p className="error">
-          {(error as { shortMessage?: string }).shortMessage ?? error.message}
+          {/user rejected|user denied/i.test(
+            (error as { shortMessage?: string }).shortMessage ?? error.message
+          )
+            ? "Request cancelled"
+            : ((error as { shortMessage?: string }).shortMessage ?? error.message)}
         </p>
       )}
     </div>

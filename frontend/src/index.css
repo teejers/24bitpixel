@@ -260,6 +260,8 @@ input:focus {
 .bit-actions .error {
   max-width: 260px;
   word-break: break-word;
+  font-size: 9px;
+  text-transform: uppercase;
 }
 
 .bit-cell:first-child {
