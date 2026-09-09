@@ -1,0 +1,9 @@
+{
+  "address": "0x23C82346aF7E0aF1aE2f285eDf6Fe1160CCB600A",
+  "network": "sepolia",
+  "deployer": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+  "artist": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+  "initialPrice": "10000000000000000",
+  "deployBlock": 11669484,
+  "timestamp": "2026-09-09T17:44:48.670Z"
+}

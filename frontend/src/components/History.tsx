@@ -49,7 +49,7 @@ export function History({ events, isLoading }: HistoryProps) {
   const colorAt = new Map<TimelineEvent, number>();
   let running = 0;
   for (let i = sorted.length - 1; i >= 0; i--) {
-    const e = sorted[i];
+    const e = sorted[i]!;
     if (e.color !== undefined) running = e.color;
     colorAt.set(e, running);
   }

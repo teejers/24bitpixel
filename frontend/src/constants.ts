@@ -16,8 +16,12 @@ export const DEPLOYMENTS: Record<number, Deployment> = {
     deployBlock: 0n,
     explorer: null,
   },
-  // Sepolia testnet — TODO: fill in after Phase 3 deploy
-  // 11155111: { address: "0x...", deployBlock: 0n, explorer: "https://sepolia.etherscan.io" },
+  // Sepolia testnet (deployed 2026-09-09)
+  11155111: {
+    address: "0x23C82346aF7E0aF1aE2f285eDf6Fe1160CCB600A",
+    deployBlock: 11669484n,
+    explorer: "https://sepolia.etherscan.io",
+  },
   // Ethereum mainnet — TODO: fill in after Phase 4 deploy
   // 1: { address: "0x...", deployBlock: 0n, explorer: "https://etherscan.io" },
 };
