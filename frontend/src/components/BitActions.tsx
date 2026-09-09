@@ -119,7 +119,7 @@ export function BitActions({ bitId }: BitActionsProps) {
             Toggle bit
           </button>
           <TxMessageLine msg={toggleMsg} />
-          <span className="price-label">Price</span>
+          <span className="price-label">Price:</span>
           <div className="price-row">
             <input
               type="text"
