@@ -3,6 +3,7 @@ import { useAccount } from "wagmi";
 import { useBitStates } from "../hooks/useBitStates";
 import { bitContributionColor } from "../utils/color";
 import { type TimelineEvent } from "../utils/timeline";
+import { BitActions } from "./BitActions";
 
 interface BitStripProps {
   /** The bit pinned by clicking (toggles off on a second click). */
@@ -50,12 +51,19 @@ export function BitStrip({
     return latest;
   }, [events]);
 
-  // Arrow under the shown cell is the only selection indicator.
-  // Offset in --cell units so it tracks the responsive cell size.
-  const arrowOffset =
-    shownBit !== null
-      ? `calc(var(--cell) * ${STRIP_ORDER.indexOf(shownBit)} + var(--cell) / 2)`
-      : null;
+  // Center of the shown bit's cell, in --cell units so it tracks the
+  // responsive cell size. Anchors the hover label above and actions below.
+  // (The old under-strip arrow is temporarily hidden in favor of the
+  // green dot on the cell itself.)
+  const centerOf = (bitId: number) =>
+    `calc(var(--cell) * ${STRIP_ORDER.indexOf(bitId)} + var(--cell) / 2)`;
+
+  const shownOwner = shownBit !== null ? bits?.[shownBit]?.owner : undefined;
+  const shownMine =
+    !!address &&
+    !!shownOwner &&
+    shownOwner.toLowerCase() === address.toLowerCase();
+  const shownTs = shownBit !== null ? lastUpdate.get(shownBit) : undefined;
 
   return (
     <div className="strip-area">
@@ -109,7 +117,7 @@ export function BitStrip({
           return (
             <button
               key={bitId}
-              className={`bit-cell${on ? " on" : ""}`}
+              className={`bit-cell${on ? " on" : ""}${bitId === shownBit ? " shown" : ""}`}
               onClick={() => onSelectBit(selectedBit === bitId ? null : bitId)}
               onMouseEnter={() => onHoverBit(bitId)}
               aria-label={`Bit ${bitId}${on ? " (on)" : " (off)"}${mine ? ", yours" : ""}`}
@@ -132,8 +140,25 @@ export function BitStrip({
           </div>
         )}
       </div>
-      {arrowOffset !== null && (
-        <div className="strip-arrow" style={{ marginLeft: arrowOffset }} />
+      {shownBit !== null && !showLegend && (
+        <div className="bit-hover-info" style={{ left: centerOf(shownBit) }}>
+          {shownOwner && (
+            <span className="meta">
+              {shownOwner.slice(0, 10)}
+              {shownMine ? " [you]" : ""} &middot;{" "}
+              {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
+            </span>
+          )}
+          <span className="num">{String(shownBit).padStart(2, "0")}</span>
+        </div>
+      )}
+      {selectedBit !== null && (
+        <div
+          className="bit-actions-anchor"
+          style={{ left: centerOf(selectedBit) }}
+        >
+          <BitActions bitId={selectedBit} />
+        </div>
       )}
     </div>
   );

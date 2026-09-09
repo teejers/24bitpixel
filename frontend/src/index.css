@@ -135,10 +135,106 @@ input:focus {
   pointer-events: none;
 }
 
-/* While the legend is open the dot slots between the bit number and the
-   owner label above it: number row spans ~5px..20px above the cell */
-.bit-strip.legend-open .own-dot {
+/* While the legend is open — or the bit's own hover label is up — the dot
+   slots between the bit number and the owner label above it: number row
+   spans ~5px..20px above the cell */
+.bit-strip.legend-open .own-dot,
+.bit-cell.shown .own-dot {
   bottom: calc(100% + 24px);
+}
+
+/* Green dot marking the hovered/pinned bit (replaces the strip arrow) */
+.bit-cell.shown {
+  z-index: 2;
+}
+
+.bit-cell.shown::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: #00d000;
+}
+
+/* Bit number + owner + last update floating above the shown bit
+   (the legend's meta-row already covers this when it is open) */
+.bit-hover-info {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px; /* room for the ownership dot between text and number */
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.bit-hover-info .meta {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.bit-hover-info .num {
+  font-size: 12px;
+}
+
+/* Actions for the pinned bit, centered below its cell */
+.bit-actions-anchor {
+  position: absolute;
+  top: calc(100% + 30px);
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.bit-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--paper);
+}
+
+.bit-actions button {
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  padding: 8px 16px;
+  white-space: nowrap;
+}
+
+.bit-actions button:disabled {
+  border-color: var(--hairline);
+  color: var(--mute);
+}
+
+.bit-actions .price-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bit-actions .price-row input {
+  flex: 1;
+  width: 0;
+  text-align: right;
+  padding: 8px 10px;
+  border-color: var(--hairline);
+}
+
+.bit-actions .status {
+  color: var(--mute);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bit-actions .error {
+  max-width: 260px;
+  word-break: break-word;
 }
 
 .bit-cell:first-child {

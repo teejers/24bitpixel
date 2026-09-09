@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { WalletButton } from "./components/WalletButton";
 import { PixelDisplay } from "./components/PixelDisplay";
 import { BitStrip } from "./components/BitStrip";
-import { BitPanel } from "./components/BitPanel";
 import { History } from "./components/History";
 import { About } from "./components/About";
 import { useTimeline } from "./hooks/useTimeline";
@@ -32,7 +31,7 @@ export function App() {
     }
     if (
       el.closest(".bit-cell") ||
-      el.closest(".bit-info") ||
+      el.closest(".bit-actions") ||
       el.closest(".bit-labels")
     )
       return;
@@ -76,7 +75,6 @@ export function App() {
         />
 
         <div className="lower">
-          {shownBit !== null && <BitPanel bitId={shownBit} events={events} />}
           <div className="history-center">
             <History events={events} isLoading={isLoading} showLegend={legendOpen} />
           </div>
