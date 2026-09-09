@@ -510,19 +510,22 @@ input:focus {
   text-align: left;
 }
 
-/* Header cells: no top padding, an even 6px above the rule to match the
-   6px the first row keeps below it (must out-rank the > span rule) */
+/* Header cells: flush, the rule's own margin provides the gap
+   (child selectors out-rank the > span rule) */
 .history .grid > .th {
-  padding: 0 0 6px;
+  padding: 0;
 }
 
 /* The black line under the header row runs edge to edge, escaping the
    grid's side padding */
-.history .rule {
+.history .grid > .rule {
   grid-column: 1 / -1;
-  margin: 0 -10vw;
+  height: 1px;
+  background: var(--ink);
+  /* 6px below the header text; the first row's own 6px top padding
+     mirrors it below the line */
+  margin: 6px -10vw 0;
   padding: 0;
-  border-bottom: 1px solid var(--ink);
 }
 
 /* Swatches centered within the COLOR column; everything else left-aligned */
