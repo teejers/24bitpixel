@@ -276,11 +276,11 @@ input:focus {
   color: var(--ink);
 }
 
-/* The +/- size buttons: small squares 50px below the pixel */
+/* The +/- size buttons: small squares 50px above the pixel */
 
 .size-buttons {
   position: absolute;
-  top: calc(100% + 50px);
+  bottom: calc(100% + 50px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
