@@ -6,9 +6,6 @@ import { History } from "./components/History";
 import { About } from "./components/About";
 import { useTimeline } from "./hooks/useTimeline";
 
-const MIN_SIZE = 1;
-const MAX_SIZE = 256;
-
 export function App() {
   const [selectedBit, setSelectedBit] = useState<number | null>(null);
   // Hovering a bit previews it (arrow + info frame); leaving the strip
@@ -16,13 +13,13 @@ export function App() {
   // ignored — only clicking another bit (or clicking away) changes it.
   const [hoveredBit, setHoveredBit] = useState<number | null>(null);
   const shownBit = selectedBit ?? hoveredBit;
-  const [pixelSize, setPixelSize] = useState(MIN_SIZE);
+  const [pixelSize, setPixelSize] = useState(1);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
   const { events, isLoading } = useTimeline();
 
   // Clicking anywhere dismisses the legend (except the ? itself, which
-  // toggles it, and the +/- size buttons). Clicks outside a bit cell or the
+  // toggles it, and the size slider). Clicks outside a bit cell or the
   // info frame also dismiss the bit info.
   function handleBackgroundClick(e: React.MouseEvent) {
     const el = e.target as HTMLElement;
@@ -59,12 +56,7 @@ export function App() {
         <PixelDisplay
           size={pixelSize}
           showLegend={legendOpen}
-          onGrow={() => setPixelSize((s) => Math.min(s * 2, MAX_SIZE))}
-          onShrink={() => setPixelSize((s) => Math.max(Math.floor(s / 2), MIN_SIZE))}
-          onReset={() => setPixelSize(MIN_SIZE)}
-          canGrow={pixelSize < MAX_SIZE}
-          canShrink={pixelSize > MIN_SIZE}
-          showReset={pixelSize !== MIN_SIZE}
+          onSetSize={setPixelSize}
         />
 
         <BitStrip

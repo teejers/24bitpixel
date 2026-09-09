@@ -5,7 +5,7 @@ interface AboutProps {
   onClose: () => void;
 }
 
-/** Overlay panel toggled by the ABOUT link; clicking outside the frame closes it. */
+/** Overlay panel toggled by the ABOUT link; the X or clicking outside the frame closes it. */
 export function About({ onClose }: AboutProps) {
   return (
     <div
@@ -15,7 +15,11 @@ export function About({ onClose }: AboutProps) {
       }}
     >
       <section className="about">
-        <h2>About</h2>
+        <button className="about-close" onClick={onClose} aria-label="Close">
+          &times;
+        </button>
+        <div className="about-body">
+        <h2>24 bit pixel</h2>
         <p>
           A single pixel is represented as 24 bits stored on the Ethereum
           Blockchain.
@@ -60,6 +64,7 @@ export function About({ onClose }: AboutProps) {
             recorded history.
           </li>
         </ol>
+        </div>
       </section>
     </div>
   );

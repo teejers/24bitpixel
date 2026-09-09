@@ -386,7 +386,7 @@ input:focus {
   color: var(--ink);
 }
 
-/* The +/- size buttons: small squares 50px below the pixel */
+/* The pixel size slider, 50px below the pixel; RESET appears under it */
 
 .size-buttons {
   position: absolute;
@@ -396,35 +396,55 @@ input:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 34px;
 }
 
-.size-buttons .plus-minus {
-  display: flex;
-  gap: 10px;
+.size-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 260px;
+  height: 8px;
+  background: #ddd;
+  border: none;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
 }
 
-.size-buttons button {
-  border: 1px solid var(--ink);
-  background: var(--paper);
-  font-size: 12px;
-  line-height: 1;
-  text-align: center;
+.size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 26px;
+  background: var(--ink);
+  border: none;
+  border-radius: 0;
 }
 
-.size-buttons .plus-minus button {
-  width: 25px;
-  height: 25px;
+.size-slider::-moz-range-thumb {
+  width: 10px;
+  height: 26px;
+  background: var(--ink);
+  border: none;
+  border-radius: 0;
+}
+
+.size-slider::-moz-range-track {
+  height: 8px;
+  background: #ddd;
 }
 
 .size-buttons .size-reset {
-  height: 25px;
-  padding: 0 10px;
-  font-size: 9px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  height: 32px;
+  padding: 0 46px;
+  font-size: 10px;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.size-buttons button:hover:not(:disabled) {
+.size-buttons .size-reset:hover {
   background: var(--ink);
   color: var(--paper);
 }
@@ -604,20 +624,41 @@ input:focus {
   position: fixed;
   inset: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .about {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(640px, calc(100vw - 32px));
   max-height: calc(100vh - 96px);
-  overflow-y: auto;
   background: var(--paper);
   border: 1px solid var(--ink);
-  padding: 24px;
   line-height: 1.8;
+}
+
+/* Persistent close X in the frame's top-left corner; the body scrolls under it */
+.about-close {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  line-height: 1;
+  background: var(--paper);
+  text-align: center;
+}
+
+.about-body {
+  overflow-y: auto;
+  min-height: 0;
+  padding: 24px;
+  padding-top: 48px;
 }
 
 .about h2 {
@@ -684,5 +725,13 @@ input:focus {
     /* +1px so the popover's right border lands on the same pixel column
        as the 1px arrow line (left side gets this for free) */
     transform: translateX(calc(-100% + 1px));
+  }
+
+  /* About takes over the full screen; the X is the only way out */
+  .about {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    border: none;
   }
 }

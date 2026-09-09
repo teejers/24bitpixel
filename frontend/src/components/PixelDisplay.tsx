@@ -1,28 +1,18 @@
 import { usePixelColor } from "../hooks/usePixelColor";
 import { colorToHex } from "../utils/color";
 
+// Slider positions map to pixel sizes 2^0 .. 2^8 (1px .. 256px)
+const MIN_EXP = 0;
+const MAX_EXP = 8;
+
 interface PixelDisplayProps {
   size: number;
   showLegend: boolean;
-  onGrow: () => void;
-  onShrink: () => void;
-  onReset: () => void;
-  canGrow: boolean;
-  canShrink: boolean;
-  showReset: boolean;
+  onSetSize: (px: number) => void;
 }
 
 /** The pixel itself, centered on its stage. */
-export function PixelDisplay({
-  size,
-  showLegend,
-  onGrow,
-  onShrink,
-  onReset,
-  canGrow,
-  canShrink,
-  showReset,
-}: PixelDisplayProps) {
+export function PixelDisplay({ size, showLegend, onSetSize }: PixelDisplayProps) {
   const { data: color } = usePixelColor();
   const hex = colorToHex(Number(color ?? 0));
 
@@ -37,24 +27,21 @@ export function PixelDisplay({
         )}
         {showLegend && (
           <span className="size-buttons">
-            <span className="plus-minus">
+            <input
+              type="range"
+              className="size-slider"
+              min={MIN_EXP}
+              max={MAX_EXP}
+              step={1}
+              value={Math.round(Math.log2(size))}
+              onChange={(e) => onSetSize(2 ** Number(e.target.value))}
+              aria-label="Pixel size"
+            />
+            {size !== 2 ** MIN_EXP && (
               <button
-                onClick={onGrow}
-                disabled={!canGrow}
-                aria-label="Increase pixel size"
+                className="size-reset"
+                onClick={() => onSetSize(2 ** MIN_EXP)}
               >
-                +
-              </button>
-              <button
-                onClick={onShrink}
-                disabled={!canShrink}
-                aria-label="Decrease pixel size"
-              >
-                &minus;
-              </button>
-            </span>
-            {showReset && (
-              <button className="size-reset" onClick={onReset}>
                 Reset
               </button>
             )}
