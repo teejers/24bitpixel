@@ -578,6 +578,11 @@ input:focus {
   text-align: right;
 }
 
+/* The 24-bit value, sitting right of the swatch */
+.history .color-binary {
+  margin-left: 6px;
+}
+
 /* The pixel color at the time of each record: borderless 10px square */
 .history .color-swatch {
   display: inline-block;

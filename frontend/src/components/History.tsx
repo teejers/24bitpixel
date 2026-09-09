@@ -76,6 +76,9 @@ export function History({ events, isLoading }: HistoryProps) {
                     className="color-swatch"
                     style={{ background: colorToHex(colorAt.get(e) ?? 0) }}
                   />
+                  <span className="color-binary">
+                    {(colorAt.get(e) ?? 0).toString(2).padStart(24, "0")}
+                  </span>
                 </span>
                 <span>
                   <ExplorerLink value={e.transactionHash} kind="tx">
