@@ -135,6 +135,12 @@ input:focus {
   height: var(--cell);
   border: 1px solid var(--ink);
   border-left: none;
+}
+
+/* Cells share borders (no left) — the leftmost keeps its own, visible
+   when the cell is white (first-of-type: the callout span precedes it) */
+.bit-cell:first-of-type {
+  border-left: 1px solid var(--ink);
   background: var(--ink);
   padding: 0;
 }
