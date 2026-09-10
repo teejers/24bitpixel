@@ -231,7 +231,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: var(--paper);
 }
 
 .bit-actions button {
