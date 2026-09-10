@@ -46,14 +46,6 @@ export function PixelDisplay({
               onChange={(e) => onSetSize(2 ** Number(e.target.value))}
               aria-label="Pixel size"
             />
-            {size !== 2 ** MIN_EXP && (
-              <button
-                className="size-reset"
-                onClick={() => onSetSize(2 ** MIN_EXP)}
-              >
-                Reset
-              </button>
-            )}
           </span>
         )}
         <div

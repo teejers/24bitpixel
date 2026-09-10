@@ -16,12 +16,12 @@ export function App() {
   const [pixelSize, setPixelSize] = useState(1);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
-  // The PIXEL arrow greets the visitor on load, then fades out after 5s
+  // The PIXEL arrow greets the visitor on load, then fades out after 2s
   const [pixelHint, setPixelHint] = useState(true);
   const { events, isLoading } = useTimeline();
 
   useEffect(() => {
-    const t = setTimeout(() => setPixelHint(false), 5000);
+    const t = setTimeout(() => setPixelHint(false), 2000);
     return () => clearTimeout(t);
   }, []);
 

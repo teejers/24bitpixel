@@ -334,7 +334,7 @@ input:focus {
 }
 
 /* Pixel callout: above the pixel, pointing down at it. Shown on page
-   load (fades out after 5s) and whenever the legend is open. */
+   load (fades out after 2s) and whenever the legend is open. */
 
 .pixel-callout {
   position: absolute;
@@ -348,7 +348,7 @@ input:focus {
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
-  transition: opacity 1s;
+  transition: opacity 0.2s;
 }
 
 .pixel-callout.hidden {
@@ -425,7 +425,7 @@ input:focus {
   color: var(--ink);
 }
 
-/* The pixel size slider, 50px below the pixel; RESET appears under it */
+/* The pixel size slider, 50px below the pixel */
 
 .size-buttons {
   position: absolute;
@@ -435,7 +435,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 34px;
 }
 
 .size-slider {
@@ -478,20 +477,6 @@ input:focus {
   background: #ddd;
 }
 
-.size-buttons .size-reset {
-  border: 1px solid var(--ink);
-  background: var(--paper);
-  height: 32px;
-  padding: 0 46px;
-  font-size: 10px;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.size-buttons .size-reset:hover {
-  background: var(--ink);
-  color: var(--paper);
-}
 
 /* Arrow under the shown cell, pointing up at it */
 
