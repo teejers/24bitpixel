@@ -39,29 +39,30 @@ function formatGas(fee?: bigint): string {
 /** Everything that has ever happened to the pixel, newest first.
  *  A grid: columns size to their content, the leftover width becomes
  *  equal gaps between them. The RECORDS label is the first column. */
-/** The header freezes this far down the viewport while rows scroll on
- *  beneath it; scrolling back returns the table to its resting place. */
-const FREEZE_AT = 0.7;
+/** The header freezes this far below the bit strip's bottom edge while
+ *  rows scroll on beneath it; scrolling back returns the table to its
+ *  resting place. */
+const FREEZE_GAP = 20;
 /** Must match the .grid top padding in index.css (desktop and mobile). */
 const GRID_PAD_TOP = 8;
 
 export function History({ events, isLoading }: HistoryProps) {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // Feed the page scroll into --freeze: how far past the 70vh line the
-  // header's natural spot has risen. CSS translates the header (and its
-  // paper backdrop) down by this much and clips rows above it.
+  // Feed the page scroll into --freeze: how far past the freeze line
+  // (20px under the strip) the header's natural spot has risen. CSS
+  // translates the header (and its paper backdrop) down by this much
+  // and clips rows above it.
   useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
     const update = () => {
+      const strip = document.querySelector(".bit-strip");
+      if (!strip) return;
+      const target = strip.getBoundingClientRect().bottom + FREEZE_GAP;
       const off = Math.max(
         0,
-        Math.round(
-          window.innerHeight * FREEZE_AT -
-            grid.getBoundingClientRect().top -
-            GRID_PAD_TOP
-        )
+        Math.round(target - grid.getBoundingClientRect().top - GRID_PAD_TOP)
       );
       grid.style.setProperty("--freeze", `${off}px`);
     };
