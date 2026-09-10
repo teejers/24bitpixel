@@ -9,7 +9,9 @@ const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY ?? "";
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.24",
+    // Latest 0.8.x — clears all known-compiler-bug warnings on Etherscan
+    // (contract pragma is ^0.8.24, so no source change needed).
+    version: "0.8.37",
     settings: {
       optimizer: {
         enabled: true,
