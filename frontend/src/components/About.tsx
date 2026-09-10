@@ -1,4 +1,4 @@
-import { CONTRACT_ADDRESS } from "../constants";
+import { CONTRACT_ADDRESS, EXPLORER_URL } from "../constants";
 import { ExplorerLink } from "./ExplorerLink";
 
 interface AboutProps {
@@ -44,6 +44,21 @@ export function About({ onClose }: AboutProps) {
           <ExplorerLink value={CONTRACT_ADDRESS} kind="address">
             {CONTRACT_ADDRESS}
           </ExplorerLink>
+          {EXPLORER_URL && (
+            <>
+              {" "}
+              (
+              <a
+                href={`${EXPLORER_URL}/address/${CONTRACT_ADDRESS}#code`}
+                target="_blank"
+                rel="noreferrer"
+                className="explorer-link"
+              >
+                verified source code
+              </a>
+              )
+            </>
+          )}
         </p>
         <p>Rules :</p>
         <ol>
