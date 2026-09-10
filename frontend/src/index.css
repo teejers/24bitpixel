@@ -95,11 +95,11 @@ input:focus {
 
 /* The pixel + strip scene: sticky, so page scroll moves only the
    records; keeps its flow height, so the records' resting offset is
-   unchanged. z-index above the records so popovers overlay them. */
+   unchanged. Below the records, which cover it as they scroll up. */
 .scene {
   position: sticky;
   top: var(--bar-h);
-  z-index: 4;
+  z-index: 3;
   background: var(--paper);
 }
 
@@ -597,10 +597,13 @@ input:focus {
 .history {
   position: relative;
   width: 100%;
-  /* At least as tall as the window below the freeze line (70px under
-     the strip at 50vh + cell/2), so even a short table has enough
-     scroll travel for the header to reach and pin at the line */
-  min-height: calc(50vh - var(--cell) / 2 - 70px);
+  /* Above the sticky scene: the records cover the pixel + strip as
+     they scroll up (only the top bar stays above them) */
+  z-index: 4;
+  /* At least as tall as the window below the pin line (the top bar's
+     bottom edge), so even a short table has enough scroll travel for
+     the header to ride all the way up and pin under the bar */
+  min-height: calc(100vh - var(--bar-h) - 16px);
 }
 
 /* On windows narrower than the columns need, the whole thing pans
@@ -623,10 +626,12 @@ input:focus {
   padding: 8px 10vw 15px;
   text-transform: uppercase;
   position: relative;
+  /* Opaque, so the rows blot out the scene as they ride over it */
+  background: var(--paper);
   /* Rows vanish at the (translated) header's top edge; while --freeze
      is 0 this clips only the grid's own 8px top padding. History.tsx
-     drives --freeze from the page scroll: how far past the 70vh line
-     the header's natural spot has risen. */
+     drives --freeze from the page scroll: how far past the top bar's
+     bottom edge the header's natural spot has risen. */
   clip-path: inset(calc(var(--freeze, 0px) + 8px) 0 0 0);
 }
 
@@ -645,7 +650,8 @@ input:focus {
   line-height: 16px;
 }
 
-/* The header + rule hold at the 70vh line while rows scroll beneath */
+/* The header + rule hold just under the top bar while rows scroll
+   beneath */
 .history .grid > .th,
 .history .grid > .rule {
   transform: translateY(var(--freeze, 0px));
