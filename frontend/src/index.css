@@ -441,8 +441,8 @@ input:focus {
 .size-slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 260px;
-  height: 8px;
+  width: 150px;
+  height: 5px;
   background: #ddd;
   border: none;
   padding: 0;
@@ -450,26 +450,31 @@ input:focus {
   cursor: pointer;
 }
 
+.size-slider:focus,
+.size-slider:focus-visible {
+  outline: none;
+}
+
 .size-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 10px;
-  height: 26px;
+  width: 5px;
+  height: 25px;
   background: var(--ink);
   border: none;
   border-radius: 0;
 }
 
 .size-slider::-moz-range-thumb {
-  width: 10px;
-  height: 26px;
+  width: 5px;
+  height: 25px;
   background: var(--ink);
   border: none;
   border-radius: 0;
 }
 
 .size-slider::-moz-range-track {
-  height: 8px;
+  height: 5px;
   background: #ddd;
 }
 
