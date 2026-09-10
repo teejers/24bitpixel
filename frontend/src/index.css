@@ -628,11 +628,13 @@ input:focus {
   position: relative;
   /* Opaque, so the rows blot out the scene as they ride over it */
   background: var(--paper);
-  /* Rows vanish at the (translated) header's top edge; while --freeze
-     is 0 this clips only the grid's own 8px top padding. History.tsx
-     drives --freeze from the page scroll: how far past the top bar's
-     bottom edge the header's natural spot has risen. */
-  clip-path: inset(calc(var(--freeze, 0px) + 8px) 0 0 0);
+  /* Rows vanish 6px above the (translated) header's top edge — at the
+     top bar's bottom edge once pinned, so the 6px breathing room above
+     the header paints grid paper, not the scene. While --freeze is 0
+     this clips only part of the grid's 8px top padding. History.tsx
+     drives --freeze from the page scroll: how far past the pin line
+     (bar bottom + 6px) the header's natural spot has risen. */
+  clip-path: inset(calc(var(--freeze, 0px) + 2px) 0 0 0);
 }
 
 .history .grid > span {
@@ -658,15 +660,15 @@ input:focus {
   z-index: 2;
 }
 
-/* Opaque paper band riding with the frozen header, covering header top
-   through the rule (16px header + 6px gap + 1px line) so row text
-   never shows through the header */
+/* Opaque paper band riding with the frozen header, covering the 6px
+   gap above it through the rule (6px gap + 16px header + 6px gap +
+   1px line) so row text never shows through the header or its gaps */
 .history .grid > .head-cover {
   position: absolute;
-  top: 8px;
+  top: 2px;
   left: 0;
   right: 0;
-  height: 23px;
+  height: 29px;
   padding: 0;
   background: var(--paper);
   transform: translateY(var(--freeze, 0px));

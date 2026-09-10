@@ -41,6 +41,9 @@ function formatGas(fee?: bigint): string {
  *  equal gaps between them. The RECORDS label is the first column. */
 /** Must match the .grid top padding in index.css (desktop and mobile). */
 const GRID_PAD_TOP = 8;
+/** Breathing room between the top bar and the pinned header — matches
+ *  the 6px between the header and its rule below. */
+const HEADER_TOP_GAP = 6;
 
 export function History({ events, isLoading }: HistoryProps) {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -56,7 +59,7 @@ export function History({ events, isLoading }: HistoryProps) {
     const update = () => {
       const bar = document.querySelector(".topbar");
       if (!bar) return;
-      const target = bar.getBoundingClientRect().bottom;
+      const target = bar.getBoundingClientRect().bottom + HEADER_TOP_GAP;
       const off = Math.max(
         0,
         Math.round(target - grid.getBoundingClientRect().top - GRID_PAD_TOP)
