@@ -16,13 +16,19 @@ export function App() {
   const [pixelSize, setPixelSize] = useState(1);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
-  // The PIXEL arrow greets the visitor on load, then fades out after 2s
+  // The PIXEL arrow greets the visitor on load; it fades on the first
+  // mouse move, or after 2s if the mouse never moves
   const [pixelHint, setPixelHint] = useState(true);
   const { events, isLoading } = useTimeline();
 
   useEffect(() => {
-    const t = setTimeout(() => setPixelHint(false), 2000);
-    return () => clearTimeout(t);
+    const hide = () => setPixelHint(false);
+    const t = setTimeout(hide, 2000);
+    window.addEventListener("mousemove", hide, { once: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("mousemove", hide);
+    };
   }, []);
 
   // Clicking anywhere dismisses the legend (except the ? itself, which
