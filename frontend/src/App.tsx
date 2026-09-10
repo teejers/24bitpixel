@@ -17,7 +17,7 @@ export function App() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
   // The PIXEL and BITS callouts greet the visitor on load; they fade on
-  // the first mouse move, or after 2s if the mouse never moves
+  // the first mouse move or touch, or after 2s of no interaction
   const [pixelHint, setPixelHint] = useState(true);
   const { events, isLoading } = useTimeline();
 
@@ -25,9 +25,11 @@ export function App() {
     const hide = () => setPixelHint(false);
     const t = setTimeout(hide, 2000);
     window.addEventListener("mousemove", hide, { once: true });
+    window.addEventListener("touchstart", hide, { once: true });
     return () => {
       clearTimeout(t);
       window.removeEventListener("mousemove", hide);
+      window.removeEventListener("touchstart", hide);
     };
   }, []);
 
