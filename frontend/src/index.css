@@ -314,6 +314,12 @@ input:focus {
   gap: 8px;
   text-transform: uppercase;
   white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.callout.hidden {
+  opacity: 0;
 }
 
 .h-arrow {

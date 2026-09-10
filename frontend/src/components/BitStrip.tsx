@@ -15,6 +15,8 @@ interface BitStripProps {
   /** When true, each bit's contribution color overlays its cell,
    *  with bit numbers, owner and last-update labels above. */
   showLegend: boolean;
+  /** The on-load hint: BITS callout visible until first mouse move / 2s. */
+  showHint: boolean;
   events: TimelineEvent[];
 }
 
@@ -33,6 +35,7 @@ export function BitStrip({
   onSelectBit,
   onHoverBit,
   showLegend,
+  showHint,
   events,
 }: BitStripProps) {
   const { bits } = useBitStates();
@@ -81,12 +84,11 @@ export function BitStrip({
         className={`bit-strip${showLegend ? " legend-open" : ""}`}
         onMouseLeave={() => onHoverBit(null)}
       >
-        {showLegend && (
-          <span className="callout">
-            Bits
-            <span className="h-arrow" />
-          </span>
-        )}
+        {/* Stays mounted so the on-load hint can fade out via transition */}
+        <span className={`callout${showLegend || showHint ? "" : " hidden"}`}>
+          Bits
+          <span className="h-arrow" />
+        </span>
         {STRIP_ORDER.map((bitId) => {
           const on = bits?.[bitId]?.state ?? false;
           const owner = bits?.[bitId]?.owner;
