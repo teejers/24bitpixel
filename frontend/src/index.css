@@ -486,6 +486,8 @@ input:focus {
   background: var(--ink);
   border: none;
   border-radius: 0;
+  /* iOS Safari draws a default thumb shadow even with appearance: none */
+  box-shadow: none;
 }
 
 .size-slider::-moz-range-thumb {
@@ -494,6 +496,7 @@ input:focus {
   background: var(--ink);
   border: none;
   border-radius: 0;
+  box-shadow: none;
 }
 
 .size-slider::-moz-range-track {
@@ -799,8 +802,29 @@ input:focus {
     display: none;
   }
 
+  /* The bar can't fit title + ? + ABOUT + "WRONG NETWORK" at 13px on
+     phones (the ? lands on ABOUT) — tighter type and gaps make room */
+  .topbar {
+    font-size: 11px;
+    padding: 0 12px;
+  }
+
+  .topbar nav {
+    gap: 16px;
+  }
+
+  .topbar a,
+  .topbar button {
+    font-size: 11px;
+  }
+
   /* The vertical owner/updated label runs off-screen at 11px on phones */
   .bit-hover-info .meta {
+    font-size: 8px;
+  }
+
+  /* The selected bit's number matches the legend's 8px numbers */
+  .bit-hover-info .num {
     font-size: 8px;
   }
 
