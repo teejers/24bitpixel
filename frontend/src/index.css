@@ -628,13 +628,13 @@ input:focus {
   position: relative;
   /* Opaque, so the rows blot out the scene as they ride over it */
   background: var(--paper);
-  /* Rows vanish 6px above the (translated) header's top edge — at the
-     top bar's bottom edge once pinned, so the 6px breathing room above
-     the header paints grid paper, not the scene. While --freeze is 0
-     this clips only part of the grid's 8px top padding. History.tsx
-     drives --freeze from the page scroll: how far past the pin line
+  /* Rows vanish 7px above the (translated) header's top edge — at the
+     head-cover's top border, so the breathing room above the header
+     paints grid paper, not the scene. While --freeze is 0 this clips
+     only part of the grid's 8px top padding. History.tsx drives
+     --freeze from the page scroll: how far past the pin line
      (bar bottom + 6px) the header's natural spot has risen. */
-  clip-path: inset(calc(var(--freeze, 0px) + 2px) 0 0 0);
+  clip-path: inset(calc(var(--freeze, 0px) + 1px) 0 0 0);
 }
 
 .history .grid > span {
@@ -661,14 +661,17 @@ input:focus {
 }
 
 /* Opaque paper band riding with the frozen header, covering the 6px
-   gap above it through the rule (6px gap + 16px header + 6px gap +
-   1px line) so row text never shows through the header or its gaps */
+   gap above it through the rule (1px top border + 6px gap + 16px
+   header + 6px gap + 1px line) so row text never shows through the
+   header or its gaps. Its top border is the header's top rule,
+   mirroring the one below. */
 .history .grid > .head-cover {
   position: absolute;
-  top: 2px;
+  top: 1px;
   left: 0;
   right: 0;
-  height: 29px;
+  height: 31px;
+  border-top: 1px solid var(--ink);
   padding: 0;
   background: var(--paper);
   transform: translateY(var(--freeze, 0px));
@@ -794,6 +797,29 @@ input:focus {
   /* No room left of the strip on phones; the pixel callout still fits */
   .bit-strip .callout {
     display: none;
+  }
+
+  /* The vertical owner/updated label runs off-screen at 11px on phones */
+  .bit-hover-info .meta {
+    font-size: 8px;
+  }
+
+  /* Fatter grab target for the size slider on touch screens: the input
+     grows to thumb height (its box is the touch target) and the 5px
+     track is painted as a centered background band */
+  .size-slider {
+    height: 32px;
+    background: linear-gradient(#ddd, #ddd) 50% 50% / 100% 5px no-repeat;
+  }
+
+  .size-slider::-webkit-slider-thumb {
+    width: 14px;
+    height: 32px;
+  }
+
+  .size-slider::-moz-range-thumb {
+    width: 14px;
+    height: 32px;
   }
 
   /* Tighter side margins than the desktop 10vw */

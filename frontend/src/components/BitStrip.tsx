@@ -128,7 +128,7 @@ export function BitStrip({
           {shownOwner && (
             <span className="meta">
               Owner: {shownOwner.slice(0, 10)}
-              {shownMine ? " [you]" : ""} &middot; Last update:{" "}
+              {shownMine ? " [you]" : ""} &middot; Updated:{" "}
               {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
             </span>
           )}
