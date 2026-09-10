@@ -135,14 +135,14 @@ input:focus {
   height: var(--cell);
   border: 1px solid var(--ink);
   border-left: none;
+  background: var(--ink);
+  padding: 0;
 }
 
 /* Cells share borders (no left) — the leftmost keeps its own, visible
    when the cell is white (first-of-type: the callout span precedes it) */
 .bit-cell:first-of-type {
   border-left: 1px solid var(--ink);
-  background: var(--ink);
-  padding: 0;
 }
 
 /* Black dot 10px above each bit the connected wallet owns */
@@ -598,10 +598,10 @@ input:focus {
 .history {
   position: relative;
   width: 100%;
-  /* At least as tall as the window below the freeze line (20px under
+  /* At least as tall as the window below the freeze line (70px under
      the strip at 50vh + cell/2), so even a short table has enough
      scroll travel for the header to reach and pin at the line */
-  min-height: calc(50vh - var(--cell) / 2 - 20px);
+  min-height: calc(50vh - var(--cell) / 2 - 70px);
 }
 
 /* On windows narrower than the columns need, the whole thing pans

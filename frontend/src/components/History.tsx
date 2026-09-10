@@ -42,7 +42,7 @@ function formatGas(fee?: bigint): string {
 /** The header freezes this far below the bit strip's bottom edge while
  *  rows scroll on beneath it; scrolling back returns the table to its
  *  resting place. */
-const FREEZE_GAP = 20;
+const FREEZE_GAP = 70;
 /** Must match the .grid top padding in index.css (desktop and mobile). */
 const GRID_PAD_TOP = 8;
 
@@ -50,7 +50,7 @@ export function History({ events, isLoading }: HistoryProps) {
   const gridRef = useRef<HTMLDivElement>(null);
 
   // Feed the page scroll into --freeze: how far past the freeze line
-  // (20px under the strip) the header's natural spot has risen. CSS
+  // (70px under the strip) the header's natural spot has risen. CSS
   // translates the header (and its paper backdrop) down by this much
   // and clips rows above it.
   useEffect(() => {
