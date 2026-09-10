@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { formatEther } from "viem";
 import { type TimelineEvent, eventActor, eventPrice } from "../utils/timeline";
 import { colorToHex } from "../utils/color";
@@ -39,7 +39,41 @@ function formatGas(fee?: bigint): string {
 /** Everything that has ever happened to the pixel, newest first.
  *  A grid: columns size to their content, the leftover width becomes
  *  equal gaps between them. The RECORDS label is the first column. */
+/** The header freezes this far down the viewport while rows scroll on
+ *  beneath it; scrolling back returns the table to its resting place. */
+const FREEZE_AT = 0.7;
+/** Must match the .grid top padding in index.css (desktop and mobile). */
+const GRID_PAD_TOP = 8;
+
 export function History({ events, isLoading }: HistoryProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Feed the page scroll into --freeze: how far past the 70vh line the
+  // header's natural spot has risen. CSS translates the header (and its
+  // paper backdrop) down by this much and clips rows above it.
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const update = () => {
+      const off = Math.max(
+        0,
+        Math.round(
+          window.innerHeight * FREEZE_AT -
+            grid.getBoundingClientRect().top -
+            GRID_PAD_TOP
+        )
+      );
+      grid.style.setProperty("--freeze", `${off}px`);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   const sorted = [...events].sort((a, b) =>
     a.blockNumber === b.blockNumber ? 0 : a.blockNumber > b.blockNumber ? -1 : 1
   );
@@ -57,7 +91,10 @@ export function History({ events, isLoading }: HistoryProps) {
   return (
     <div className="history">
       <div className="frame">
-        <div className="grid">
+        <div className="grid" ref={gridRef}>
+          {/* Absolutely positioned (skips grid placement): the paper band
+              behind the frozen header that rows disappear under */}
+          <span className="head-cover" />
           <span className="th color-col">Color</span>
           <span className="th">Timestamp</span>
           <span className="th">Event</span>

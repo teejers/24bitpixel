@@ -61,7 +61,10 @@ input:focus {
 /* --- Top bar --- */
 
 .topbar {
-  position: relative;
+  /* Stays put while the records scroll; above the sticky scene */
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,6 +91,16 @@ input:focus {
 .topbar button:hover {
   background: var(--paper);
   color: var(--ink);
+}
+
+/* The pixel + strip scene: sticky, so page scroll moves only the
+   records; keeps its flow height, so the records' resting offset is
+   unchanged. z-index above the records so popovers overlay them. */
+.scene {
+  position: sticky;
+  top: var(--bar-h);
+  z-index: 4;
+  background: var(--paper);
 }
 
 /* --- Stage: the pixel --- */
@@ -600,6 +613,12 @@ input:focus {
   min-width: max-content;
   padding: 8px 10vw 15px;
   text-transform: uppercase;
+  position: relative;
+  /* Rows vanish at the (translated) header's top edge; while --freeze
+     is 0 this clips only the grid's own 8px top padding. History.tsx
+     drives --freeze from the page scroll: how far past the 70vh line
+     the header's natural spot has risen. */
+  clip-path: inset(calc(var(--freeze, 0px) + 8px) 0 0 0);
 }
 
 .history .grid > span {
@@ -609,9 +628,34 @@ input:focus {
 }
 
 /* Header cells: flush, the rule's own margin provides the gap
-   (child selectors out-rank the > span rule) */
+   (child selectors out-rank the > span rule). Height is pinned so the
+   head-cover band below can match it exactly. */
 .history .grid > .th {
   padding: 0;
+  height: 16px;
+  line-height: 16px;
+}
+
+/* The header + rule hold at the 70vh line while rows scroll beneath */
+.history .grid > .th,
+.history .grid > .rule {
+  transform: translateY(var(--freeze, 0px));
+  z-index: 2;
+}
+
+/* Opaque paper band riding with the frozen header, covering header top
+   through the rule (16px header + 6px gap + 1px line) so row text
+   never shows through the header */
+.history .grid > .head-cover {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 23px;
+  padding: 0;
+  background: var(--paper);
+  transform: translateY(var(--freeze, 0px));
+  z-index: 1;
 }
 
 /* The black line under the header row runs edge to edge, escaping the

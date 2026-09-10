@@ -68,22 +68,26 @@ export function App() {
       </header>
 
       <main>
-        <PixelDisplay
-          size={pixelSize}
-          showLegend={legendOpen}
-          showPixelHint={pixelHint}
-          onSetSize={setPixelSize}
-        />
+        {/* Sticky: scrolling slides only the records up over the page,
+            while the pixel and strip hold their place */}
+        <div className="scene">
+          <PixelDisplay
+            size={pixelSize}
+            showLegend={legendOpen}
+            showPixelHint={pixelHint}
+            onSetSize={setPixelSize}
+          />
 
-        <BitStrip
-          selectedBit={selectedBit}
-          shownBit={shownBit}
-          onSelectBit={setSelectedBit}
-          onHoverBit={setHoveredBit}
-          showLegend={legendOpen}
-          showHint={pixelHint}
-          events={events}
-        />
+          <BitStrip
+            selectedBit={selectedBit}
+            shownBit={shownBit}
+            onSelectBit={setSelectedBit}
+            onHoverBit={setHoveredBit}
+            showLegend={legendOpen}
+            showHint={pixelHint}
+            events={events}
+          />
+        </div>
 
         <div className="lower">
           <div className="history-center">
