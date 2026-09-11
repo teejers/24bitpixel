@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
@@ -90,6 +91,15 @@ export function BitActions({ bitId }: BitActionsProps) {
     parsed > 0;
 
   const busy = txs.some((tx) => tx.isPending || tx.isConfirming);
+
+  // A confirmed tx just changed on-chain state; refetch the reads (bit
+  // states, pixel color) right away instead of waiting out the 12s poll —
+  // otherwise "complete" shows before the bit visibly changes.
+  const queryClient = useQueryClient();
+  const confirmedCount = txs.filter((tx) => tx.isSuccess).length;
+  useEffect(() => {
+    if (confirmedCount > 0) queryClient.invalidateQueries();
+  }, [confirmedCount, queryClient]);
 
   // A request the wallet never showed (a mobile-wallet relay drop) leaves
   // isPending stuck forever and the buttons dead. After 8s waiting on the
