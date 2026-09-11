@@ -828,6 +828,14 @@ input:focus {
     font-size: 8px;
   }
 
+  /* The 8px type shrinks the number row, so the raised owner dot's
+     desktop offset lands on the OWNER text — re-center it in the gap
+     between the number and the label */
+  .bit-strip.legend-open .own-dot,
+  .bit-cell.shown .own-dot {
+    bottom: calc(100% + 19px);
+  }
+
   /* Fatter grab target for the size slider on touch screens: the input
      grows to thumb height (its box is the touch target) and the 5px
      track is painted as a centered background band */
