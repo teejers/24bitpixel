@@ -19,7 +19,7 @@ export function About({ onClose }: AboutProps) {
           &times;
         </button>
         <div className="about-body">
-        <h2>24 bit pixel by CW&amp;T</h2>
+        <h2>24 bit pixel</h2>
         <p>
           There&rsquo;s something uniquely satisfying about anchoring a thing
           you don&rsquo;t understand into a framing you do. In doing this, you
