@@ -742,11 +742,11 @@ input:focus {
   line-height: 1.8;
 }
 
-/* Persistent close X in the frame's top-left corner; the body scrolls under it */
+/* Persistent close X in the frame's top-right corner; the body scrolls under it */
 .about-close {
   position: absolute;
   top: 6px;
-  left: 6px;
+  right: 6px;
   z-index: 1;
   width: 30px;
   height: 30px;
