@@ -4,6 +4,7 @@ import "dotenv/config";
 
 // Deploy config comes from contracts/.env (gitignored) — see .env.example.
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL ?? "";
+const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL ?? "";
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY ?? "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY ?? "";
 
@@ -26,6 +27,10 @@ const config: HardhatUserConfig = {
     },
     sepolia: {
       url: SEPOLIA_RPC_URL,
+      accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
+    },
+    mainnet: {
+      url: MAINNET_RPC_URL,
       accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
     },
   },
