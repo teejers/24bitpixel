@@ -34,6 +34,7 @@ export function About({ onClose }: AboutProps) {
           people so excited. When I finally saw it as a really bad, really
           slow computer, I got excited too.
         </p>
+        <p>I happen to love really bad, really slow computers.</p>
         <p>
           24 bit pixel is a single pixel represented as 24 bits stored on
           the Ethereum Blockchain.
@@ -41,8 +42,9 @@ export function About({ onClose }: AboutProps) {
         <p>
           The pixel&rsquo;s color is a 24-bit RGB value. 8 bits for red, 8 for
           green and 8 for blue. Each bit is a token anyone can own. Only the
-          owner can toggle the bit&rsquo;s value to 1(ON/WHITE) or 0(OFF/BLACK),
-          altering the color of the single pixel, and set its sale price.
+          owner can toggle the bit&rsquo;s value to 1 (ON/WHITE) or
+          0 (OFF/BLACK), altering the color of the single pixel. The owner
+          also sets the bit&rsquo;s sale price.
         </p>
         <p>
           All bits are equal, but in relation to the pixel, some bits are
