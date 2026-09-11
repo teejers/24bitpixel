@@ -3,7 +3,7 @@ import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants";
 import { chain } from "../wagmi";
 
 export function useToggleBit() {
-  const { writeContract, data: hash, isPending, error } = useWriteContract();
+  const { writeContract, data: hash, isPending, error, reset } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
@@ -20,5 +20,5 @@ export function useToggleBit() {
     });
   }
 
-  return { toggle, isPending, isConfirming, isSuccess, error, hash };
+  return { toggle, isPending, isConfirming, isSuccess, error, hash, reset };
 }

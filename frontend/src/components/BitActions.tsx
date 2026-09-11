@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useBitStates } from "../hooks/useBitStates";
 import { useToggleBit } from "../hooks/useToggleBit";
 import { useSetPrice } from "../hooks/useSetPrice";
 import { useBuyBit } from "../hooks/useBuyBit";
+import { chain } from "../wagmi";
 
 interface BitActionsProps {
   bitId: number;
@@ -60,8 +61,9 @@ function TxMessageLine({ msg }: { msg: TxMessage | null }) {
  *  buy for bits you don't own; toggle + price controls for your own. Each
  *  button reports its own tx directly beneath itself. */
 export function BitActions({ bitId }: BitActionsProps) {
-  const { address } = useAccount();
+  const { address, chain: walletChain } = useAccount();
   const { openConnectModal } = useConnectModal();
+  const { openChainModal } = useChainModal();
   const { bits } = useBitStates();
   const toggleTx = useToggleBit();
   const priceTx = useSetPrice();
@@ -89,6 +91,20 @@ export function BitActions({ bitId }: BitActionsProps) {
 
   const busy = txs.some((tx) => tx.isPending || tx.isConfirming);
 
+  // A request the wallet never showed (a mobile-wallet relay drop) leaves
+  // isPending stuck forever and the buttons dead. After 8s waiting on the
+  // wallet, offer a cancel that resets the hooks so the user can retry.
+  const awaitingWallet = txs.some((tx) => tx.isPending);
+  const [walletSlow, setWalletSlow] = useState(false);
+  useEffect(() => {
+    if (!awaitingWallet) {
+      setWalletSlow(false);
+      return;
+    }
+    const t = setTimeout(() => setWalletSlow(true), 8000);
+    return () => clearTimeout(t);
+  }, [awaitingWallet]);
+
   // Complete and error messages stay up until the next click anywhere.
   const [dismissed, setDismissed] = useState<ReadonlySet<unknown>>(new Set());
   const dismissables = txs.flatMap((tx) => [
@@ -112,6 +128,12 @@ export function BitActions({ bitId }: BitActionsProps) {
     <div className="bit-actions">
       {!address ? (
         <button onClick={openConnectModal}>Login to buy or toggle</button>
+      ) : walletChain?.id !== chain.id ? (
+        /* Wrong network: switching is its own visible step here. Baking the
+           switch into a buy/toggle request loses it on mobile wallets. */
+        <button onClick={openChainModal}>
+          Switch wallet to {chain.name}
+        </button>
       ) : isOwner ? (
         <>
           {/* A just-finished purchase flips this panel to the owner view;
@@ -149,6 +171,14 @@ export function BitActions({ bitId }: BitActionsProps) {
             Buy bit {String(bitId).padStart(2, "0")} for {priceEth} ETH
           </button>
           <TxMessageLine msg={buyMsg} />
+        </>
+      )}
+      {awaitingWallet && walletSlow && (
+        <>
+          <p className="status">No prompt in your wallet?</p>
+          <button onClick={() => txs.forEach((tx) => tx.reset())}>
+            Cancel and retry
+          </button>
         </>
       )}
     </div>

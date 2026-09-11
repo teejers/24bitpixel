@@ -4,7 +4,7 @@ import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants";
 import { chain } from "../wagmi";
 
 export function useBuyBit() {
-  const { writeContract, data: hash, isPending, error } = useWriteContract();
+  const { writeContract, data: hash, isPending, error, reset } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
@@ -21,5 +21,5 @@ export function useBuyBit() {
     });
   }
 
-  return { buy, isPending, isConfirming, isSuccess, error, hash };
+  return { buy, isPending, isConfirming, isSuccess, error, hash, reset };
 }
