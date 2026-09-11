@@ -1,6 +1,7 @@
 import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { parseEther } from "viem";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants";
+import { chain } from "../wagmi";
 
 export function useSetPrice() {
   const { writeContract, data: hash, isPending, error } = useWriteContract();
@@ -13,6 +14,9 @@ export function useSetPrice() {
       abi: CONTRACT_ABI,
       functionName: "setPrice",
       args: [BigInt(bitId), parseEther(priceEth)],
+      // See useToggleBit: pins the chain so wallets switch instead of
+      // silently dropping the request.
+      chainId: chain.id,
     });
   }
 

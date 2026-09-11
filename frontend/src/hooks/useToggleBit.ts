@@ -1,5 +1,6 @@
 import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants";
+import { chain } from "../wagmi";
 
 export function useToggleBit() {
   const { writeContract, data: hash, isPending, error } = useWriteContract();
@@ -12,6 +13,10 @@ export function useToggleBit() {
       abi: CONTRACT_ABI,
       functionName: "toggleBit",
       args: [BigInt(bitId)],
+      // Pin the target chain: wagmi prompts a network switch first if the
+      // wallet is elsewhere. Without this, MetaMask mobile silently drops
+      // requests aimed at a chain its session isn't on.
+      chainId: chain.id,
     });
   }
 
