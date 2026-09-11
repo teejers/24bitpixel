@@ -35,8 +35,8 @@ export function About({ onClose }: AboutProps) {
           slow computer, I got excited too.
         </p>
         <p>
-          A single pixel is represented as 24 bits stored on the Ethereum
-          Blockchain.
+          24 bit pixel is a single pixel represented as 24 bits stored on
+          the Ethereum Blockchain.
         </p>
         <p>
           The pixel&rsquo;s color is a 24-bit RGB value. 8 bits for red, 8 for
