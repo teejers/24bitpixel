@@ -594,7 +594,7 @@ input:focus {
      puts the grid top at 100vh - 77px (8px pad + header ~19 + rule gap
      ~6 + 1.5 rows of ~29px). The max() keeps at least the 240px the
      arrow + bit-actions popover needs so it never overlaps the table. */
-  padding: max(240px, calc(50vh - var(--cell) / 2 - 74px)) 0 24px;
+  padding: max(240px, calc(50vh - var(--cell) / 2 - 74px)) 0 0;
 }
 
 .history {
@@ -603,6 +603,9 @@ input:focus {
   /* Above the sticky scene: the records cover the pixel + strip as
      they scroll up (only the top bar stays above them) */
   z-index: 4;
+  /* Paper down to the page bottom even when the table is short — the
+     min-height filler below the last row must not show the scene */
+  background: var(--paper);
   /* At least as tall as the window below the pin line (the top bar's
      bottom edge), so even a short table has enough scroll travel for
      the header to ride all the way up and pin under the bar */
