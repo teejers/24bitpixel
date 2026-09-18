@@ -90,6 +90,18 @@ export function About({ onClose }: AboutProps) {
             recorded history.
           </li>
         </ol>
+        <p>
+          This is a project by{" "}
+          <a
+            href="https://cwandt.com"
+            target="_blank"
+            rel="noreferrer"
+            className="explorer-link"
+          >
+            CW&amp;T
+          </a>
+          .
+        </p>
         </div>
       </section>
     </div>

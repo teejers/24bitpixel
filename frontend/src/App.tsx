@@ -53,7 +53,7 @@ export function App() {
   return (
     <div className="app" onClick={handleBackgroundClick}>
       <header className="topbar">
-        <span>CW&amp;T 24 bit pixel</span>
+        <span>24 bit pixel</span>
         <button
           className={`legend-toggle${legendOpen ? " active" : ""}`}
           onClick={() => setLegendOpen((open) => !open)}
