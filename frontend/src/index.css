@@ -201,10 +201,19 @@ input:focus {
   text-transform: uppercase;
 }
 
+/* Two columns of vertical text reading up from the bit: price on the
+   left, owner and last update on the right. Side by side rather than one
+   run of text so the label can't grow past the top of the window. */
 .bit-hover-info .meta {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.bit-hover-info .meta > span {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-size: 11px;
   white-space: nowrap;
 }
 

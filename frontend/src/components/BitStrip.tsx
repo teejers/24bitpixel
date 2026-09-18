@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useAccount } from "wagmi";
+import { formatEther } from "viem";
 import { useBitStates } from "../hooks/useBitStates";
 import { bitContributionColor } from "../utils/color";
 import { type TimelineEvent } from "../utils/timeline";
@@ -61,6 +62,7 @@ export function BitStrip({
     `calc(var(--cell) * ${STRIP_ORDER.indexOf(bitId)} + var(--cell) / 2)`;
 
   const shownOwner = shownBit !== null ? bits?.[shownBit]?.owner : undefined;
+  const shownPrice = shownBit !== null ? bits?.[shownBit]?.price : undefined;
   const shownMine =
     !!address &&
     !!shownOwner &&
@@ -127,9 +129,17 @@ export function BitStrip({
         >
           {shownOwner && (
             <span className="meta">
-              Owner: {shownOwner.slice(0, 10)}
-              {shownMine ? " [you]" : ""} &middot; Updated:{" "}
-              {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
+              <span>
+                Price:{" "}
+                {shownPrice !== undefined
+                  ? `${formatEther(shownPrice)} ETH`
+                  : "—"}
+              </span>
+              <span>
+                Owner: {shownOwner.slice(0, 10)}
+                {shownMine ? " [you]" : ""} &middot; Updated:{" "}
+                {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
+              </span>
             </span>
           )}
           {/* the legend's own number row already labels every bit */}
