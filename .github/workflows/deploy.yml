@@ -1,0 +1,104 @@
+# Builds the mainnet frontend and copies it to the DreamHost account that
+# serves 24bitpixel.com. Runs on every push to master, and can be started
+# by hand from the Actions tab (Run workflow) for a redeploy.
+#
+# Repository secrets it reads (Settings > Secrets and variables > Actions):
+#   VITE_WALLETCONNECT_ID  WalletConnect/Reown project id (public, but a secret keeps it out of the repo)
+#   VITE_RPC_URL           mainnet RPC endpoint; must allow eth_getLogs over the full range since deploy
+#   DEPLOY_HOST            DreamHost server, e.g. iad1-shared-xxxx.dreamhost.com
+#   DEPLOY_USER            the shell user the domain belongs to
+#   DEPLOY_PATH            the domain's web directory, e.g. /home/<user>/24bitpixel.com/
+#   DEPLOY_SSH_KEY         private half of a key pair whose public half is on that DreamHost user
+#   DEPLOY_KNOWN_HOSTS     optional; the server's host key. Without it the key is trusted on first sight.
+#
+# The build runs whether or not those are set, so this doubles as a check on
+# every push; the upload is skipped until the deploy secrets exist.
+
+name: Build and deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build:production
+        env:
+          VITE_CHAIN: mainnet
+          VITE_RPC_URL: ${{ secrets.VITE_RPC_URL }}
+          VITE_WALLETCONNECT_ID: ${{ secrets.VITE_WALLETCONNECT_ID }}
+
+      # A build with no wallet id still compiles but ships the placeholder
+      # project id, which breaks WalletConnect — refuse to upload that.
+      - name: Check deploy configuration
+        id: cfg
+        env:
+          WALLETCONNECT_ID: ${{ secrets.VITE_WALLETCONNECT_ID }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USERNAME: ${{ secrets.DEPLOY_USER }}
+          TARGET: ${{ secrets.DEPLOY_PATH }}
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          missing=
+          for name in WALLETCONNECT_ID HOST USERNAME TARGET KEY; do
+            [ -n "${!name}" ] || missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Upload skipped — no value for:$missing. Set the matching repository secrets to turn deploys on."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload to DreamHost
+        if: steps.cfg.outputs.ready == 'true'
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ -n "$DEPLOY_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          fi
+          chmod 600 ~/.ssh/known_hosts
+          # No --delete: index.html and og.png are overwritten in place and
+          # the hashed bundles are new files, so nothing on the server needs
+          # removing, and a wrong DEPLOY_PATH can't erase anything.
+          rsync -rlptz --checksum \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"
+
+      - name: Forget the deploy key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
