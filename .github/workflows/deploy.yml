@@ -1,28 +1,35 @@
-# Builds the mainnet frontend and copies it to the DreamHost account that
-# serves 24bitpixel.com. Runs on every push to master, and can be started
-# by hand from the Actions tab (Run workflow) for a redeploy.
+# Builds the frontend and copies it to the DreamHost account that serves
+# each site: 24bitpixel.com (mainnet) and test.24bitpixel.com (Sepolia).
+# Runs on every push to master, on a schedule (to refresh the history
+# snapshot baked into the build — see frontend/scripts/snapshot-history.ts),
+# and by hand from the Actions tab (Run workflow).
 #
 # Repository secrets it reads (Settings > Secrets and variables > Actions):
 #   VITE_WALLETCONNECT_ID  WalletConnect/Reown project id (public, but a secret keeps it out of the repo)
-#   VITE_RPC_URL           mainnet RPC endpoint; must allow eth_getLogs over the full range since deploy
-#   DEPLOY_HOST            DreamHost server, e.g. iad1-shared-xxxx.dreamhost.com
-#   DEPLOY_USER            the shell user the domain belongs to
-#   DEPLOY_PATH            the domain's web directory, e.g. /home/<user>/24bitpixel.com/
-#   DEPLOY_SSH_KEY         private half of a key pair whose public half is on that DreamHost user
+#   VITE_RPC_URL           optional; your own RPC endpoint(s), comma-separated, tried before the public ones
+#   DEPLOY_HOST            DreamHost server, e.g. vps12345.dreamhostps.com
+#   DEPLOY_SSH_KEY         private half of a key pair whose public half is on both DreamHost users
 #   DEPLOY_KNOWN_HOSTS     optional; the server's host key. Without it the key is trusted on first sight.
+#   DEPLOY_USER            shell user that owns 24bitpixel.com
+#   DEPLOY_PATH            its web directory, e.g. /home/<user>/24bitpixel.com/
+#   DEPLOY_USER_STAGING    shell user that owns test.24bitpixel.com
+#   DEPLOY_PATH_STAGING    its web directory
 #
 # The build runs whether or not those are set, so this doubles as a check on
-# every push; the upload is skipped until the deploy secrets exist.
+# every push; a site's upload is skipped until its secrets exist.
 
 name: Build and deploy
 
 on:
   push:
     branches: [master]
+  schedule:
+    # Every 6 hours: rebuild so the baked-in history snapshot stays fresh.
+    - cron: "23 */6 * * *"
   workflow_dispatch:
 
 concurrency:
-  group: deploy-production
+  group: deploy
   cancel-in-progress: false
 
 defaults:
@@ -31,7 +38,22 @@ defaults:
 
 jobs:
   deploy:
+    name: ${{ matrix.site }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - site: production
+            chain: mainnet
+            build: build:production
+            user_secret: DEPLOY_USER
+            path_secret: DEPLOY_PATH
+          - site: staging
+            chain: sepolia
+            build: build:staging
+            user_secret: DEPLOY_USER_STAGING
+            path_secret: DEPLOY_PATH_STAGING
     steps:
       - uses: actions/checkout@v5
 
@@ -44,10 +66,12 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Also refreshes src/data/history.<chain>.json from the chain first;
+      # if no RPC will serve it, the committed snapshot is used as-is.
       - name: Build
-        run: npm run build:production
+        run: npm run ${{ matrix.build }}
         env:
-          VITE_CHAIN: mainnet
+          VITE_CHAIN: ${{ matrix.chain }}
           VITE_RPC_URL: ${{ secrets.VITE_RPC_URL }}
           VITE_WALLETCONNECT_ID: ${{ secrets.VITE_WALLETCONNECT_ID }}
 
@@ -58,8 +82,8 @@ jobs:
         env:
           WALLETCONNECT_ID: ${{ secrets.VITE_WALLETCONNECT_ID }}
           HOST: ${{ secrets.DEPLOY_HOST }}
-          USERNAME: ${{ secrets.DEPLOY_USER }}
-          TARGET: ${{ secrets.DEPLOY_PATH }}
+          USERNAME: ${{ secrets[matrix.user_secret] }}
+          TARGET: ${{ secrets[matrix.path_secret] }}
           KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
           missing=
@@ -68,7 +92,7 @@ jobs:
           done
           if [ -n "$missing" ]; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Upload skipped — no value for:$missing. Set the matching repository secrets to turn deploys on."
+            echo "::notice::${{ matrix.site }} upload skipped — no value for:$missing. Set the matching repository secrets to turn deploys on."
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
@@ -77,8 +101,8 @@ jobs:
         if: steps.cfg.outputs.ready == 'true'
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_USER: ${{ secrets[matrix.user_secret] }}
+          DEPLOY_PATH: ${{ secrets[matrix.path_secret] }}
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
         run: |

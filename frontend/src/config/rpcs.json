@@ -1,0 +1,15 @@
+{
+  "_comment": "Public JSON-RPC endpoints tried in order; a request that fails on one moves to the next. Every free endpoint caps eth_getLogs somehow (PublicNode: only the last ~10k blocks on mainnet; drpc/mevblocker: 10k-block ranges), so history is fetched in chunks small enough for all of them.",
+  "hardhat": ["http://127.0.0.1:8545"],
+  "sepolia": [
+    "https://ethereum-sepolia-rpc.publicnode.com",
+    "https://gateway.tenderly.co/public/sepolia",
+    "https://sepolia.drpc.org"
+  ],
+  "mainnet": [
+    "https://ethereum.publicnode.com",
+    "https://gateway.tenderly.co/public/mainnet",
+    "https://rpc.mevblocker.io",
+    "https://eth.drpc.org"
+  ]
+}

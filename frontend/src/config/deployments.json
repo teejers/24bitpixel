@@ -1,0 +1,20 @@
+{
+  "hardhat": {
+    "chainId": 31337,
+    "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "deployBlock": 0,
+    "explorer": null
+  },
+  "sepolia": {
+    "chainId": 11155111,
+    "address": "0x23C82346aF7E0aF1aE2f285eDf6Fe1160CCB600A",
+    "deployBlock": 11669484,
+    "explorer": "https://sepolia.etherscan.io"
+  },
+  "mainnet": {
+    "chainId": 1,
+    "address": "0x23C82346aF7E0aF1aE2f285eDf6Fe1160CCB600A",
+    "deployBlock": 25998892,
+    "explorer": "https://etherscan.io"
+  }
+}

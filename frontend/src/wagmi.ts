@@ -1,6 +1,7 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { http } from "wagmi";
+import { fallback, http } from "wagmi";
 import { hardhat, mainnet, sepolia } from "wagmi/chains";
+import { rpcUrlsFor, type ChainName } from "./utils/rpc";
 
 /**
  * Each build of the site talks to exactly ONE chain, chosen at build time:
@@ -11,20 +12,24 @@ import { hardhat, mainnet, sepolia } from "wagmi/chains";
  */
 const CHAINS = { hardhat, sepolia, mainnet } as const;
 
-const chainName = (import.meta.env.VITE_CHAIN ?? "hardhat") as keyof typeof CHAINS;
-export const chain = CHAINS[chainName] ?? hardhat;
+const requested = import.meta.env.VITE_CHAIN ?? "hardhat";
+export const chainName: ChainName =
+  requested in CHAINS ? (requested as ChainName) : "hardhat";
+export const chain = CHAINS[chainName];
 
-// Dedicated RPC endpoint (Alchemy/Infura). Falls back to the chain's public
-// RPC, which is fine for dev but rate-limited in production.
-const rpcUrl =
-  import.meta.env.VITE_RPC_URL ??
-  (chain.id === hardhat.id ? "http://127.0.0.1:8545" : undefined);
+// Reads go through a chain of endpoints (config/rpcs.json): when one
+// refuses or fails a request, the next is tried. VITE_RPC_URL, if set,
+// is a comma-separated list tried ahead of the public ones.
+const urls = rpcUrlsFor(chainName, import.meta.env.VITE_RPC_URL);
 
 export const config = getDefaultConfig({
   appName: "24 Bit Pixel",
   projectId: import.meta.env.VITE_WALLETCONNECT_ID ?? "YOUR_WALLETCONNECT_PROJECT_ID",
   chains: [chain],
   transports: {
-    [chain.id]: http(rpcUrl),
+    [chain.id]: fallback(
+      urls.map((url) => http(url, { retryCount: 1 })),
+      { retryCount: 0 }
+    ),
   },
 });

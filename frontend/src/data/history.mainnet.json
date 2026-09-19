@@ -1,0 +1,1492 @@
+{
+  "chainId": 1,
+  "address": "0x23C82346aF7E0aF1aE2f285eDf6Fe1160CCB600A",
+  "toBlock": "26011731",
+  "takenAt": "2026-09-19T13:08:59.255Z",
+  "events": [
+    {
+      "type": "BitToggled",
+      "bitId": 15,
+      "blockNumber": "25999434",
+      "logIndex": 55,
+      "transactionHash": "0x8218df057f8a9304f287bf536a76eb902ca332e00eda7a5ce47e0eb5e5657e94",
+      "color": 32768,
+      "timestamp": "1789674875",
+      "gasFee": "316385022857688",
+      "args": {
+        "bitId": "15",
+        "toggler": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newState": true,
+        "newColor": 32768,
+        "timestamp": "1789674875"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 6,
+      "blockNumber": "25999528",
+      "logIndex": 68,
+      "transactionHash": "0x05f70e2d445fb1edb06f4db0099faa5692470db6b9bb2832b98c835dc92918ed",
+      "timestamp": "1789676003",
+      "gasFee": "474370819851264",
+      "args": {
+        "bitId": "6",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789676003"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 6,
+      "blockNumber": "25999530",
+      "logIndex": 79,
+      "transactionHash": "0x04ac391f5caa5974f69f2ead212e6471a745a38b38da4c69d24f23477695bd5d",
+      "color": 32832,
+      "timestamp": "1789676027",
+      "gasFee": "253695630440128",
+      "args": {
+        "bitId": "6",
+        "toggler": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "newState": true,
+        "newColor": 32832,
+        "timestamp": "1789676027"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 16,
+      "blockNumber": "26001207",
+      "logIndex": 208,
+      "transactionHash": "0x4442aa410da747bb4f3f4f68e7d837bf8de4592934d946ad8a91671188c00b41",
+      "timestamp": "1789696283",
+      "gasFee": "468465594591830",
+      "args": {
+        "bitId": "16",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789696283"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 16,
+      "blockNumber": "26001211",
+      "logIndex": 184,
+      "transactionHash": "0xd91798f1f40843d861a144cf8c5029c20fffe12551896f3b210535431af67c8d",
+      "color": 98368,
+      "timestamp": "1789696331",
+      "gasFee": "262198813594848",
+      "args": {
+        "bitId": "16",
+        "toggler": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "newState": true,
+        "newColor": 98368,
+        "timestamp": "1789696331"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 16,
+      "blockNumber": "26001213",
+      "logIndex": 549,
+      "transactionHash": "0xb57f92d1964c39d57c7cb9f03c96046e382b3c73f8a51a36da866bf2bfb0c41f",
+      "timestamp": "1789696355",
+      "gasFee": "260762062184246",
+      "args": {
+        "bitId": "16",
+        "owner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789696355"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 6,
+      "blockNumber": "26001215",
+      "logIndex": 249,
+      "transactionHash": "0xc792f9a9f3a8c01ebe4465b47fc6bd4c2a55f06859d94fd56011ea5cb797317a",
+      "timestamp": "1789696379",
+      "gasFee": "261499224208475",
+      "args": {
+        "bitId": "6",
+        "owner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "oldPrice": "10000000000000000",
+        "newPrice": "3000000000000000000",
+        "timestamp": "1789696379"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 9,
+      "blockNumber": "26001231",
+      "logIndex": 338,
+      "transactionHash": "0x39328d4b3f1cf1714b1366f3caec6971692c1c486ddc41f2669f458ea7d5a00f",
+      "timestamp": "1789696571",
+      "gasFee": "455354264407622",
+      "args": {
+        "bitId": "9",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789696571"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 23,
+      "blockNumber": "26001240",
+      "logIndex": 240,
+      "transactionHash": "0xf11c3cfd4a7e8fbf2dd22df4439f119648f0b9e3e9390cdfe697e3441396b46b",
+      "color": 8486976,
+      "timestamp": "1789696679",
+      "gasFee": "251985601941752",
+      "args": {
+        "bitId": "23",
+        "toggler": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newState": true,
+        "newColor": 8486976,
+        "timestamp": "1789696679"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 15,
+      "blockNumber": "26001252",
+      "logIndex": 289,
+      "transactionHash": "0xc6541f30667394364aa34027eb3b5c4cf70db283a23869ecde908b5cbf103631",
+      "color": 8454208,
+      "timestamp": "1789696823",
+      "gasFee": "251796220960856",
+      "args": {
+        "bitId": "15",
+        "toggler": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newState": false,
+        "newColor": 8454208,
+        "timestamp": "1789696823"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 22,
+      "blockNumber": "26001254",
+      "logIndex": 458,
+      "transactionHash": "0x1b8b4dd2177c380c1b0291041e6ada9a70838148bd66730b70f71d44f71e23be",
+      "color": 12648512,
+      "timestamp": "1789696847",
+      "gasFee": "251657794285016",
+      "args": {
+        "bitId": "22",
+        "toggler": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newState": true,
+        "newColor": 12648512,
+        "timestamp": "1789696847"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 21,
+      "blockNumber": "26001255",
+      "logIndex": 101,
+      "transactionHash": "0x72eee489c4b4a9cd67ab62ac27c0dd75f9bcb0a5027301ea9f15064e60af11bc",
+      "color": 14745664,
+      "timestamp": "1789696859",
+      "gasFee": "251668241838328",
+      "args": {
+        "bitId": "21",
+        "toggler": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newState": true,
+        "newColor": 14745664,
+        "timestamp": "1789696859"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 18,
+      "blockNumber": "26001258",
+      "logIndex": 152,
+      "transactionHash": "0x879d51432b2514876c659b7449ea00add99a61a221e8af09762dc3c9095f2d1d",
+      "color": 15007808,
+      "timestamp": "1789696895",
+      "gasFee": "251087944859544",
+      "args": {
+        "bitId": "18",
+        "toggler": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newState": true,
+        "newColor": 15007808,
+        "timestamp": "1789696895"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 9,
+      "blockNumber": "26001469",
+      "logIndex": 181,
+      "transactionHash": "0x82ae7106b6faa08101d0f02f4c0cf5ed9d72be862acc7e70e72e88ed474de26a",
+      "timestamp": "1789699427",
+      "gasFee": "248563112234580",
+      "args": {
+        "bitId": "9",
+        "owner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "oldPrice": "10000000000000000",
+        "newPrice": "2000000000000000000",
+        "timestamp": "1789699427"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 23,
+      "blockNumber": "26004492",
+      "logIndex": 910,
+      "transactionHash": "0xe1f2398917559421c3c50d7f1a441fb7a0edc4bc67c653762862d5f8396a4174",
+      "timestamp": "1789735787",
+      "gasFee": "17033169532011",
+      "args": {
+        "bitId": "23",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x7086536AC63324449C643C9a6441DE09Ff617f3C",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789735787"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 23,
+      "blockNumber": "26004495",
+      "logIndex": 883,
+      "transactionHash": "0xd49111175bf096cfeca02f0dac3026f50b61e4e803a57d2934eecc62ec43cae6",
+      "timestamp": "1789735823",
+      "gasFee": "5804188417786",
+      "args": {
+        "bitId": "23",
+        "owner": "0x7086536AC63324449C643C9a6441DE09Ff617f3C",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789735823"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 23,
+      "blockNumber": "26004503",
+      "logIndex": 663,
+      "transactionHash": "0x0a08afd245db18ade9c7633ef36af66d9dbd40119dcea015ece978daa17bbaab",
+      "color": 6619200,
+      "timestamp": "1789735919",
+      "gasFee": "5464762648660",
+      "args": {
+        "bitId": "23",
+        "toggler": "0x7086536AC63324449C643C9a6441DE09Ff617f3C",
+        "newState": false,
+        "newColor": 6619200,
+        "timestamp": "1789735919"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 0,
+      "blockNumber": "26004504",
+      "logIndex": 424,
+      "transactionHash": "0xd19c02d25405337d0e0433015fde48539c6aa7c2a621096ea751afb71f1a9665",
+      "timestamp": "1789735931",
+      "gasFee": "15304773378510",
+      "args": {
+        "bitId": "0",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x2457CeEAD67d1cB6A91EED3632c79A9063fc98b9",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789735931"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 0,
+      "blockNumber": "26004506",
+      "logIndex": 747,
+      "transactionHash": "0xfd0af3f17391ad9978609948ef72c942c7e53409b4b54e4db8f496120b944b46",
+      "timestamp": "1789735955",
+      "gasFee": "5332473322772",
+      "args": {
+        "bitId": "0",
+        "owner": "0x2457CeEAD67d1cB6A91EED3632c79A9063fc98b9",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789735955"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 0,
+      "blockNumber": "26004527",
+      "logIndex": 643,
+      "transactionHash": "0x03ccf8e2fbbc699e662e8c01333d116ed56d724d879d445605b9d066a711a120",
+      "color": 6619201,
+      "timestamp": "1789736207",
+      "gasFee": "4824715686104",
+      "args": {
+        "bitId": "0",
+        "toggler": "0x2457CeEAD67d1cB6A91EED3632c79A9063fc98b9",
+        "newState": true,
+        "newColor": 6619201,
+        "timestamp": "1789736207"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 13,
+      "blockNumber": "26004920",
+      "logIndex": 311,
+      "transactionHash": "0x44d0027bec3199d37750e5579e9d9be69f696950f063f2d52c6cf693e5d6a2cf",
+      "timestamp": "1789740947",
+      "gasFee": "294768741657696",
+      "args": {
+        "bitId": "13",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789740947"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 13,
+      "blockNumber": "26004929",
+      "logIndex": 187,
+      "transactionHash": "0x954e683f77ad9a712203a0e900d9b22dbeb8c20679d58f379ac381ea379fae25",
+      "timestamp": "1789741055",
+      "gasFee": "107726533220532",
+      "args": {
+        "bitId": "13",
+        "owner": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789741055"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 1,
+      "blockNumber": "26004929",
+      "logIndex": 215,
+      "transactionHash": "0xd1b25ce3da732bcb16e4155eacf0671623385560522913c9e225923ecee2e51e",
+      "timestamp": "1789741055",
+      "gasFee": "208258299359268",
+      "args": {
+        "bitId": "1",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789741055"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 2,
+      "blockNumber": "26004934",
+      "logIndex": 582,
+      "transactionHash": "0x240d1dbe8d59b4425724edaa42f866bf6425c6bf9ed808b0582294cbaf38539e",
+      "timestamp": "1789741115",
+      "gasFee": "165736527760671",
+      "args": {
+        "bitId": "2",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789741115"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 13,
+      "blockNumber": "26004936",
+      "logIndex": 399,
+      "transactionHash": "0x75fa1874e60600ff09cee0888af28398d4125f276333f0dae7c2c78e1ada81ca",
+      "color": 6627393,
+      "timestamp": "1789741139",
+      "gasFee": "101804213618130",
+      "args": {
+        "bitId": "13",
+        "toggler": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "newState": true,
+        "newColor": 6627393,
+        "timestamp": "1789741139"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 13,
+      "blockNumber": "26004938",
+      "logIndex": 794,
+      "transactionHash": "0xdc5d491e34f9d770a9127216b4c0dbc4c55028bdddf6133a471431e76d738d54",
+      "color": 6619201,
+      "timestamp": "1789741163",
+      "gasFee": "102240987505880",
+      "args": {
+        "bitId": "13",
+        "toggler": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "newState": false,
+        "newColor": 6619201,
+        "timestamp": "1789741163"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 7,
+      "blockNumber": "26004959",
+      "logIndex": 627,
+      "transactionHash": "0xdb16317e1b3cba6ec34f81b89cca1d578b9bc31f33d673240779f169a080c228",
+      "timestamp": "1789741415",
+      "gasFee": "125241273547509",
+      "args": {
+        "bitId": "7",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789741415"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 7,
+      "blockNumber": "26004961",
+      "logIndex": 526,
+      "transactionHash": "0x0ada34834311a05f078789cc402f3c0fffbb35e20ce89ee67b959a3bf2b13350",
+      "timestamp": "1789741439",
+      "gasFee": "56905070871587",
+      "args": {
+        "bitId": "7",
+        "owner": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789741439"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 13,
+      "blockNumber": "26004964",
+      "logIndex": 283,
+      "transactionHash": "0xb6a5bfd111d7932feefa72c7f46168df5f3b39c3ced20264950b81200ae718d9",
+      "color": 6627393,
+      "timestamp": "1789741475",
+      "gasFee": "59146941487710",
+      "args": {
+        "bitId": "13",
+        "toggler": "0xcC1506B4F36670302317B2616C141C637E6eEa0F",
+        "newState": true,
+        "newColor": 6627393,
+        "timestamp": "1789741475"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 3,
+      "blockNumber": "26005174",
+      "logIndex": 128,
+      "transactionHash": "0x60690d1750907103c4f1379ef43547f149556aa844f8699187d79524bf02444e",
+      "timestamp": "1789743995",
+      "gasFee": "137051041540290",
+      "args": {
+        "bitId": "3",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789743995"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 1,
+      "blockNumber": "26005178",
+      "logIndex": 881,
+      "transactionHash": "0x341098067d78d7b172e98cc83e12ecaf93e5ab280b5c0e57a992615fa08dc2f6",
+      "color": 6627395,
+      "timestamp": "1789744043",
+      "gasFee": "59994061547790",
+      "args": {
+        "bitId": "1",
+        "toggler": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "newState": true,
+        "newColor": 6627395,
+        "timestamp": "1789744043"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 3,
+      "blockNumber": "26005325",
+      "logIndex": 519,
+      "transactionHash": "0x739b609a1d30ae032715310f09612739a4ca29ef4f1dbc8c8b70890e7e782766",
+      "timestamp": "1789745807",
+      "gasFee": "279832633425976",
+      "args": {
+        "bitId": "3",
+        "previousOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "newOwner": "0x4d44764E509fe153C80FF90D403b391AEfA23e5f",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789745807"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 3,
+      "blockNumber": "26005327",
+      "logIndex": 417,
+      "transactionHash": "0xd3d1bde411edad9c7fcb3a7300449fc20818b5462211f07fb73ff154bfd49f38",
+      "timestamp": "1789745831",
+      "gasFee": "99631635419265",
+      "args": {
+        "bitId": "3",
+        "owner": "0x4d44764E509fe153C80FF90D403b391AEfA23e5f",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789745831"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 3,
+      "blockNumber": "26005329",
+      "logIndex": 338,
+      "transactionHash": "0x2a4e66312d5268be66ec36de7c84387ad36a6cc213d2fb92a00da19bd4ae4578",
+      "color": 6627403,
+      "timestamp": "1789745855",
+      "gasFee": "98583700651860",
+      "args": {
+        "bitId": "3",
+        "toggler": "0x4d44764E509fe153C80FF90D403b391AEfA23e5f",
+        "newState": true,
+        "newColor": 6627403,
+        "timestamp": "1789745855"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 21,
+      "blockNumber": "26005416",
+      "logIndex": 208,
+      "transactionHash": "0x495f3715f37c87c24d717cac10a70517d987820b2eef58536f212e89cacd6c8f",
+      "timestamp": "1789746911",
+      "gasFee": "622828432516902",
+      "args": {
+        "bitId": "21",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x1e1C35778F07119A4d58613849F0754eE453b6f4",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789746911"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 21,
+      "blockNumber": "26005419",
+      "logIndex": 124,
+      "transactionHash": "0x6db3ddacaff86935e65aafdd4981d844701913cb50fa54b0525c83139dbe8659",
+      "timestamp": "1789746947",
+      "gasFee": "87898175805066",
+      "args": {
+        "bitId": "21",
+        "owner": "0x1e1C35778F07119A4d58613849F0754eE453b6f4",
+        "oldPrice": "10000000000000000",
+        "newPrice": "250000000000000000",
+        "timestamp": "1789746947"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 21,
+      "blockNumber": "26005423",
+      "logIndex": 223,
+      "transactionHash": "0x064baa6cacfc0f5e0dbc738ece234e0b008ff69c59d1cd3657c34c4be2942b32",
+      "color": 4530251,
+      "timestamp": "1789746995",
+      "gasFee": "86287006863840",
+      "args": {
+        "bitId": "21",
+        "toggler": "0x1e1C35778F07119A4d58613849F0754eE453b6f4",
+        "newState": false,
+        "newColor": 4530251,
+        "timestamp": "1789746995"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 1,
+      "blockNumber": "26005458",
+      "logIndex": 576,
+      "transactionHash": "0x86d93019219c7c99b5ff094d0874b9e2595892b7b45376b79ece03a9e7e78461",
+      "timestamp": "1789747415",
+      "gasFee": "70214393474366",
+      "args": {
+        "bitId": "1",
+        "previousOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "newOwner": "0x85682339995631A29732B482631334B19bbA8B64",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789747415"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 1,
+      "blockNumber": "26005460",
+      "logIndex": 256,
+      "transactionHash": "0xc2d63e043e31a94ee87908dd6f6e2322dda07ffc45359f085a43d59bd22982e6",
+      "timestamp": "1789747439",
+      "gasFee": "22949564822056",
+      "args": {
+        "bitId": "1",
+        "owner": "0x85682339995631A29732B482631334B19bbA8B64",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1000000000000000000",
+        "timestamp": "1789747439"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 21,
+      "blockNumber": "26005745",
+      "logIndex": 131,
+      "transactionHash": "0x114a2fcf78d4dcf870a4cf9d3c8fe111399e53630200fc5cbb8ed5455b1b5e68",
+      "color": 6627403,
+      "timestamp": "1789750871",
+      "gasFee": "76337136081900",
+      "args": {
+        "bitId": "21",
+        "toggler": "0x1e1C35778F07119A4d58613849F0754eE453b6f4",
+        "newState": true,
+        "newColor": 6627403,
+        "timestamp": "1789750871"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 21,
+      "blockNumber": "26005888",
+      "logIndex": 406,
+      "transactionHash": "0x23b51cde96366036032c458d5d171ac505c45f54ee24b9b6e6c4ff2978daf6fa",
+      "timestamp": "1789752587",
+      "gasFee": "77362684521388",
+      "args": {
+        "bitId": "21",
+        "owner": "0x1e1C35778F07119A4d58613849F0754eE453b6f4",
+        "oldPrice": "250000000000000000",
+        "newPrice": "125000000000000000000",
+        "timestamp": "1789752587"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 5,
+      "blockNumber": "26005939",
+      "logIndex": 366,
+      "transactionHash": "0xb964979ad6b5fa58e29d9b1611949641f89f0119ab3a3fe5ed28d7945e63128a",
+      "timestamp": "1789753199",
+      "gasFee": "205083608323698",
+      "args": {
+        "bitId": "5",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789753199"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 5,
+      "blockNumber": "26005943",
+      "logIndex": 72,
+      "transactionHash": "0xd9d3af34879fead0c5a29ee5a93f1714501198c1422261ce00e1deae02f2f08f",
+      "timestamp": "1789753247",
+      "gasFee": "75172125127238",
+      "args": {
+        "bitId": "5",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "5000000000000000000",
+        "timestamp": "1789753247"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 5,
+      "blockNumber": "26005944",
+      "logIndex": 27,
+      "transactionHash": "0x1b051d6beeabee5eff09ee5328c7766210304a2328c92501daa8096a0dfe7da3",
+      "timestamp": "1789753259",
+      "gasFee": "68195968301799",
+      "args": {
+        "bitId": "5",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "5000000000000000000",
+        "newPrice": "5000000000000000000",
+        "timestamp": "1789753259"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 5,
+      "blockNumber": "26005955",
+      "logIndex": 228,
+      "transactionHash": "0xec33595f0531d2480b4389242540e6ca1bd535a18ad898129487a7450c843bd9",
+      "color": 6627435,
+      "timestamp": "1789753391",
+      "gasFee": "72656603109880",
+      "args": {
+        "bitId": "5",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 6627435,
+        "timestamp": "1789753391"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 4,
+      "blockNumber": "26005962",
+      "logIndex": 124,
+      "transactionHash": "0x196bb37cdc4d119a90f520e98346d9b954babaf86ef01d531978800bc32a93d9",
+      "timestamp": "1789753475",
+      "gasFee": "159547154444613",
+      "args": {
+        "bitId": "4",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789753475"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 4,
+      "blockNumber": "26005963",
+      "logIndex": 389,
+      "transactionHash": "0x0cbf1ef7379422f5ea4ea7a6f29c4928784e6762fa92988f3a21ec63675a346e",
+      "color": 6627451,
+      "timestamp": "1789753487",
+      "gasFee": "72265542522430",
+      "args": {
+        "bitId": "4",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 6627451,
+        "timestamp": "1789753487"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 4,
+      "blockNumber": "26005966",
+      "logIndex": 825,
+      "transactionHash": "0x90a2cf5d108f81e32ab28c4c27130c41de9554ff4c9a3b8d5449bb10bda67411",
+      "timestamp": "1789753523",
+      "gasFee": "72894466679087",
+      "args": {
+        "bitId": "4",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "4000000000000000000",
+        "timestamp": "1789753523"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 2,
+      "blockNumber": "26005979",
+      "logIndex": 32,
+      "transactionHash": "0xb1f5e85cf5cb91f9ffd618b04f6ace5e6c2508b300a53d357a63782346f82307",
+      "timestamp": "1789753679",
+      "gasFee": "157312722231998",
+      "args": {
+        "bitId": "2",
+        "previousOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789753679"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 2,
+      "blockNumber": "26005981",
+      "logIndex": 342,
+      "transactionHash": "0x0de2302d8541fc1d728962d96e82bfbc8a90adc574cedc747af47bf2948ad552",
+      "timestamp": "1789753703",
+      "gasFee": "74105218421030",
+      "args": {
+        "bitId": "2",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "2000000000000000000",
+        "timestamp": "1789753703"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 2,
+      "blockNumber": "26005982",
+      "logIndex": 320,
+      "transactionHash": "0xbfec0af89ea884eadaf06c247db745f92856072cfdf28edddbb6f03710368c86",
+      "color": 6627455,
+      "timestamp": "1789753715",
+      "gasFee": "72847820160520",
+      "args": {
+        "bitId": "2",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 6627455,
+        "timestamp": "1789753715"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 14,
+      "blockNumber": "26005996",
+      "logIndex": 89,
+      "transactionHash": "0x48b196d5723e86d2b88bfb4ac6c7cd663f2fcbb21d922772adaf1fd4928cd80f",
+      "timestamp": "1789753883",
+      "gasFee": "165631603878711",
+      "args": {
+        "bitId": "14",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789753883"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 14,
+      "blockNumber": "26005998",
+      "logIndex": 248,
+      "transactionHash": "0xae77aad79967a04237de65d22d739831c5645b9a549e2e2eb80eae7347619bf2",
+      "timestamp": "1789753907",
+      "gasFee": "75129111966326",
+      "args": {
+        "bitId": "14",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "14000000000000000000",
+        "timestamp": "1789753907"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 14,
+      "blockNumber": "26005999",
+      "logIndex": 291,
+      "transactionHash": "0xe6a2c9ff866b740e210409a281ac7dc1996e3bb74b93874e2e7862eff06108a3",
+      "color": 6643839,
+      "timestamp": "1789753919",
+      "gasFee": "75105476417630",
+      "args": {
+        "bitId": "14",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 6643839,
+        "timestamp": "1789753919"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 10,
+      "blockNumber": "26006065",
+      "logIndex": 164,
+      "transactionHash": "0x26459d742ba7168ddd67da00e8bb166d9d99532e70e28a4ec59d0f16ef07d537",
+      "timestamp": "1789754711",
+      "gasFee": "161641117463088",
+      "args": {
+        "bitId": "10",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789754711"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 10,
+      "blockNumber": "26006067",
+      "logIndex": 113,
+      "transactionHash": "0x6a7e43b25d9f67fbf9c4788b2b0e368136e2c9ef4c937a3c102071f7579eeb00",
+      "timestamp": "1789754735",
+      "gasFee": "73730591943735",
+      "args": {
+        "bitId": "10",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "10000000000000000000",
+        "timestamp": "1789754735"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 10,
+      "blockNumber": "26006069",
+      "logIndex": 216,
+      "transactionHash": "0xb2b41ed4647fb5f302a6df76de7878d737df951d8692c77013180ce6661d390d",
+      "color": 6644863,
+      "timestamp": "1789754759",
+      "gasFee": "72344345549110",
+      "args": {
+        "bitId": "10",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 6644863,
+        "timestamp": "1789754759"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 22,
+      "blockNumber": "26006072",
+      "logIndex": 38,
+      "transactionHash": "0xb3f9628ab38d95d6b0131a69df9eda0487db49e5d14710462e0a78e00577e084",
+      "timestamp": "1789754795",
+      "gasFee": "161158768025355",
+      "args": {
+        "bitId": "22",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789754795"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 22,
+      "blockNumber": "26006074",
+      "logIndex": 308,
+      "transactionHash": "0xad9438772ae7262e06b392735fcf1cd14be554fbf43a99adf08fc29b55b95a75",
+      "timestamp": "1789754819",
+      "gasFee": "72684177163335",
+      "args": {
+        "bitId": "22",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "2000000000000000000",
+        "timestamp": "1789754819"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 20,
+      "blockNumber": "26006076",
+      "logIndex": 365,
+      "transactionHash": "0x31538c409b7ffadaeede8ffc11ebf262dbc68324fddb02d1a10f6c54dc8d47d8",
+      "timestamp": "1789754843",
+      "gasFee": "161516533232340",
+      "args": {
+        "bitId": "20",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789754843"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 20,
+      "blockNumber": "26006077",
+      "logIndex": 489,
+      "transactionHash": "0x0186e9cbb3005dac8ae0fe29bbadbd277c8ed34caadf515c22e9885bfdd7ca97",
+      "timestamp": "1789754855",
+      "gasFee": "73339801728249",
+      "args": {
+        "bitId": "20",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "2000000000000000000",
+        "timestamp": "1789754855"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 20,
+      "blockNumber": "26006079",
+      "logIndex": 399,
+      "transactionHash": "0x889808e3043d1e9a6fa54a4a0c0298a0d88569e519272f36dcd56b8a785d697a",
+      "color": 7693439,
+      "timestamp": "1789754879",
+      "gasFee": "72938976744670",
+      "args": {
+        "bitId": "20",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 7693439,
+        "timestamp": "1789754879"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 4,
+      "blockNumber": "26006096",
+      "logIndex": 444,
+      "transactionHash": "0x9e5775ed0831c01a0556f15e5e0f6a745c9956422b9384e6e352dcfe8f208700",
+      "color": 7693423,
+      "timestamp": "1789755083",
+      "gasFee": "73964105219770",
+      "args": {
+        "bitId": "4",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": false,
+        "newColor": 7693423,
+        "timestamp": "1789755083"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 5,
+      "blockNumber": "26006098",
+      "logIndex": 309,
+      "transactionHash": "0x074b40bd83165c8271551f220f46bdb52772970857d23929ea5468ec1ee96fe2",
+      "color": 7693391,
+      "timestamp": "1789755107",
+      "gasFee": "73023867258600",
+      "args": {
+        "bitId": "5",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": false,
+        "newColor": 7693391,
+        "timestamp": "1789755107"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 22,
+      "blockNumber": "26006100",
+      "logIndex": 448,
+      "transactionHash": "0xbb30700d0fec9811f53efe1b4053b105bf8eaa0ed4e47d1b857730746600671d",
+      "color": 3499087,
+      "timestamp": "1789755131",
+      "gasFee": "74012641638210",
+      "args": {
+        "bitId": "22",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": false,
+        "newColor": 3499087,
+        "timestamp": "1789755131"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 15,
+      "blockNumber": "26006108",
+      "logIndex": 376,
+      "transactionHash": "0xb7dd1c48609bdb0eee553a25ce8db8af57d88a281206f9efaf4356e493319386",
+      "timestamp": "1789755227",
+      "gasFee": "166582683144963",
+      "args": {
+        "bitId": "15",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789755227"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 15,
+      "blockNumber": "26006111",
+      "logIndex": 519,
+      "transactionHash": "0xc92aa7b8e19e65b4aeaa39f89431ce958e359e888f0df9a02647517adc1deb8c",
+      "timestamp": "1789755263",
+      "gasFee": "76559005301624",
+      "args": {
+        "bitId": "15",
+        "owner": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "oldPrice": "10000000000000000",
+        "newPrice": "15000000000000000000",
+        "timestamp": "1789755263"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 15,
+      "blockNumber": "26006114",
+      "logIndex": 448,
+      "transactionHash": "0xc8820a20be36a229c1000070789883fd1442229a3b9f26fcd1972dbfafd9a831",
+      "color": 3531855,
+      "timestamp": "1789755299",
+      "gasFee": "74110003065920",
+      "args": {
+        "bitId": "15",
+        "toggler": "0x0f43769698B0B7B93032532F3Ee8e18dDACaD22A",
+        "newState": true,
+        "newColor": 3531855,
+        "timestamp": "1789755299"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 8,
+      "blockNumber": "26006371",
+      "logIndex": 828,
+      "transactionHash": "0x7805e2395a78e9c56fbfbd4e0f6e8046183b3453c1230b1284b00f17a9a8a764",
+      "timestamp": "1789758383",
+      "gasFee": "25240516395378",
+      "args": {
+        "bitId": "8",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789758383"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 8,
+      "blockNumber": "26006401",
+      "logIndex": 1520,
+      "transactionHash": "0x990d4713b19bbb6a1baf63e9847ddf00ef48be60053fce93074ddafbc7499596",
+      "timestamp": "1789758743",
+      "gasFee": "9530288984972",
+      "args": {
+        "bitId": "8",
+        "owner": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "oldPrice": "10000000000000000",
+        "newPrice": "8000000000000000000",
+        "timestamp": "1789758743"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 8,
+      "blockNumber": "26006413",
+      "logIndex": 294,
+      "transactionHash": "0x690133d7e3ba0b616a7c2e2d166f616743a1acd85b54b7f202cd7a04f947e260",
+      "timestamp": "1789758899",
+      "gasFee": "8559417452703",
+      "args": {
+        "bitId": "8",
+        "owner": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "oldPrice": "8000000000000000000",
+        "newPrice": "8000000000000000000",
+        "timestamp": "1789758899"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 8,
+      "blockNumber": "26006413",
+      "logIndex": 295,
+      "transactionHash": "0x4c366c12e90080efc4b7801471d1598e4a9363199d54d6325be552810771429f",
+      "color": 3532111,
+      "timestamp": "1789758899",
+      "gasFee": "9286734802610",
+      "args": {
+        "bitId": "8",
+        "toggler": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "newState": true,
+        "newColor": 3532111,
+        "timestamp": "1789758899"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 8,
+      "blockNumber": "26006413",
+      "logIndex": 296,
+      "transactionHash": "0xe4b22fadb8d0c2cfea790ac4f8223e69ad972ad991abe31863a4dba3f016693f",
+      "color": 3531855,
+      "timestamp": "1789758899",
+      "gasFee": "9227729907380",
+      "args": {
+        "bitId": "8",
+        "toggler": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "newState": false,
+        "newColor": 3531855,
+        "timestamp": "1789758899"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 11,
+      "blockNumber": "26006424",
+      "logIndex": 74,
+      "transactionHash": "0x2d7792079e955ef8a2ec476e2c66a9cd84fd1554b6e3ce94ef3c4e3100b75b19",
+      "timestamp": "1789759031",
+      "gasFee": "202949545327278",
+      "args": {
+        "bitId": "11",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0x5EaaD6456F5101E75Dce10e762BeCaba2755Efc7",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789759031"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 11,
+      "blockNumber": "26006429",
+      "logIndex": 189,
+      "transactionHash": "0x7227769d936bf181c863a65415c636d34c7a06109b3b4f61b79072af90319091",
+      "timestamp": "1789759091",
+      "gasFee": "11273204670502",
+      "args": {
+        "bitId": "11",
+        "owner": "0x5EaaD6456F5101E75Dce10e762BeCaba2755Efc7",
+        "oldPrice": "10000000000000000",
+        "newPrice": "1100000000000000000",
+        "timestamp": "1789759091"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 8,
+      "blockNumber": "26006458",
+      "logIndex": 568,
+      "transactionHash": "0x364fa1f0a61400f96e5f374aeb5c27bbba39d1617f2c4cb633607cc7d39d07d7",
+      "color": 3532111,
+      "timestamp": "1789759439",
+      "gasFee": "10924063210070",
+      "args": {
+        "bitId": "8",
+        "toggler": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "newState": true,
+        "newColor": 3532111,
+        "timestamp": "1789759439"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 18,
+      "blockNumber": "26006683",
+      "logIndex": 602,
+      "transactionHash": "0x728e1c3e4ea2e88203b6c0c69ea014df6540ffff1c66579631d74782ee3cd7ac",
+      "timestamp": "1789762139",
+      "gasFee": "68347373277141",
+      "args": {
+        "bitId": "18",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789762139"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 18,
+      "blockNumber": "26006685",
+      "logIndex": 324,
+      "transactionHash": "0xcba824b85fece187eb5685ba1afcd377a65a056a7e0898bb8bee430c1beddce8",
+      "timestamp": "1789762163",
+      "gasFee": "25091298409584",
+      "args": {
+        "bitId": "18",
+        "owner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "oldPrice": "10000000000000000",
+        "newPrice": "250000000000000000",
+        "timestamp": "1789762163"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 19,
+      "blockNumber": "26006689",
+      "logIndex": 1077,
+      "transactionHash": "0xe82e1c0e3b522c08ece70362b04d7d16374c581bb6b5b83a189e406ca8a1041f",
+      "timestamp": "1789762211",
+      "gasFee": "53150288760177",
+      "args": {
+        "bitId": "19",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789762211"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 19,
+      "blockNumber": "26006690",
+      "logIndex": 652,
+      "transactionHash": "0x79dbd11068dd423cb2d972315d1ca9e60abf95c492434b33822f9288a6cb6368",
+      "timestamp": "1789762223",
+      "gasFee": "24859707723392",
+      "args": {
+        "bitId": "19",
+        "owner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "oldPrice": "10000000000000000",
+        "newPrice": "250000000000000000",
+        "timestamp": "1789762223"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 17,
+      "blockNumber": "26006693",
+      "logIndex": 351,
+      "transactionHash": "0xfbe38111a0cfb14857e5c733efd82eb3b20636048be1943ead28178e89130f7b",
+      "timestamp": "1789762259",
+      "gasFee": "55134129469746",
+      "args": {
+        "bitId": "17",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789762259"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 17,
+      "blockNumber": "26006694",
+      "logIndex": 414,
+      "transactionHash": "0x2eec3fe56d224408cb400b20a5e9cac7aa48aee1a73ad0188047cdfa581bcb9c",
+      "timestamp": "1789762271",
+      "gasFee": "25185645892421",
+      "args": {
+        "bitId": "17",
+        "owner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "oldPrice": "10000000000000000",
+        "newPrice": "250000000000000000",
+        "timestamp": "1789762271"
+      }
+    },
+    {
+      "type": "BitBought",
+      "bitId": 12,
+      "blockNumber": "26006697",
+      "logIndex": 502,
+      "transactionHash": "0x853f0d02a5da90c987edbb4bbc9c9f3bdadffc3301310431309d572ab0e198da",
+      "timestamp": "1789762307",
+      "gasFee": "51840220976964",
+      "args": {
+        "bitId": "12",
+        "previousOwner": "0xFf0264D1ADF546c05aE2A774549228babE4eD75b",
+        "newOwner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "price": "10000000000000000",
+        "newPrice": "10000000000000000",
+        "timestamp": "1789762307"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 12,
+      "blockNumber": "26006699",
+      "logIndex": 443,
+      "transactionHash": "0xfd60da61cb7abf72e70048437821eaf6db38e401e3f10255022dc79b8849c72b",
+      "timestamp": "1789762331",
+      "gasFee": "25068412647592",
+      "args": {
+        "bitId": "12",
+        "owner": "0xc93C7f71581DFEAAb59BEd908888dAC5689F312a",
+        "oldPrice": "10000000000000000",
+        "newPrice": "150000000000000000",
+        "timestamp": "1789762331"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 8,
+      "blockNumber": "26007760",
+      "logIndex": 2533,
+      "transactionHash": "0x5052b97ce4721a9d396c7c4d309365ef3e2c657b7c7435c78e231113dd9298cb",
+      "color": 3531855,
+      "timestamp": "1789775075",
+      "gasFee": "2066420757170",
+      "args": {
+        "bitId": "8",
+        "toggler": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "newState": false,
+        "newColor": 3531855,
+        "timestamp": "1789775075"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 8,
+      "blockNumber": "26007768",
+      "logIndex": 1923,
+      "transactionHash": "0x778b5d575f6215c0f2636153bb26661165b64f4a5cb8fae2c101f16e7ba831ef",
+      "timestamp": "1789775183",
+      "gasFee": "1822961717350",
+      "args": {
+        "bitId": "8",
+        "owner": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "oldPrice": "8000000000000000000",
+        "newPrice": "800000000000000000",
+        "timestamp": "1789775183"
+      }
+    },
+    {
+      "type": "PriceSet",
+      "bitId": 16,
+      "blockNumber": "26008724",
+      "logIndex": 108,
+      "transactionHash": "0x9744e5baa9ffb0b5a06509c0b60e43155e3e5a86fb1d712cf5b667f8da199e33",
+      "timestamp": "1789786703",
+      "gasFee": "250026125011033",
+      "args": {
+        "bitId": "16",
+        "owner": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "oldPrice": "1000000000000000000",
+        "newPrice": "300000000000000000",
+        "timestamp": "1789786703"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 6,
+      "blockNumber": "26008731",
+      "logIndex": 415,
+      "transactionHash": "0xb274737465bde28a7c4e88407c3cddf316cd958549c9fb2304c19caf73359732",
+      "color": 3531791,
+      "timestamp": "1789786787",
+      "gasFee": "248726555624456",
+      "args": {
+        "bitId": "6",
+        "toggler": "0xA13FEcAa4cCaB1E6088F7Fb05528fdBdF955A56c",
+        "newState": false,
+        "newColor": 3531791,
+        "timestamp": "1789786787"
+      }
+    },
+    {
+      "type": "BitToggled",
+      "bitId": 8,
+      "blockNumber": "26009015",
+      "logIndex": 398,
+      "transactionHash": "0x8caf804ecea45709fe712cd8ab48614dfcc068b07893b4e1706db7c14690184b",
+      "color": 3532047,
+      "timestamp": "1789790219",
+      "gasFee": "1775122539300",
+      "args": {
+        "bitId": "8",
+        "toggler": "0x171446B041C6683e5F138b8a3f263BBFfb8Ee74a",
+        "newState": true,
+        "newColor": 3532047,
+        "timestamp": "1789790219"
+      }
+    }
+  ]
+}

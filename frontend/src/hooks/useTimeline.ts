@@ -1,25 +1,49 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePublicClient } from "wagmi";
-import { CONTRACT_ADDRESS, CONTRACT_ABI, DEPLOYMENT } from "../constants";
-import { type TimelineEvent, parseEventLog } from "../utils/timeline";
-import { type AbiEvent, type Log } from "viem";
-
-// Decode historical logs against the contract's events
-const CONTRACT_EVENTS = CONTRACT_ABI.filter(
-  (item) => item.type === "event"
-) as unknown as AbiEvent[];
+import { CONTRACT_ADDRESS, DEPLOYMENT } from "../constants";
+import { chain, chainName } from "../wagmi";
+import { type TimelineEvent } from "../utils/timeline";
+import {
+  type HistorySnapshot,
+  deserializeEvent,
+  fetchEvents,
+  fetchGasFees,
+} from "../utils/history";
 
 /** How often to look for new events (one mainnet block is 12s). */
 const POLL_MS = 12_000;
-/** Retry cadence while the very first full fetch keeps failing. */
+/** Retry cadence while the first fetch keeps failing. */
 const RETRY_MS = 3_000;
 /** Blocks re-scanned on every poll. Public RPCs are load-balanced, and a
  *  node that lags a few blocks behind the one that answered
  *  eth_blockNumber would otherwise make us skip its unseen events. */
 const OVERLAP_BLOCKS = 100n;
-/** Every Nth poll replays the whole history from the deploy block and
- *  merges it in, healing a first fetch that came back short. */
+/** Every Nth poll replays everything since the snapshot and merges it
+ *  in, healing an earlier fetch that came back short. */
 const RESYNC_EVERY = 25;
+/** How many times to go back for gas receipts an endpoint wouldn't give. */
+const GAS_RETRIES = 5;
+
+// The history baked into this build: one JSON file per chain, produced
+// by scripts/snapshot-history.ts. Loaded lazily so a build only ships
+// the chain it talks to. Missing (local dev) means start at the deploy block.
+const SNAPSHOTS = import.meta.glob<{ default: HistorySnapshot }>(
+  "../data/history.*.json"
+);
+
+async function loadSnapshot(): Promise<HistorySnapshot | null> {
+  const load = SNAPSHOTS[`../data/history.${chainName}.json`];
+  if (!load) return null;
+  try {
+    const snap = (await load()).default;
+    const sameContract =
+      snap.chainId === chain.id &&
+      snap.address.toLowerCase() === CONTRACT_ADDRESS.toLowerCase();
+    return sameContract ? snap : null;
+  } catch {
+    return null;
+  }
+}
 
 function eventKey(e: TimelineEvent): string {
   return `${e.transactionHash}-${e.type}-${e.bitId}`;
@@ -33,11 +57,15 @@ function byChain(a: TimelineEvent, b: TimelineEvent): number {
 export function useTimeline() {
   const publicClient = usePublicClient();
   const [events, setEvents] = useState<TimelineEvent[]>([]);
-  // True until the first full replay from the deploy block succeeds.
+  // True until some history is on screen: the snapshot, or the first
+  // successful fetch when there is none.
   const [isLoading, setIsLoading] = useState(true);
   const seen = useRef(new Set<string>());
+  // The block the history is complete through before any live fetch:
+  // the snapshot's last block, else the block before deployment.
+  const base = useRef<bigint | null>(null);
   // Head block as of the last successful fetch; null until the first
-  // full replay lands, so a failed first load keeps retrying in full.
+  // one lands, so a failed first load keeps retrying in full.
   const lastBlock = useRef<bigint | null>(null);
   const inFlight = useRef(false);
   const pollCount = useRef(0);
@@ -55,38 +83,29 @@ export function useTimeline() {
     }
   }, []);
 
-  /** Fetch logs up to the current head: the whole history when `full`,
-   *  otherwise just the blocks since the last fetch (plus an overlap). */
+  /** Fetch logs up to the current head: everything since the snapshot
+   *  when `full`, otherwise the blocks since the last fetch plus overlap. */
   const sync = useCallback(
     async (full: boolean) => {
-      if (!publicClient || inFlight.current) return;
+      if (!publicClient || inFlight.current || base.current === null) return;
       inFlight.current = true;
       try {
         const latest = await publicClient.getBlockNumber();
+        const floor = base.current + 1n;
         const from =
           full || lastBlock.current === null
-            ? DEPLOYMENT.deployBlock
+            ? floor
             : lastBlock.current - OVERLAP_BLOCKS;
-        const fromBlock = from < DEPLOYMENT.deployBlock ? DEPLOYMENT.deployBlock : from;
+        const fromBlock = from < floor ? floor : from;
         if (!full && lastBlock.current !== null && latest <= lastBlock.current) return;
 
-        const logs = await publicClient.getLogs({
-          address: CONTRACT_ADDRESS,
-          events: CONTRACT_EVENTS,
-          fromBlock,
-          toBlock: latest,
-        });
-        const parsed = logs
-          .map((log) =>
-            parseEventLog(log as Log & { eventName?: string; args?: Record<string, unknown> })
-          )
-          .filter((e): e is TimelineEvent => e !== null);
-        addEvents(parsed);
-
+        if (fromBlock <= latest) {
+          addEvents(await fetchEvents(publicClient, CONTRACT_ADDRESS, fromBlock, latest));
+        }
         if (lastBlock.current === null || latest > lastBlock.current) {
           lastBlock.current = latest;
         }
-        if (full || fromBlock === DEPLOYMENT.deployBlock) setIsLoading(false);
+        setIsLoading(false);
       } catch (err) {
         // Transient RPC hiccup (rate limit, timeout): keep lastBlock as-is
         // so the next tick re-covers the same range.
@@ -98,8 +117,8 @@ export function useTimeline() {
     [publicClient, addEvents]
   );
 
-  // First load, then keep polling. A setTimeout chain (not setInterval) so
-  // the cadence can tighten while the initial replay is still failing.
+  // Seed from the snapshot, then keep polling. A setTimeout chain (not
+  // setInterval) so the cadence can tighten while the first fetch fails.
   useEffect(() => {
     if (!publicClient) return;
     let cancelled = false;
@@ -112,16 +131,28 @@ export function useTimeline() {
       if (cancelled) return;
       timer = setTimeout(tick, lastBlock.current === null ? RETRY_MS : POLL_MS);
     };
-    tick();
+
+    (async () => {
+      const snap = await loadSnapshot();
+      if (cancelled) return;
+      if (snap) {
+        addEvents(snap.events.map(deserializeEvent));
+        base.current = BigInt(snap.toBlock);
+        setIsLoading(false);
+      } else {
+        base.current = DEPLOYMENT.deployBlock - 1n;
+      }
+      tick();
+    })();
 
     return () => {
       cancelled = true;
       if (timer !== undefined) clearTimeout(timer);
     };
-  }, [publicClient, sync]);
+  }, [publicClient, sync, addEvents]);
 
-  // Fill in each event's actual gas fee from its transaction receipt.
-  // Receipts that fail (rate-limited RPC) are retried a little later.
+  // Fill in each live event's gas fee from its receipt (snapshot events
+  // already carry theirs). Receipts that fail are retried a little later.
   const gasCache = useRef(new Map<string, bigint>());
   const [gasRetry, setGasRetry] = useState(0);
   useEffect(() => {
@@ -132,36 +163,27 @@ export function useTimeline() {
     let cancelled = false;
     let retryTimer: ReturnType<typeof setTimeout> | undefined;
     (async () => {
-      const fees = new Map<string, bigint>();
-      let failed = false;
-      for (const e of missing) {
-        if (cancelled) return;
-        let fee = gasCache.current.get(e.transactionHash);
-        if (fee === undefined) {
-          try {
-            const receipt = await publicClient.getTransactionReceipt({
-              hash: e.transactionHash as `0x${string}`,
-            });
-            fee = receipt.gasUsed * receipt.effectiveGasPrice;
-            gasCache.current.set(e.transactionHash, fee);
-          } catch {
-            failed = true;
-            continue;
-          }
-        }
-        fees.set(e.transactionHash, fee);
-      }
+      const toFetch = missing
+        .map((e) => e.transactionHash)
+        .filter((h) => !gasCache.current.has(h));
+      const { fees, failed } = await fetchGasFees(
+        publicClient,
+        toFetch,
+        () => cancelled
+      );
       if (cancelled) return;
-      if (fees.size > 0) {
+      for (const [h, fee] of fees) gasCache.current.set(h, fee);
+      const known = gasCache.current;
+      if (missing.some((e) => known.has(e.transactionHash))) {
         setEvents((prev) =>
           prev.map((e) =>
-            e.gasFee === undefined && fees.has(e.transactionHash)
-              ? { ...e, gasFee: fees.get(e.transactionHash) }
+            e.gasFee === undefined && known.has(e.transactionHash)
+              ? { ...e, gasFee: known.get(e.transactionHash) }
               : e
           )
         );
       }
-      if (failed) {
+      if (failed > 0 && gasRetry < GAS_RETRIES) {
         retryTimer = setTimeout(() => setGasRetry((n) => n + 1), 5_000);
       }
     })();
