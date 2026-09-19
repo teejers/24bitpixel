@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useBitStates } from "../hooks/useBitStates";
+import { useEthUsd } from "../hooks/useEthUsd";
 import { bitContributionColor } from "../utils/color";
 import { type TimelineEvent } from "../utils/timeline";
 import { BitActions } from "./BitActions";
@@ -27,6 +28,14 @@ function formatUpdate(ts: bigint): string {
   return `${p(d.getMonth() + 1)}/${p(d.getDate())}/${String(d.getFullYear()).slice(2)} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
+/** A bit's asking price in dollars: cents for anything over a cent, more
+ *  decimals below that so a tiny price doesn't round to nothing. */
+function formatUsd(wei: bigint, ethUsd: number): string {
+  const usd = Number(formatEther(wei)) * ethUsd;
+  if (usd === 0) return "0.00";
+  return usd >= 0.01 ? usd.toFixed(2) : usd.toFixed(4);
+}
+
 /** Bits rendered left to right from bit 23 (R, most significant) to bit 0 (B, least). */
 export const STRIP_ORDER = Array.from({ length: 24 }, (_, i) => 23 - i);
 
@@ -41,6 +50,7 @@ export function BitStrip({
 }: BitStripProps) {
   const { bits } = useBitStates();
   const { address } = useAccount();
+  const ethUsd = useEthUsd();
 
   // Each bit's most recent event timestamp, for the legend labels.
   const lastUpdate = useMemo(() => {
@@ -127,18 +137,19 @@ export function BitStrip({
           className={`bit-hover-info${showLegend ? " legend" : ""}`}
           style={{ left: centerOf(shownBit) }}
         >
-          {shownOwner && (
-            <span className="meta">
-              <span>
-                Price:{" "}
-                {shownPrice !== undefined
-                  ? `${formatEther(shownPrice)} ETH`
-                  : "—"}
+          {/* Three vertical lines, read bottom-up, centered on the bit */}
+          {shownOwner && shownPrice !== undefined && (
+            <span className="meta-lines">
+              <span className="meta">
+                Price : {formatEther(shownPrice)} ETH
+                {ethUsd !== undefined ? ` [${formatUsd(shownPrice, ethUsd)} USD]` : ""}
               </span>
-              <span>
-                Owner: {shownOwner.slice(0, 10)}
-                {shownMine ? " [you]" : ""} &middot; Updated:{" "}
-                {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
+              <span className="meta">
+                Owner : {shownOwner.slice(0, 10)}
+                {shownMine ? " [you]" : ""}
+              </span>
+              <span className="meta">
+                Last updated : {shownTs !== undefined ? formatUpdate(shownTs) : "—"}
               </span>
             </span>
           )}

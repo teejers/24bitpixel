@@ -201,19 +201,19 @@ input:focus {
   text-transform: uppercase;
 }
 
-/* Two columns of vertical text reading up from the bit: price on the
-   left, owner and last update on the right. Side by side rather than one
-   run of text so the label can't grow past the top of the window. */
-.bit-hover-info .meta {
+/* The three lines sit side by side (price, owner, last update, left to
+   right) and all start at the bottom, nearest the bit */
+.bit-hover-info .meta-lines {
   display: flex;
   align-items: flex-end;
-  gap: 5px;
-  font-size: 11px;
+  gap: 4px;
 }
 
-.bit-hover-info .meta > span {
+.bit-hover-info .meta {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
+  font-size: 11px;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -830,9 +830,13 @@ input:focus {
     font-size: 11px;
   }
 
-  /* The vertical owner/updated label runs off-screen at 11px on phones */
+  /* The vertical price/owner/updated lines run off-screen at 11px on phones */
   .bit-hover-info .meta {
     font-size: 8px;
+  }
+
+  .bit-hover-info .meta-lines {
+    gap: 3px;
   }
 
   /* The selected bit's number matches the legend's 8px numbers */

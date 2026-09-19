@@ -6,6 +6,8 @@ export interface TimelineEvent {
   type: TimelineEventType;
   bitId: number;
   blockNumber: bigint;
+  /** Position within the block, so same-block events keep their order. */
+  logIndex: number;
   transactionHash: string;
   color?: number;
   timestamp?: bigint;
@@ -29,6 +31,7 @@ export function parseEventLog(log: Log & { eventName?: string; args?: Record<str
     type,
     bitId,
     blockNumber: log.blockNumber ?? 0n,
+    logIndex: log.logIndex ?? 0,
     transactionHash: log.transactionHash ?? "0x",
     color: args["newColor"] !== undefined ? Number(args["newColor"]) : undefined,
     timestamp: args["timestamp"] as bigint | undefined,
